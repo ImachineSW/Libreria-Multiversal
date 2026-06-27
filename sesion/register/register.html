@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+
+<div class="container">
+    <form class="register">
+
+        <h1>Crear Cuenta</h1>
+
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" name="usuario" placeholder="Ingrese su usuario" required>
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
+
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+
+        <label for="confirmar">Repetir contraseña</label>
+        <input type="password" id="confirmar" name="confirmar" placeholder="Repita su contraseña" required>
+
+        <div class="opciones">
+            <label>
+                <input type="checkbox" name="recordar">
+                Recordarme
+            </label>
+        </div>
+
+        <div class="opciones">
+            <label>
+                <input type="checkbox" name="terminos" required>
+                Acepto los <a href="#">Términos y Condiciones</a>
+            </label>
+        </div>
+
+        <button type="submit">Registrarse</button>
+
+        <p>¿Ya tienes una cuenta? <a href="../login/login.html">Iniciar sesión</a></p>
+
+    </form>
+</div>
+
+</body>
+</html>
