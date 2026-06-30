@@ -6,7 +6,7 @@
 
 .barra {
     position: relative;
-    height: 10%;
+    height: 100px;
     width: 100%;
     border-bottom: 1px solid black;
 }
@@ -23,7 +23,7 @@
 #usuario {
     display: inline-block;
     position: absolute;
-    width: 10%;
+    width: 10em;
     right: 4em;
     top: 1em;
     padding: 1px;
