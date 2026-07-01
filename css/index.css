@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.barra {
+    position: relative;
+    height: 100px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+#logo {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+#logo img {
+    height: 6em;
+}
+
+#usuario {
+    display: inline-block;
+    position: absolute;
+    width: 10em;
+    right: 4em;
+    top: 1em;
+    padding: 1px;
+}
+#usuario img {
+    margin: 0 auto;
+    width: 2em;
+    vertical-align: middle;
+}
+#usuario a {
+    display: inline-block;
+    font-size: 1em;
+    margin: 0 auto;
+    text-decoration: none;
+    color: black;
+}
