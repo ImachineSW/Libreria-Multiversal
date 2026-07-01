@@ -1,0 +1,84 @@
+html {
+    scroll-behavior: smooth;
+     background: linear-gradient(#EA45BF, #EA4573, #DE3A3E);
+}
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+/*Barra*/
+.Barra-Superior{
+    position: sticky;
+    top:0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    color: #EA4573;
+    box-shadow: 0px 5px 16px rgba(rgb(236, 116, 116), rgb(224, 109, 240), rgb(214, 153, 39), alpha);
+}
+.Menu{
+    display: flex;
+    gap: 45px;
+}
+.Menu a{
+
+    text-decoration:none;
+    color:rgb(255, 112, 112);
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.Menu a:hover{
+
+    color:#ffd166;
+}
+
+.Producto {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+.Libro{
+    overflow: hidden;
+    border-radius: 35px;
+}
+.Libro img{
+
+    width: 300px;
+    border-radius: 25px;
+    object-fit: cover;
+    transition: .4s;
+}
+.Libro img:hover{
+    transform: scale(1.08);
+}
+.Detalles-Producto{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.Detalles-Producto h1{
+    margin-bottom: 20px;
+}
+    .Detalles-Producto button{
+      width:220px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#1d3557;
+
+    color:rgb(226, 85, 85);
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    
+    }
