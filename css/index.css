@@ -76,6 +76,7 @@
 }
 
 .info a {
+    display: inline-block;
     font-size: 1.5em;
     margin: 0 auto;
     padding: 6px;
@@ -88,6 +89,27 @@
 }
 
 .info a:hover {
-    transform: scale(1.5);
+    transform: scale(1.1);
     transition: 0.3s;
+}
+
+.footer {
+    width: 100%;
+    height: 24.5vh;
+    overflow: hidden;
+    position: relative;
+}
+.footer img {  
+    height: 100%;
+    width: 200%;
+    animation: desplazarFondo 20s linear infinite;
+}
+
+@keyframes desplazarFondo {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
