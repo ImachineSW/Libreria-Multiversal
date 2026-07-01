@@ -30,7 +30,8 @@
     padding: 5px;    
     border: 1px solid black;
     border-radius: 6px;
-    text-align: start;
+    border: 1px solid #E34B77;
+    box-shadow: 0px 0px 10px #E34B77;
 }
 #usuario img {
     margin: 0 auto;
@@ -39,7 +40,7 @@
 #usuario a {
     display: inline-block;
     width: 100%;
-    font-size: 1em;
+    font-size: 1.05em;
     margin: 0 auto;
     text-decoration: none;
     color: black;
@@ -49,7 +50,7 @@
 #usuario a:hover {
     transform: scale(1.06);
     text-decoration: underline;
-    color: #ff0000;
+    color: #E34B77;
     transition: 0.3s;
 }
 
@@ -57,23 +58,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    text-align: center;
     height: 60vh;
     margin: 0 auto;
-    border: 1px solid blue;
+}
+
+#menu {
+    padding: 1em;
+    border: 1px solid #E34B77;
+    box-shadow: 0px 0px 10px #E34B77;
+    background-color: #e34b7645;
+    border-radius: 6px;
 }
 
 .logo-menu img {
-    border: 1px solid black;
     width: 30em;
 }
 
 .info a {
-    text-align: center;
     font-size: 1.5em;
     margin: 0 auto;
+    padding: 6px;
     text-decoration: none;
     color: black;
-    border: 1px solid black;
+    border: 1px solid #E34B77;
+    background-color: #5f100f69;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.info a:hover {
+    transform: scale(1.5);
     transition: 0.3s;
 }
