@@ -1,10 +1,11 @@
 html {
     scroll-behavior: smooth;
-     background: linear-gradient(#EA45BF, #EA4573, #DE3A3E);
+    
 }
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     background: linear-gradient(#EA45BF, #EA4573, #DE3A3E);
 
 }
 /*Barra*/
@@ -16,8 +17,27 @@ body {
     align-items: center;
     padding: 20px 40px;
     color: #EA4573;
-    box-shadow: 0px 5px 16px rgba(rgb(236, 116, 116), rgb(224, 109, 240), rgb(214, 153, 39), alpha);
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(234,69,191,.35);
+    z-index: 1000;
 }
+.Menu-Izquierda, .Menu-Derecha{
+    display: flex;
+    gap: 35px;
+}
+.Menu-Izquierda a, .Menu-Derecha a{
+    text-decoration: none;
+    color: rgb(219, 74, 147);
+
+    font-size: 18px;
+    font-weight: bold;
+
+    transition: .3s;
+}
+.Menu-Izquierda a:hover, .Menu-Derecha a:hover{
+     color: #ffd166;
+}
+
 .Menu{
     display: flex;
     gap: 45px;
@@ -25,7 +45,7 @@ body {
 .Menu a{
 
     text-decoration:none;
-    color:rgb(255, 112, 112);
+    color:rgb(51, 69, 233);
     font-weight:bold;
 
     transition:.3s;
@@ -74,7 +94,7 @@ body {
 
     background:#1d3557;
 
-    color:rgb(226, 85, 85);
+    color:rgb(223, 200, 200);
 
     cursor:pointer;
 
