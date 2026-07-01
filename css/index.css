@@ -52,3 +52,28 @@
     color: #ff0000;
     transition: 0.3s;
 }
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 60vh;
+    margin: 0 auto;
+    border: 1px solid blue;
+}
+
+.logo-menu img {
+    border: 1px solid black;
+    width: 30em;
+}
+
+.info a {
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0 auto;
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    transition: 0.3s;
+}
