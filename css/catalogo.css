@@ -63,7 +63,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8vw;
+    gap: 5vw;
     padding: 1%;
 }
 
@@ -148,6 +148,7 @@ th {
 footer {
     background-color: white;
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: 3%;
     box-shadow: 0px -5px 10px #DE3A3E88;
