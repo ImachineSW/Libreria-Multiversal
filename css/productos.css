@@ -1,0 +1,104 @@
+html {
+    scroll-behavior: smooth;
+    
+}
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     background: linear-gradient(#EA45BF, #EA4573, #DE3A3E);
+
+}
+/*Barra*/
+.Barra-Superior{
+    position: sticky;
+    top:0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    color: #EA4573;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(234,69,191,.35);
+    z-index: 1000;
+}
+.Menu-Izquierda, .Menu-Derecha{
+    display: flex;
+    gap: 35px;
+}
+.Menu-Izquierda a, .Menu-Derecha a{
+    text-decoration: none;
+    color: rgb(219, 74, 147);
+
+    font-size: 18px;
+    font-weight: bold;
+
+    transition: .3s;
+}
+.Menu-Izquierda a:hover, .Menu-Derecha a:hover{
+     color: #ffd166;
+}
+
+.Menu{
+    display: flex;
+    gap: 45px;
+}
+.Menu a{
+
+    text-decoration:none;
+    color:rgb(51, 69, 233);
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.Menu a:hover{
+
+    color:#ffd166;
+}
+
+.Producto {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+.Libro{
+    overflow: hidden;
+    border-radius: 35px;
+}
+.Libro img{
+
+    width: 300px;
+    border-radius: 25px;
+    object-fit: cover;
+    transition: .4s;
+}
+.Libro img:hover{
+    transform: scale(1.08);
+}
+.Detalles-Producto{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.Detalles-Producto h1{
+    margin-bottom: 20px;
+}
+    .Detalles-Producto button{
+      width:220px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#1d3557;
+
+    color:rgb(223, 200, 200);
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    
+    }
