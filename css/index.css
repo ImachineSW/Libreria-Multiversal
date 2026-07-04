@@ -4,39 +4,135 @@
     box-sizing: border-box;
 }
 
-.barra {
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    height: 100px;
+    height: 10%;
+    min-height: 100px;
     width: 100%;
     border-bottom: 1px solid black;
+    border-bottom-left-radius: 1vw;
+    border-bottom-right-radius: 1vw;
 }
 
-#logo {
+#tabla-banner {
+    width: 100%;
+}
+
+.logo {
     position: relative;
     left: 0;
     top: 0;
-}
-#logo img {
-    height: 6em;
+    width: 30vh;
 }
 
-#usuario {
-    display: inline-block;
-    position: absolute;
-    width: 10em;
-    right: 4em;
-    top: 1em;
-    padding: 1px;
+.derecha {
+    text-align: end;
+    position: relative;
+    padding-right: 5%;
+    top: 0;
 }
-#usuario img {
-    margin: 0 auto;
-    width: 2em;
-    vertical-align: middle;
+.derecha img {
+    width: 50px;
 }
-#usuario a {
+.derecha a {
     display: inline-block;
-    font-size: 1em;
+    border: 1px solid black;
+    border-radius: 20%;
+    box-shadow: 0px 0px 10px #E34B77;
+    transition: 0.3s;
+}
+.derecha a:hover {
+    box-shadow: 0px 0px 20px #E34B77;
+    transition: 0.3s;
+}
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 60vh;
     margin: 0 auto;
+}
+
+#menu {
+    padding: 1em;
+    border: 1px solid #E34B77;
+    box-shadow: 0px 0px 10px #E34B77;
+    background-color: #e34b7645;
+    border-radius: 6px;
+}
+
+.logo-menu img {
+    width: 30em;
+}
+
+.info a {
+    display: inline-block;
+    font-size: 1.5em;
+    margin: 0 auto;
+    padding: 6px;
     text-decoration: none;
     color: black;
+    border: 1px solid #E34B77;
+    background-color: #5f100f69;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.info a:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.footer {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.footer img {  
+    height: 24.5vh;
+    width: 200%;
+    animation: desplazarFondo 20s linear infinite;
+}
+
+@keyframes desplazarFondo {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 767px) {
+    .banner {
+        height: 15%;
+    }
+    .logo {
+        width: 200px;
+    }
+    .derecha img {
+        width: 40px;
+    }
+    .contenedor {
+        height: 60vh;
+    }
+    #menu {
+        padding: 1em;
+    }
+    .logo-menu img {
+        width: 20em;
+    }
+    .info a {
+        font-size: 1.5em;
+        padding: 4px;
+    }
+    .footer img {
+        height: 20vh;
+    }
 }
