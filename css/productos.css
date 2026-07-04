@@ -78,7 +78,7 @@ body {
 .Detalles-Producto{
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    
 }
 .Detalles-Producto h1{
     margin-bottom: 20px;
