@@ -54,9 +54,18 @@ header {
     color: #EA4573;
 }
 
-.usuario {
+.banner a {
+    text-decoration: none;
+}
+
+.icono {
     width: 30px;
     margin-right: 5%;
+    transition: all 0.3s ease-out;
+}
+
+.icono:hover {
+    transform: scale(1.1);
 }
 
 nav {
