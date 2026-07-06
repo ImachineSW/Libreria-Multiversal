@@ -1,51 +1,85 @@
-<!--mathias 27/6-->
+<!--mathias 07/06/2026-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--para que se vea bien en cualquier dispositivo-->
-    <title>Registro</title>
-    <link rel="stylesheet" href="../../css/register.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear cuenta</title>
+    <link rel="stylesheet" href="../../css/login.css">
 </head>
 <body>
 
-<div class="container"> <!--Contenedor principal de la página-->
-    <form class="register"> <!--Formulario de registro-->
+    <div class="container">
 
-        <h1>Crear Cuenta</h1>
+        <h1>Crear cuenta</h1>
+        <p class="subtitle">Complete los datos para registrarte</p>
 
-        <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" name="usuario" placeholder="Ingrese su usuario" required> <!--Pedir usuario-->
+        <form action="#" method="POST">
 
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico" required> <!--Pedir correo electrónico-->
+            <div class="input-group">
+                <label for="nombre">Nombre completo</label>
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Juan Pérez"
+                    required>
+            </div>
 
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required> <!--Pedir contraseña-->
+            <div class="input-group">
+                <label for="email">Correo electrónico</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="correo@ejemplo.com"
+                    required>
+            </div>
 
-        <label for="confirmar">Repetir contraseña</label>
-        <input type="password" id="confirmar" name="confirmar" placeholder="Repita su contraseña" required> <!--Pedir repetir contraseña-->
+            <div class="input-group">
+                <label for="password">Contraseña</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="••••••••"
+                    required>
+            </div>
 
-        <div class="opciones">
-            <label>
-                <input type="checkbox" name="recordar"> <!--checkbox de recordar-->
-                Recordarme
-            </label>
+            <div class="input-group">
+                <label for="confirmPassword">Repetir contraseña</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="••••••••"
+                    required>
+            </div>
+
+            <div class="options">
+                <label>
+                    <input type="checkbox" required>
+                    Acepto los <a href="#">Términos y Condiciones</a>
+                </label>
+            </div>
+
+            <button type="submit">Crear cuenta</button>
+
+        </form>
+
+        <hr>
+
+        <div class="social">
+            <button type="button">Google</button>
+            <button type="button">Facebook</button>
         </div>
 
-        <div class="opciones">
-            <label>
-                <input type="checkbox" name="terminos" required> <!--checkbox de aceptar términos y condiciones-->
-                Acepto los <a href="#">Términos y Condiciones</a>
-            </label>
+        <div class="register">
+            ¿Ya tenés una cuenta?
+            <a href="../login/login.html">Iniciar sesión</a>
         </div>
 
-        <button type="submit">Registrarse</button> <!--Botón enviar-->
-
-        <p>¿Ya tienes una cuenta? <a href="../login/login.html">Iniciar sesión</a></p> <!--Enlace a la página de inicio de sesión-->
-
-    </form>
-</div>
+    </div>
 
 </body>
 </html>
