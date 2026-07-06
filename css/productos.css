@@ -71,6 +71,8 @@ body {
     border-radius: 25px;
     object-fit: cover;
     transition: .4s;
+    margin-left: 40px;
+    
 }
 .Libro img:hover{
     transform: scale(1.08);
