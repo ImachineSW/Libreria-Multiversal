@@ -12,7 +12,7 @@
     height: 10%;
     min-height: 100px;
     width: 100%;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #5F100F;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
 }
@@ -35,7 +35,7 @@
     top: 0;
 }
 .derecha img {
-    width: 50px;
+    width: 30px;
 }
 .derecha a {
     display: inline-block;
