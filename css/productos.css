@@ -1,25 +1,69 @@
 html {
     scroll-behavior: smooth;
-    
+    background: linear-gradient(#EA45BF, #EA4573, #DE3A3E);
+}
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+    box-shadow: 0px 5px 10px #DE3A3E88;
+    border-bottom: 2px solid #5F100F;
+    border-bottom-left-radius: 1vw;
+    border-bottom-right-radius: 1vw;
+}
+.banner table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.banner .centro {
+    text-align: center;
+}
+
+.banner .derecha {
+    text-align: end;
+}
+
+.banner input {
+    border: 2px solid #EA4573;
+    border-radius: 10px;
+    padding: 5px;
+    width: 30vw;
+}
+
+.logo {
+    width: 30vh;
+}
+
+.search-bar {
+    color: #EA4573;
+}
+
+.banner a {
+    text-decoration: none;
+}
+
+.icono {
+    width: 30px;
+    margin-right: 5%;
+    transition: all 0.3s ease-out;
+}
+
+.icono:hover {
+    transform: scale(1.1);
+}
+
+
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-     background: linear-gradient(#EA45BF, #EA4573, #DE3A3E);
 
-}
-/*Barra*/
-.Barra-Superior{
-    position: sticky;
-    top:0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    color: #EA4573;
-    background-color: white;
-    box-shadow: 0 5px 15px rgba(234,69,191,.35);
-    z-index: 1000;
 }
 .Menu-Izquierda, .Menu-Derecha{
     display: flex;
@@ -62,28 +106,44 @@ body {
     gap: 40px;
 }
 .Libro{
-    overflow: hidden;
+    width: max-content;
+    height: max-content;
     border-radius: 35px;
+    object-fit: cover;
+    margin-left: 40px;
+
 }
 .Libro img{
-
-    width: 300px;
     border-radius: 25px;
-    object-fit: cover;
     transition: .4s;
-    margin-left: 40px;
     
 }
 .Libro img:hover{
     transform: scale(1.08);
 }
 .Detalles-Producto{
+    margin: 2vw;
+    padding: 2vw;
     display: flex;
     flex-direction: column;
-    
+    font-size: 5mm;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
 }
 .Detalles-Producto h1{
     margin-bottom: 20px;
+}
+.Info{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 130px;
+    font-size: 3mm;
+}
+.Precio{
+    
+    font-size: 6mm;
 }
     .Detalles-Producto button{
       width:220px;
@@ -105,9 +165,9 @@ body {
     }
     .Botones{
         display: flex;
-        gap: 30px
-        ;
+        gap: 30px;
+        justify-content: center;
     }
     .Sinopsis{
-        width: 50px;
+        text-align: left;
     }

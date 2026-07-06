@@ -10,36 +10,59 @@
                 <body>      
                     <!--Barra Sueprior-->
                     <header class="Barra-Superior ">
-                        
-                            <!--Creacion del Menu-->
-                        <nav class="Menu-Izquierda">
-                            <a href="#">Inicio</a>
-                            <a href="#">Libros</a>
-                            <a href="#">Categorias</a>
-                        </nav>
-                        <nav class="Menu-Derecha">
-                            <a href="#">Carrito</a>
-                            <a href="#">Mi Cuenta</a>
-                        </nav>
+                         <div class="banner">
+            <table>
+                <tr>
+                    <td>
+                        <a href="../index.html">
+                            <img src="../img/multiversal.png" alt="Logo de Multiversal Librería" class="logo">
+                        </a>
+                    </td>
+                    <td class="centro">
+                        <div class="search-bar">
+                            <label for="busqueda">🔍︎</label>
+                            <input type="text" placeholder="Búsqueda...">
+                        </div>
+                    </td>
+                    <td class="derecha">
+                        <a href="">
+                            <img src="../img/carrito.png" alt="Carrito icon" class="icono">
+                        </a>
+                        <a href="../sesion/login/login.html">
+                            <img src="../img/usuario.png" alt="Usuario icon." class="icono">
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+                       
                     </header>
                     <!--Creacion del Articulo, Dividido-->
                     <div class="Producto">
                         <div class="Libro">
-                            <img src="../img/Libros/El Heroe Perdido.webp" alt="El Heroe Perdido">
+                            <img src="../img/Libros/elheroeperdido.jpg" alt="El Heroe Perdido">
                             
                         </div>
                             <!--Creando un Grupo para los detalles del Producto-->
                                 <div class="Detalles-Producto">
                                     <h1>El Heroe Perdido (Volumen 1)</h1>
-                                    <p><strong>Genero:</strong> Fantasia </p>
-                                    <p><strong>Autor:</strong>   Riodan Rick</p>
-                                    <p><strong>Editorial:</strong> Montena</p>
-                                    <p><strong>Año:</strong>    2025</p>
-                                    <p><strong>Idioma:</strong> Español</p>
-                                    <p><strong>Formato:</strong> Fisico</p>
-                                    <p><strong>Precio: 875$</strong></p>
-                                    <p class=" Sinopisis "><strong>Sinopsis: Tras ser atacados por espíritus de la tormenta, los tres son llevados al Campamento Mestizo <br> donde descubren que son semidioses: Jason es hijo de Zeus, Piper de Afrodita y Leo de Hefesto. <br> Su destino es cumplir una profecía que exige que Leo y Piper liberen a la diosa Hera de su prisión antes  <br> del solsticio de invierno, para impedir que los gigantes despierten a la diosa Gaia.</strong></p>
-                                    <div class="Botones">
+                                    <div class="Info">
+                                            <p><strong>Genero:</strong> Fantasia </p>
+                                            <p><strong>Autor:</strong>   Riodan Rick</p>
+                                            <p><strong>Editorial:</strong> Montena</p>
+                                            <p><strong>Año:</strong>    2025</p>
+                                            <p><strong>Idioma:</strong> Español</p>
+                                            <p><strong>Formato:</strong> Fisico</p>
+
+                                    </div>
+                                                <div class="Precio">
+                                                    <p><strong>Precio: 875$</strong></p>
+                                                </div>
+                                            <p class="Sinopisis"><strong>Tras ser atacados por espíritus de la tormenta, los tres son llevados al Campamento Mestizo donde descubren que son semidioses: Jason es hijo de Zeus, Piper de Afrodita y Leo de Hefesto. Su destino es cumplir una profecía que exige que Leo y Piper liberen a la diosa Hera de su prisión antes del solsticio de invierno, para impedir que los gigantes despierten a la diosa Gaia.</strong></p>
+
+                                            <div class="Botones">
+                                        
                                         <Button>Comprar</Button>
                                         <button>Agregar al Carrito</button>
                                     </div>
