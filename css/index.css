@@ -133,3 +133,18 @@
         height: 20vh;
     }
 }
+
+.back-btn{
+    display:inline-block;
+    margin-bottom:25px;
+    color:#5F100F;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.back-btn:hover{
+    color:#8A1A18;
+    transform:translateX(-3px);
+}
