@@ -139,7 +139,7 @@ body {
     flex-wrap: wrap;
     flex-direction: column;
     height: 130px;
-    font-size: 3mm;
+    font-size: 5mm;
 }
 .Precio{
     
@@ -168,6 +168,7 @@ body {
         gap: 30px;
         justify-content: center;
     }
-    .Sinopsis{
+    .Sinopsis {
         text-align: left;
+        font-size: 15px;
     }
