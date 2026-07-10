@@ -3,7 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+html {
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+}
+/*Header*/
 .banner {
     display: flex;
     align-items: center;
@@ -15,6 +18,7 @@
     border-bottom: 2px solid #5F100F;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
+    background-color: white;
 }
 
 #tabla-banner {
@@ -46,6 +50,7 @@
     transition: 0.3s;
 }
 
+/*Contenedor del carrito*/
 .carrito {
     padding: 1em;
     height: max-content;
@@ -53,48 +58,61 @@
     border: 2px solid #5F100F;  
     border-radius: 10px;
     width: 80%;
+    background-color: white;
 }
 .carrito a {
+    display: inline-block;
     color: black;
     font-weight: bold;
     text-decoration: none;
     margin-bottom: 10px;
     font-size: 25px;
+    transition: all 0.3s;
 }
 .carrito a::before {
     content: "↩";
     margin-right: 5px;
+    text-decoration: none;
 }
 .carrito a:hover {
-    text-decoration: underline;
+    text-shadow: 0px 0px 5px #EA4573;
+    transform: scale(1.05);
 }
+
+/*Contenedor de los libros*/
 .productos {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    padding: 40px;
+    padding: 10px;
     margin: auto;
 }
 
 .producto {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
-    width: max-content;
-    margin: 10px;
+    width: 140px;
+    margin: 10px auto;
     border-radius: 5px;
-    object-fit: cover;
+    transition: 0.3s;
 }
 .producto img {
-    width: 150px;
+    width: 100px;
+    object-fit: cover;
+    height: 150px;
     border-radius: 5px;
 }
+.producto:hover {
+    transform: scale(1.01);
+    box-shadow: 0px 0px 5px #EA4573;
+    transition: 0.3s;
+}
 .producto button {
-    background-color: #E34B77;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
     color: white;
+    width: 90%;
     border: none;
     padding: 10px;
     margin: 10px 0;
@@ -102,12 +120,12 @@
     border-radius: 5px;
     transition: 0.3s;
 }
-
 .producto button:hover {
-    background-color: #5F100F;
+    box-shadow: 0px 0px 5px #EA4573;
     transition: 0.3s;
 }
 
+/*Contenedor de la compra*/
 .resumen {
     display: flex;
     flex-direction: column;
@@ -116,9 +134,10 @@
     padding: 20px;
     width: 80%;
     margin: 10px auto;
+    background-color: white;
 }
 .resumen button {
-    background-color: #E34B77;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -128,10 +147,58 @@
     transition: 0.3s;
 }
 .resumen button:hover {
-    background-color: #5F100F;
+    box-shadow: 0px 0px 5px #EA4573;
     transition: 0.3s;
 }
 
+/*Footer*/
+.multiversal {
+    display: flex;
+    border-top: 2px solid white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 5%;
+    gap: 8%;
+}
+.multiversal div {
+    width: 250px;
+    padding: 10px;
+}
+
+.imachine {
+    opacity: 0.5;
+}
+
+footer img {
+    width: 10%;
+}
+footer span {
+    font-weight: bold;
+}
+
+.creditos {
+    display: flex;
+    font-size: medium;
+    padding-left: 6%;
+    padding-right: 6%;
+    background-color: rgb(245, 242, 242);
+}
+.creditos img {
+    width: 80px;
+}
+.creditos table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.sm {
+    width: 25px;
+}
+
+/*Media querie*/
 @media (max-width: 1024px) {
     .banner {
         height: 20%;
@@ -142,26 +209,33 @@
     .derecha img {
         width: 20px;
     }
+    .carrito a {
+        font-size: 20px;
+    }
     .carrito {
+        font-size: 12px;
         width: 90%;
     }
     .productos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         width: 100%;
-        padding: 0px;
-        margin: 0px;
     }
     .producto {
-        width: 110px;
+        width: 100px;
         font-size: 10px;
     }
     .producto h2 {
         font-size: 14px;
     }
-    .producto img {
-        width: 100px;
-    }
     .resumen {
         font-size: 15px;
         width: 90%;
+    }
+    .multiversal {
+        flex-wrap: wrap;
+    }
+    .creditos img {
+        width: 60px;
     }
 }
