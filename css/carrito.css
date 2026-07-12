@@ -2,8 +2,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+html {
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+}
+
+/*Header*/
 .banner {
     display: flex;
     align-items: center;
@@ -15,6 +21,7 @@
     border-bottom: 2px solid #5F100F;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
+    background-color: white;
 }
 
 #tabla-banner {
@@ -34,91 +41,112 @@
     padding-right: 5%;
     top: 0;
 }
+
 .derecha img {
     width: 30px;
 }
+
 .derecha a {
     display: inline-block;
     transition: 0.3s;
 }
+
 .derecha a:hover {
     transform: scale(1.1);
     transition: 0.3s;
 }
 
+/*Contenedor del carrito*/
 .carrito {
     padding: 1em;
     height: max-content;
-    margin: 5px auto;
-    border: 2px solid #5F100F;  
+    margin: 40px auto;
     border-radius: 10px;
     width: 80%;
+    background-color: white;
 }
-.carrito a {
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-    margin-bottom: 10px;
-    font-size: 25px;
+
+.back-btn{
+    display:inline-block;
+    margin-bottom:25px;
+    color:#000;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
 }
-.carrito a::before {
-    content: "↩";
-    margin-right: 5px;
+
+.back-btn:hover{
+    color:#EA4573;
+    transform:translateX(-3px);
 }
-.carrito a:hover {
-    text-decoration: underline;
-}
+
+/*Contenedor de los libros*/
 .productos {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    padding: 40px;
+    padding: 10px;
     margin: auto;
 }
 
 .producto {
     display: flex;
-    flex-wrap: wrap;
+    padding: 10px;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
-    width: max-content;
-    margin: 10px;
+    width: 140px;
+    margin: 10px auto;
     border-radius: 5px;
-    object-fit: cover;
+    transition: 0.3s;
 }
+
 .producto img {
-    width: 150px;
+    width: 100px;
+    object-fit: cover;
+    height: 150px;
     border-radius: 5px;
 }
+
+.producto:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
 .producto button {
-    background-color: #E34B77;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
     color: white;
+    width: 90%;
     border: none;
     padding: 10px;
-    margin: 10px 0;
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
 }
 
 .producto button:hover {
-    background-color: #5F100F;
+    box-shadow: 0px 0px 5px #EA4573;
     transition: 0.3s;
 }
 
+/*Contenedor de la compra*/
 .resumen {
     display: flex;
     flex-direction: column;
-    border: 2px solid #5F100F;
     border-radius: 10px;
     padding: 20px;
     width: 80%;
-    margin: 10px auto;
+    background-color: white;
+    margin: 40px auto;
 }
+
+main {
+    margin: 40px auto;
+}
+
 .resumen button {
-    background-color: #E34B77;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -127,11 +155,69 @@
     border-radius: 5px;
     transition: 0.3s;
 }
+
 .resumen button:hover {
-    background-color: #5F100F;
+    box-shadow: 0px 0px 5px #EA4573;
     transition: 0.3s;
 }
 
+.fuerte {
+    font-weight: bold;
+    color: #EA4573;
+}
+
+/*Footer*/
+.multiversal {
+    display: flex;
+    border-top: 2px solid white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 5%;
+    gap: 8%;
+}
+
+.multiversal div {
+    width: 250px;
+    padding: 10px;
+}
+
+.imachine {
+    opacity: 0.5;
+}
+
+footer img {
+    width: 10%;
+}
+
+footer span {
+    font-weight: bold;
+}
+
+.creditos {
+    display: flex;
+    font-size: medium;
+    padding-left: 6%;
+    padding-right: 6%;
+    background-color: rgb(245, 242, 242);
+}
+
+.creditos img {
+    width: 80px;
+}
+
+.creditos table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.sm {
+    width: 25px;
+}
+
+/*Media querie*/
 @media (max-width: 1024px) {
     .banner {
         height: 20%;
@@ -142,26 +228,33 @@
     .derecha img {
         width: 20px;
     }
+    .carrito a {
+        font-size: 20px;
+    }
     .carrito {
+        font-size: 12px;
         width: 90%;
     }
     .productos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         width: 100%;
-        padding: 0px;
-        margin: 0px;
     }
     .producto {
-        width: 110px;
+        width: 100px;
         font-size: 10px;
     }
     .producto h2 {
         font-size: 14px;
     }
-    .producto img {
-        width: 100px;
-    }
     .resumen {
         font-size: 15px;
         width: 90%;
+    }
+    .multiversal {
+        flex-wrap: wrap;
+    }
+    .creditos img {
+        width: 60px;
     }
 }

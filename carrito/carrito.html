@@ -1,72 +1,74 @@
 <!--Maximo Duran 07/7-->
 <!DOCTYPE html>
 <html>
+
     <head>
         <title>Carrito</title> <!--Titulo de pagina-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/carrito.css"> <!--Vincular carrito.css con carrito.html-->
         <link rel="icon" type="image/png" href="/img/favicon.png"> <!--Favicon-->
     </head>
+
     <body>
+
         <header>
-         <div class="banner"> <!--Contenedor del banner-->
-            <table id="tabla-banner"> <!--Tabla para el banner-->
-                <tr>
-                    <td>
-                        <a href="/index.html">
-                            <img src="/img/multiversal.png" alt="Logo de Multiversal Librería" class="logo"> <!--Logo de la libreria-->
-                        </a>
-                    </td>
-                    <td class="derecha"> <!--Contenedor de la parte derecha del banner-->
-                        <a href="/sesion/login/login.html"> <!--Redirecciona al html de login-->
-                            <img src="/img/usuario.png" alt="Usuario icon." class="usuario">
-                        </a>
-                    </td>
-                </tr>
-            </table>
-        </div>
+            <div class="banner"> <!--Contenedor del banner-->
+                <table id="tabla-banner"> <!--Tabla para el banner-->
+                    <tr>
+                        <td>
+                            <a href="/index.html">
+                                <img src="/img/multiversal.png" alt="Logo de Multiversal Librería" class="logo"> <!--Logo de la libreria-->
+                            </a>
+                        </td>
+                        <td class="derecha"> <!--Contenedor de la parte derecha del banner-->
+                            <a href="/sesion/login/login.html"> <!--Redirecciona al html de login-->
+                                <img src="/img/usuario.png" alt="Usuario icon." class="usuario">
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </header>
+
         <main>
             <div class="contenedor"> <!--Clase contenedor-->
                 <div class="carrito"> <!--Clase carrito-->
-                    <a href="../pagina-catalogo/catalogo.html"> <!--Volver al catalogo-->
-                    Volver al catalogo
-                    </a>
+                    <a href="../../pagina-catalogo/catalogo.html" class="back-btn">← Volver al catálogo</a>
                     <h1>Carrito de Compras</h1>
                     <div class="productos"> <!--Clase productos-->
                         <div class="producto"> <!--Clase del producto-->
                             <img src="/img/Libros/elheroeperdido.jpg" alt="El Heroe Perdido"> 
                                 <h2>El Heroe Perdido</h2>
-                                <p>Precio: $875</p>
-                                <p>Formato: Fisico</p>
+                                <p><span class="fuerte">Precio:</span> $875</p>
+                                <p><span class="fuerte">Formato:</span> Fisico</p>
                                 <button class="eliminar">Eliminar</button> <!--Botón para eliminar el libro del carrito-->
                         </div>
                         <div class="producto"> <!--Clase del producto-->
-                            <img src="/img/Libros/elheroeperdido.jpg" alt="El Heroe Perdido"> 
-                                <h2>El Heroe Perdido</h2>
-                                <p>Precio: $875</p>
-                                <p>Formato: Fisico</p>
+                            <img src="/img/Libros/casadehojas.jpg" alt="Casa de Hojas"> 
+                                <h2>Casa de Hojas</h2>
+                                <p><span class="fuerte">Precio:</span> $877</p>
+                                <p><span class="fuerte">Formato:</span> Fisico</p>
                                 <button class="eliminar">Eliminar</button> <!--Botón para eliminar el libro del carrito-->
                         </div>
                         <div class="producto"> <!--Clase del producto-->
-                            <img src="/img/Libros/elheroeperdido.jpg" alt="El Heroe Perdido"> 
-                                <h2>El Heroe Perdido</h2>
-                                <p>Precio: $875</p>
-                                <p>Formato: Fisico</p>
+                            <img src="/img/Libros/intothepit.jpg" alt="Into the Pit"> 
+                                <h2>Into the Pit</h2>
+                                <p><span class="fuerte">Precio:</span> $402</p>
+                                <p><span class="fuerte">Formato:</span> Fisico</p>
                                 <button class="eliminar">Eliminar</button> <!--Botón para eliminar el libro del carrito-->
                         </div>
                         <div class="producto"> <!--Clase del producto-->
-                            <img src="/img/Libros/elheroeperdido.jpg" alt="El Heroe Perdido"> 
-                                <h2>El Heroe Perdido</h2>
-                                <p>Precio: $875</p>
-                                <p>Formato: Fisico</p>
+                            <img src="/img/Libros/vocesanonimas.webp" alt="Voces Anonimas"> 
+                                <h2>Voces Anonimas</h2>
+                                <p><span class="fuerte">Precio:</span> $490</p>
+                                <p><span class="fuerte">Formato:</span> Fisico</p>
                                 <button class="eliminar">Eliminar</button> <!--Botón para eliminar el libro del carrito-->
                         </div>
                         <div class="producto"> <!--Clase del producto-->
-                            <img src="/img/Libros/elheroeperdido.jpg" alt="El Heroe Perdido"> 
-                                <h2>El Heroe Perdido</h2>
-                                <p>Precio: $875</p>
-                                <p>Formato: Fisico</p>
+                            <img src="/img/Libros/elartedelaguerra.webp" alt="El Arte de la Guerra"> 
+                                <h2>El Arte de la Guerra</h2>
+                                <p><span class="fuerte">Precio:</span> $723</p>
+                                <p><span class="fuerte">Formato:</span> Fisico</p>
                                 <button class="eliminar">Eliminar</button> <!--Botón para eliminar el libro del carrito-->
                         </div>
                     </div>
@@ -74,15 +76,58 @@
                 <div class="resumen"> <!--Resumen de compra-->
                     <h2>Resumen</h2>
                     <p>El Heroe Perdido: $875</p>
-                    <p>El Heroe Perdido: $875</p>
-                    <p>El Heroe Perdido: $875</p>
-                    <p>El Heroe Perdido: $875</p>
-                    <p>El Heroe Perdido: $875</p>
+                    <p>Casa de Hojas: $877</p>
+                    <p>Into the Pit: $402</p>
+                    <p>Voces Anónimas: $490</p>
+                    <p>El Arte de la Guerra: $723</p>
                     <hr>
-                    <p>Total: $4375</p>
+                    <p><strong>Total: <span class="fuerte">$3367</span></strong></p>
                     <button class="comprar">Comprar</button>
                 </div>
             </div>
         </main>
+
+        <footer>
+            <div class="multiversal">
+                <div>
+                    <p><span>Sede</span></p>
+                    <p>Diego Duarte Olleros 851</p>
+                </div>
+                <div>
+                    <span>Contacto</span>
+                    <p><img src="../img/phone.png" alt="" class="sm"> 2401-1010*</p>
+                    <p><img src="../img/whatsapp.png" alt="" class="sm"> 091285193</p>
+                    <p><img src="../img/instagram.png" alt="" class="sm"> multiversallibreria</p>
+                    <p><img src="../img/email.png" alt="" class="sm"> multiversallibreria@gmail.com</p>
+                </div>
+                <div>
+                    <span>Horarios</span>
+                    <p>Lun - Vie / 09:30 - 18:30 hs</p>
+                    <p>Sáb / 09:30 - 13:30 hs</p>
+                </div>
+                <div>
+                    <p><span>Empresa</span></p>
+                    <p>Nosotros</p>
+                    <p>Trabaje con nosotros</p>
+                </div>
+                <div>
+                    <p><span>Compras</span></p>
+                    <p>Cómo comprar</p>
+                    <p>Envíos y devoluciones</p>
+                    <p>Preguntas Frequentes</p>
+                </div>
+            </div>
+
+            <div class="creditos">
+                <table>
+                    <tr>
+                        <td>© Copyright / Multiversal</td>
+                        <td class="derecha"><img src="../img/imachine.png" alt="Logo de ImachineSW."></td>
+                    </tr>
+                </table>
+            </div>
+        </footer>
+
     </body>
+
 </html>

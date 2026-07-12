@@ -1,13 +1,8 @@
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 html {
     scroll-behavior: smooth;
-    background: linear-gradient(#EA45BF, #EA4573, #DE3A3E);
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
 }
+
 header {
     position: sticky;
     top: 0;
@@ -18,6 +13,7 @@ header {
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
 }
+
 .banner table {
     width: 100%;
     table-layout: fixed;
@@ -60,49 +56,46 @@ header {
     transform: scale(1.1);
 }
 
-
 .banner {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
 }
-.Menu-Izquierda, .Menu-Derecha{
+
+.Menu-Izquierda, .Menu-Derecha {
     display: flex;
     gap: 35px;
 }
-.Menu-Izquierda a, .Menu-Derecha a{
+
+.Menu-Izquierda a, .Menu-Derecha a {
     text-decoration: none;
     color: rgb(219, 74, 147);
-
     font-size: 18px;
     font-weight: bold;
-
     transition: .3s;
 }
-.Menu-Izquierda a:hover, .Menu-Derecha a:hover{
-     color: #ffd166;
+
+.Menu-Izquierda a:hover, .Menu-Derecha a:hover {
+    color: #ffd166;
 }
 
-.Menu{
+.Menu {
     display: flex;
     gap: 45px;
 }
-.Menu a{
 
+.Menu a {
     text-decoration:none;
     color:rgb(51, 69, 233);
     font-weight:bold;
-
     transition:.3s;
 }
 
-.Menu a:hover{
-
+.Menu a:hover {
     color:#ffd166;
 }
 
@@ -111,7 +104,8 @@ body {
     align-items: center;
     gap: 40px;
 }
-.Libro{
+
+.Libro {
     width: max-content;
     height: max-content;
     border-radius: 35px;
@@ -119,15 +113,18 @@ body {
     margin-left: 40px;
 
 }
-.Libro img{
+
+.Libro img {
     border-radius: 25px;
     transition: .4s;
     
 }
-.Libro img:hover{
+
+.Libro img:hover {
     transform: scale(1.08);
 }
-.Detalles-Producto{
+
+.Detalles-Producto {
     margin: 2vw;
     padding: 2vw;
     display: flex;
@@ -137,44 +134,115 @@ body {
     background-color: white;
     border-radius: 10px;
 }
-.Detalles-Producto h1{
+
+.Detalles-Producto h1 {
     margin-bottom: 20px;
 }
-.Info{
+
+.back-btn{
+    display:inline-block;
+    margin-bottom:25px;
+    color:#000;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+    align-self: self-start;
+}
+
+.back-btn:hover{
+    color:#EA4573;
+    transform:translateX(-3px);
+}
+
+.Info {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     height: 130px;
     font-size: 5mm;
 }
-.Precio{
-    
+
+.Detalles-Producto span {
+    font-weight: bold;
+    color: #EA4573;
+}
+
+.Precio {
     font-size: 6mm;
 }
-    .Detalles-Producto button{
-      width:220px;
 
-    padding:14px;
+.Detalles-Producto button {
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    width: 30%;
+    margin-top: auto;
+    cursor: pointer;
+}
 
-    border:none;
+.Detalles-Producto button:hover {
+    transition: all 0.3s ease-out;
+    box-shadow: 0px 0px 5px #EA4573;
+}
 
-    border-radius:10px;
+.Botones {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
 
-    background:#EA4573;
+.Sinopsis {
+    text-align: left;
+    font-size: 15px;
+}
 
-    color:rgb(223, 200, 200);
+.derecha {
+    text-align: end;
+}
 
-    cursor:pointer;
+.multiversal {
+    display: flex;
+    border-top: 2px solid white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    justify-content: center;
+    color: white;
+    padding: 5%;
+    gap: 8%;
+}
 
-    font-size:16px;
-    
-    }
-    .Botones{
-        display: flex;
-        gap: 30px;
-        justify-content: center;
-    }
-    .Sinopsis {
-        text-align: left;
-        font-size: 15px;
-    }
+.imachine {
+    opacity: 0.5;
+}
+
+footer img {
+    width: 10%;
+}
+
+footer span {
+    font-weight: bold;
+}
+
+.creditos {
+    background-color: white;
+    display: flex;
+    font-size: small;
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+.creditos img {
+    width: 80px;
+}
+
+.creditos table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.sm {
+    width: 25px;
+}

@@ -2,114 +2,281 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Catálogo</title> <!--Titulo-->
-    <link rel="icon" type="image/png" href="../img/favicon.png"> <!--Prueba de favicon (la imagen que aparece al lado del titulo en el tab)-->
-    <link rel="stylesheet" href="../css/catalogo.css">
-</head>
+    <head>
+        <title>Catálogo</title> <!--Titulo-->
+        <link rel="icon" type="image/png" href="../img/favicon.png"> <!--Prueba de favicon (la imagen que aparece al lado del titulo en el tab)-->
+        <link rel="stylesheet" href="../css/catalogo.css"> <!--Link a archivo de estilo-->
+    </head>
 
-<body>
+    <body>
 
-    <header>
-        <div class="banner">
-            <table>
-                <tr>
-                    <td>
-                        <a href="../index.html">
-                            <img src="../img/multiversal.png" alt="Logo de Multiversal Librería" class="logo">
-                        </a>
-                    </td>
-                    <td class="centro">
-                        <div class="search-bar">
-                            <label for="busqueda">🔍︎</label>
-                            <input type="text" placeholder="Búsqueda...">
+        <header>
+            <!--Barra superior-->
+            <div class="banner">
+                <table>
+                    <tr>
+                        <td>
+                            <a href="../index.html">
+                                <img src="../img/multiversal.png" alt="Logo de Multiversal Librería" class="logo">
+                            </a>
+                        </td>
+                        <td class="centro">
+                            <div class="search-bar">
+                                <label for="busqueda">🔍︎</label>
+                                <input type="text" placeholder="Búsqueda...">
+                            </div>
+                        </td>
+                        <td class="derecha">
+                            <a href="../carrito/carrito.html">
+                                <img src="../img/carrito.png" alt="Carrito icon" class="icono">
+                            </a>
+                            <a href="../sesion/login/login.html">
+                                <img src="../img/usuario.png" alt="Usuario icon." class="icono">
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--Navegador de catálogo-->
+            <div class="navegador">
+                <nav>
+                    <details>
+                        <summary>Generos</summary>
+                        <div class="generos">
+                            <ul>
+                                <a href="">Crimen</a><br>
+                                <a href="">Policías</a><br>
+                                <a href="">Romance</a><br>
+                                <a href="">Fantasía</a><br>
+                                <a href="">Ciencia Ficción</a><br>
+                                <a href="">Acción</a><br>
+                                <a href="">Aventura</a><br>
+                                <a href="">Misterio</a><br>
+                                <a href="">Terror</a><br>
+                                <a href="">Comedia</a><br>
+                                <a href="">Prosa literaria</a><br>
+                                <a href="">Poesía</a><br>
+                                <a href="">Drama</a><br>
+                                <a href="">Histórico</a><br>
+                                <a href="">Infantil</a><br>
+                                <a href="">Juvenil</a><br>
+                                <a href="">Filosófico</a><br>
+                                <a href="">Religioso</a><br>
+                                <a href="">Novela gráfica</a><br>
+                            </ul>
                         </div>
-                    </td>
-                    <td class="derecha">
-                        <a href="">
-                            <img src="../img/carrito.png" alt="Carrito icon" class="icono">
-                        </a>
-                        <a href="../sesion/login/login.html">
-                            <img src="../img/usuario.png" alt="Usuario icon." class="icono">
-                        </a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="navegador">
-            <nav>
-                <details>
-                    <summary>Generos</summary>
-                    <div class="generos">
-                        <ul>
-                            <a href="">Crimen</a><br>
-                            <a href="">Policías</a><br>
-                            <a href="">Romance</a><br>
-                            <a href="">Fantasía</a><br>
-                            <a href="">Ciencia Ficción</a><br>
-                            <a href="">Acción</a><br>
-                            <a href="">Aventura</a><br>
-                            <a href="">Misterio</a><br>
-                            <a href="">Terror</a><br>
-                            <a href="">Comedia</a><br>
-                            <a href="">Prosa literaria</a><br>
-                            <a href="">Poesía</a><br>
-                            <a href="">Drama</a><br>
-                            <a href="">Histórico</a><br>
-                            <a href="">Infantil</a><br>
-                            <a href="">Juvenil</a><br>
-                            <a href="">Filosófico</a><br>
-                            <a href="">Religioso</a><br>
-                            <a href="">Novela gráfica</a><br>
-                        </ul>
-                    </div>
-                </details>
-                <button>Mangas</button>
-                <button>Cómics</button>
-                <button>EBooks</button>
-                <button>Libros de Bolsillo</button>
-                <button>Infantiles</button>
-                <button>Audio Libros</button>
-                <button>Libros en Descuentos</button>
-                <button>Ofertas</button>
-            </nav>
-        </div>
-    </header>
+                    </details>
+                    <button>Mangas</button>
+                    <button>Cómics</button>
+                    <button>EBooks</button>
+                    <button>Libros de Bolsillo</button>
+                    <button>Infantiles</button>
+                    <button>Audio Libros</button>
+                    <button>Libros en Descuentos</button>
+                    <button>Ofertas</button>
+                </nav>
+            </div>
+        </header>
 
-    <main>
-        <div class="tarjeta">
-            <table>
-                <tr>
-                    <td colspan="2"><a href="../detalle-producto/productos.html" target="_blank"><img src="../img/Libros/elheroeperdido.jpg" alt="Portada de La Soledad." class="portada"></a></td>
-                </tr>
-                <tr>
-                    <th>Título: </th>
-                    <td>El Héroe Perdido</td>
-                </tr>
-                <tr>
-                    <th>Autor: </th>
-                    <td>Rick Riordan</td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="precio">$850</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><button>Agregar al carrito</button></td>
-                </tr>
-            </table>
-        </div>
-    </main>
+        <!--Catálogo de productos-->
+        <main>
+            <div class="tarjeta">
+                <table>
+                    <tr>
+                        <td colspan="2"><a href="../detalle-producto/productos.html"><img src="../img/Libros/elheroeperdido.jpg" alt="Portada de El Héroe Perdido." class="portada"></a></td>
+                    </tr>
+                    <tr>
+                        <th>Título: </th>
+                        <td>El Héroe Perdido</td>
+                    </tr>
+                    <tr>
+                        <th>Autor: </th>
+                        <td>Rick Riordan</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="precio">$875</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button>Agregar al carrito</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tarjeta">
+                <table>
+                    <tr>
+                        <td colspan="2"><a href=""><img src="../img/Libros/casadehojas.jpg" alt="Portada de Casa de Hojas." class="portada"></a></td>
+                    </tr>
+                    <tr>
+                        <th>Título: </th>
+                        <td>Casa de Hojas</td>
+                    </tr>
+                    <tr>
+                        <th>Autor: </th>
+                        <td>Mark Z. Danielewski</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="precio">$877</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button>Agregar al carrito</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tarjeta">
+                <table>
+                    <tr>
+                        <td colspan="2"><a href=""><img src="../img/Libros/intothepit.jpg" alt="Portada de Into the Pit." class="portada"></a></td>
+                    </tr>
+                    <tr>
+                        <th>Título: </th>
+                        <td>Into the Pit</td>
+                    </tr>
+                    <tr>
+                        <th>Autor: </th>
+                        <td>Scott Cawthon</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="precio">$402</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button>Agregar al carrito</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tarjeta">
+                <table>
+                    <tr>
+                        <td colspan="2"><a href=""><img src="../img/Libros/vocesanonimas.webp" alt="Portada de Voces Anónimas." class="portada"></a></td>
+                    </tr>
+                    <tr>
+                        <th>Título: </th>
+                        <td>Voces Anónimas</td>
+                    </tr>
+                    <tr>
+                        <th>Autor: </th>
+                        <td>Guillermo Lockhart</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="precio">$490</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button>Agregar al carrito</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tarjeta">
+                <table>
+                    <tr>
+                        <td colspan="2"><a href=""><img src="../img/Libros/elartedelaguerra.webp" alt="Portada de El Arte de la Guerra." class="portada"></a></td>
+                    </tr>
+                    <tr>
+                        <th>Título: </th>
+                        <td>El Arte de la Guerra</td>
+                    </tr>
+                    <tr>
+                        <th>Autor: </th>
+                        <td>Sun Tzu</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="precio">$723</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button>Agregar al carrito</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tarjeta">
+                <table>
+                    <tr>
+                        <td colspan="2"><a href=""><img src="../img/Libros/elheroeperdido.jpg" alt="Portada de La Soledad." class="portada"></a></td>
+                    </tr>
+                    <tr>
+                        <th>Título: </th>
+                        <td>El Héroe Perdido</td>
+                    </tr>
+                    <tr>
+                        <th>Autor: </th>
+                        <td>Rick Riordan</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="precio">$850</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button>Agregar al carrito</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tarjeta">
+                <table>
+                    <tr>
+                        <td colspan="2"><a href=""><img src="../img/Libros/elheroeperdido.jpg" alt="Portada de La Soledad." class="portada"></a></td>
+                    </tr>
+                    <tr>
+                        <th>Título: </th>
+                        <td>El Héroe Perdido</td>
+                    </tr>
+                    <tr>
+                        <th>Autor: </th>
+                        <td>Rick Riordan</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="precio">$850</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button>Agregar al carrito</button></td>
+                    </tr>
+                </table>
+            </div>
+        </main>
 
-    <footer>
+        <!--Footer-->
+        <footer>
 
-        <img src="../img/imachine.png" alt="Logo de ImachineSW.">
-        <div>
-            <p>Diseñado por ImachineSW</p>
-            <p>2026</p>
-        </div>
-    
-    </footer>
+            <div class="barra-horizontal">
 
-</body>
+            </div>
+
+            <div class="multiversal">
+                <div>
+                    <p><span>Sede</span></p>
+                    <p>Diego Duarte Olleros 851</p>
+                </div>
+                <div>
+                    <span>Contacto</span>
+                    <p><img src="../img/phone.png" alt="" class="sm"> 2401-1010*</p>
+                    <p><img src="../img/whatsapp.png" alt="" class="sm"> 091285193</p>
+                    <p><img src="../img/instagram.png" alt="" class="sm"> multiversallibreria</p>
+                    <p><img src="../img/email.png" alt="" class="sm"> multiversallibreria@gmail.com</p>
+                </div>
+                <div>
+                    <span>Horarios</span>
+                    <p>Lun - Vie / 09:30 - 18:30 hs</p>
+                    <p>Sáb / 09:30 - 13:30 hs</p>
+                </div>
+                <div>
+                    <p><span>Empresa</span></p>
+                    <p>Nosotros</p>
+                    <p>Trabaje con nosotros</p>
+                </div>
+                <div>
+                    <p><span>Compras</span></p>
+                    <p>Cómo comprar</p>
+                    <p>Envíos y devoluciones</p>
+                    <p>Preguntas Frequentes</p>
+                </div>
+            </div>
+
+            <div class="creditos">
+                <table>
+                    <tr>
+                        <td>© Copyright / Multiversal</td>
+                        <td class="derecha"><img src="../img/imachine.png" alt="Logo de ImachineSW."></td>
+                    </tr>
+                </table>
+            </div>
+
+        </footer>
+
+    </body>
 
 </html>
