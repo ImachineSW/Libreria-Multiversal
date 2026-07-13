@@ -1,3 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 html {
     scroll-behavior: smooth;
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
@@ -156,9 +163,8 @@ body {
 }
 
 .Info {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
     height: 130px;
     font-size: 5mm;
 }
@@ -191,6 +197,7 @@ body {
 .Botones {
     display: flex;
     gap: 30px;
+    margin-top: 12px;
     justify-content: center;
 }
 
@@ -257,7 +264,7 @@ footer span {
     }
 
     .derecha img {
-        width: 20px;
+        width: 24px;
     }
 
     .icono {
