@@ -23,7 +23,11 @@ function mostrar() {
         <p>${libro.formato}</p>
         <button class="addbutton">Agregar al carrito</button>
         `; // para cada libro se crea una tarjeta
+        
         cont.appendChild(tar); //agrega al contenedor cont las tarjetas
+
+        const boton = tar.querySelector(".addbutton"); // busca el boton de los libros
+        boton.addEventListener('click', () => agregar(libro)); // le da una funcion al boton
 });
 }
 //
