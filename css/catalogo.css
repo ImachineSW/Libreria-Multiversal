@@ -139,14 +139,14 @@ nav button:hover {
     transform: scale(1.5) translateY(-2px);
 }
 
-main {
+#contenedor {
     margin: 5%;
     background-color: white;
     border-radius: 10px;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
     justify-content: center;
-    align-items: center;
     gap: 2%;
 }
 
@@ -156,6 +156,7 @@ main {
     border-radius: 10px;
     background-color: white;
     display: flex;
+    flex-direction: column;
     text-align: center;
     transition: all 0.3s ease-out;
 }
@@ -163,6 +164,7 @@ main {
 .portada {
     width: 180px;
     height: 240px;
+    object-fit: cover;
     border-radius: 10px;
     border-bottom: 2px solid #EA4573;
 }
