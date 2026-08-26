@@ -140,23 +140,32 @@ nav button:hover {
 }
 
 #contenedor {
+    height: max-content;
     margin: 5%;
     background-color: white;
     border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 25px;
+    gap: 20px;
     justify-content: center;
     gap: 2%;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 .tarjeta {
-    padding: 2%;
-    margin: 2%;
+    width: 200px;
+    height: 400px;
+    padding: 5%;
+    margin: 10%;
     border-radius: 10px;
     background-color: white;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     text-align: center;
     transition: all 0.3s ease-out;
 }
@@ -170,16 +179,12 @@ nav button:hover {
 }
 
 .tarjeta:hover {
-    transform: scale(1.1);
+    transform: scale(1.01);
 }
 
 .tarjeta:hover .portada {
     transition: all 0.3s ease-out;
     transform: perspective(400px) rotateY(10deg);
-}
-
-th {
-    color: #EA4573;
 }
 
 .precio {

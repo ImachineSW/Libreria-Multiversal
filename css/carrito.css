@@ -64,6 +64,7 @@ html {
     border-radius: 10px;
     width: 80%;
     background-color: white;
+    cursor: default;
 }
 
 .back-btn{
@@ -148,7 +149,6 @@ html {
     margin: 0 auto;
     font-size: 1.5rem;
     color: #EA4573;
-    cursor: default;
 }
 
 /*Contenedor de la compra*/
@@ -160,6 +160,7 @@ html {
     width: 80%;
     background-color: white;
     margin: 40px auto;
+    cursor: default;
 }
 
 main {
