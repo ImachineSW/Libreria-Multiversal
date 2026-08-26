@@ -11,8 +11,10 @@ function mostrarCarrito() {
     bookr.innerHTML = ""; // reinicia el resumen de libros
 
     if (carrito.length === 0) { // si el carrito esta vacio muestra esto
-        cont.innerHTML = `<h3>CARRITO VACIO</h3>`;
+        cont.innerHTML = `<h3 class="vacio">CARRITO VACIO</h3>`;
         resumen.textContent = `Total: $${total}`;
+        const vaciarbtn = document.querySelector(".vaciar"); // busca el boton de vaciar carrito
+        vaciarbtn.style.display = "none"; // oculta el boton de vaciar carrito
         return;
     }
 
@@ -37,6 +39,9 @@ function mostrarCarrito() {
         boton.addEventListener("click", () => eliminar(libro)); // a los botones le da la funcion de eliminar el libro
     });
 
+    const vaciarbtn = document.querySelector(".vaciar"); // busca el boton de vaciar carrito
+    vaciarbtn.addEventListener("click", vaciarCarrito); // le da la funcion de vaciar el carrito
+
     resumen.textContent = `Total: $${total}`; // actualiza el total
 
 };
@@ -58,6 +63,15 @@ function eliminar(libro) {
     mostrarMensaje(`Se eliminó "${libro.nombre}" del carrito.`); // muestra mensaje flotante
     guardarCarrito(carrito); // guarda el carrito luego de eliminar el libro
     mostrarCarrito(); // vuelve a mostrar el carrito
+}
+//
+
+// funcion para vaciar el carrito
+function vaciarCarrito() {
+    const carrito = []; // crea un array vacio
+    guardarCarrito(carrito); // guarda el carrito vacio
+    mostrarCarrito(); // vuelve a mostrar el carrito
+    mostrarMensaje("Se vació el carrito."); // muestra mensaje flotante
 }
 //
 
