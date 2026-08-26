@@ -17,7 +17,7 @@ function mostrarCarrito() {
     }
 
     carrito.forEach(libro => { // recorre el array
-        const subtotal = libro.precio;
+        const subtotal = libro.precio * libro.cantidad;
         total += subtotal; // suma el precio de los libros
         bookr.appendChild(document.createElement("p")).textContent = `${libro.nombre}: $${libro.precio}`; // agrega el nombre y precio de los libros al resumen
 
@@ -26,8 +26,8 @@ function mostrarCarrito() {
         
         div.innerHTML = `
         <h3>${libro.nombre}</h3>
-        <img src="${libro.imagen}" alt="${libro.nombre}">
-        <p>Formato: ${libro.formato}</p>
+        <img src=".${libro.imagen}" alt="${libro.nombre}">
+        <h4>Cantidad: ${libro.cantidad}</h4>
         <button class="eliminar">ELIMINAR</button>
         `; // por cada libro en el array agrega eso
 
@@ -45,8 +45,17 @@ function mostrarCarrito() {
 // funcion para eliminar un libro
 function eliminar(libro) { 
     let carrito = cargarCarrito(); // carga el carrito guardado
+    const existente = carrito.find(item => item.id === libro.id);
+    if (existente.cantidad > 1) {
+        existente.cantidad--;
+        guardarCarrito(carrito);
+        mostrarCarrito();
+        mostrarMensaje(`Se eliminó "${libro.nombre}" del carrito.`); // muestra mensaje flotante
+        return;
+    } else {
     carrito = carrito.filter(item => item.id !== libro.id); // elimina el libro del carrito
-    
+    }
+    mostrarMensaje(`Se eliminó "${libro.nombre}" del carrito.`); // muestra mensaje flotante
     guardarCarrito(carrito); // guarda el carrito luego de eliminar el libro
     mostrarCarrito(); // vuelve a mostrar el carrito
 }
