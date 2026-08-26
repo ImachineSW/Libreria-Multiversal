@@ -84,11 +84,14 @@ html {
 
 /*Contenedor de los libros*/
 .productos {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    justify-content: center;
     padding: 10px;
     margin: auto;
-    height: 400px;
+    height: max-content;
+    min-height: 200px   ;
 }
 
 .producto {
@@ -143,6 +146,10 @@ html {
 }
 
 .vacio {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
