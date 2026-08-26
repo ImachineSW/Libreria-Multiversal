@@ -50,22 +50,22 @@
                 <!--Creando un Grupo para los detalles del Producto-->
                 <div class="Detalles-Producto">
                     <a href="../index.html" class="back-btn">← Volver al catálogo</a>
-                    <h1>El Heroe Perdido (Volumen 1)</h1>
+                    <h1 id="titulo"></h1>
                     <div class="Info">
-                        <p><span>Genero:</span> Fantasia </p>
-                        <p><span>Autor:</span>   Riodan Rick</p>
-                        <p><span>Editorial:</span> Montena</p>
-                        <p><span>Año:</span>    2025</p>
-                        <p><span>Idioma:</span> Español</p>
-                        <p><span>Formato:</span> Fisico</p>
+                        <p><span>Genero:</span><span id="genero"></span></p>
+                        <p><span>Autor:</span><span id="autor"></span></p>
+                        <p><span>Editorial:</span> <span id="editorial"></span></p>
+                        <p><span>Año:</span><span id="año"></span></p>
+                        <p><span>Idioma:</span><span id="idioma"></span></p>
+                        <p><span>Formato:</span><span id="formato"></span></p>
                     </div>
                     <div class="Precio">
-                        <p><span>Precio: $875</span></p>
+                        <p>Precio: <span id="precio"></span></p>
                     </div>
-                    <p class="Sinopsis">Tras ser atacados por espíritus de la tormenta, los tres son llevados al Campamento Mestizo donde descubren que son semidioses: Jason es hijo de Zeus, Piper de Afrodita y Leo de Hefesto. Su destino es cumplir una profecía que exige que Leo y Piper liberen a la diosa Hera de su prisión antes del solsticio de invierno, para impedir que los gigantes despierten a la diosa Gaia.</p>
+                    <p class="Sinopsis" id="sinopsis"></p>
                     <div class="Botones">
-                        <Button>Comprar</Button>
-                        <button>Agregar al Carrito</button>
+                        <button class="purchase">Comprar</Button>
+                        <button class="addbutton">Agregar al Carrito</button>
                     </div>
                 </div>              
             </div>
@@ -117,7 +117,8 @@
             </div>
 
         </footer>
-
+    <script src="../js/storage.js"></script>
+    <script src="../js/productos.js"></script>
     </body>
 
 </html>
