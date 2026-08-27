@@ -122,6 +122,7 @@ body {
 }
 
 .Libro img {
+    width: 300px;
     border-radius: 25px;
     transition: .4s;
     
