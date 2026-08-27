@@ -17,6 +17,11 @@ document.getElementById("genero").textContent = libro.genero; // muestra el gén
 document.getElementById("imagen").src = "." + libro.imagen; // muestra la imagen del libro
 document.getElementById("precio").textContent = "$" + libro.precio; // muestra el precio del libro
 document.getElementById("sinopsis").textContent = libro.sinopsis; // muestra la sinopsis del libro
+
+const addboton = document.querySelectorAll(".addbutton"); // busca el boton de agregar al carrito
+addboton.forEach(boton => {
+    boton.addEventListener('click', () => agregar(libro));
+});
 }
 //
 
