@@ -18,6 +18,7 @@ header {
 }
 
 .banner {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,8 +28,12 @@ header {
 }
 
 .banner table {
+    height: auto;
     width: 100%;
     table-layout: fixed;
+}
+table td {
+    width: 33%;
 }
 
 .banner .centro {
@@ -36,6 +41,8 @@ header {
 }
 
 .derecha {
+    position: relative;
+    height: 100%;
     text-align: end;
 }
 
@@ -148,7 +155,7 @@ nav button:hover {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     justify-content: center;
-    gap: 2%;
+    min-height: max-content;
 }
 
 a {
@@ -200,7 +207,6 @@ a {
     padding: 10px;
     border-radius: 8px;
     width: 100%;
-    margin-top: auto;
     cursor: pointer;
 }
 
@@ -215,9 +221,10 @@ a {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     color: white;
-    padding: 5%;
+    padding: 50px;
     gap: 8%;
 }
 
@@ -284,23 +291,130 @@ footer span {
     transform: translateX(-50%) translateY(10%);
 }
 
-@media (max-width: 1024px) {
+/*Laptop 1024px*/
+@media (max-width: 1024px) and (min-width: 769px) {
     .banner {
-        height: 20%;
+        height: 12vh;
     }
     .logo {
-        width: 15vh;
+        width: 20vw;
     }
     .derecha img {
-        width: 20px;
-    }
-    .multiversal {
-        flex-wrap: wrap;
+        width: 3vw;
     }
     .creditos img {
-        width: 100px;
+        width: 10vw;
     }
     nav {
-        gap: 2vw
+        gap: 2vw;
+        height: 5vh;
     }
 }
+/*===================*/
+
+/*Tablet 768px*/
+@media (max-width: 768px) and (min-width: 426px) {
+    .banner {
+        height: 100%;
+    }
+    .banner table {
+        height: auto;
+    }
+    .logo {
+        width: 30vw;
+    }
+    .search-bar {
+        width: 100%;
+    }
+    .derecha img {
+        width: 5vw;
+    }
+    nav {
+        height: 8vh;
+        font-size: 0.8rem;
+        gap: 5vw;
+        overflow-x: scroll;
+        justify-content: flex-start;
+    }
+    nav button {
+        display: inline-block;
+        overflow-wrap: normal;
+        left: 0;
+    }
+    nav summary {
+        width: max-content;
+    }
+    .tarjeta {
+        width: 150px;
+        padding: 5%;
+        margin: 10%;
+    }
+    .portada {
+        width: 130px;
+        height: 180px;
+    }
+    #contenedor {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 2fr));
+    }
+    .creditos img {
+        width: 15vw;
+    }
+}
+/*===================*/
+
+/*Celular 425px*/
+@media (max-width: 425px) {
+    .banner {
+        height: 10vh;
+    }
+    .logo {
+        width: 30vw;
+    }
+    .search-bar {
+        width: 100%;
+    }
+    .derecha {
+        width: 8vw;
+    }
+    .derecha img {
+        width: 8vw;
+    }
+    nav {
+        height: 8vh;
+        font-size: 0.8rem;
+        gap: 5vw;
+        overflow-x: scroll;
+        justify-content: flex-start;
+    }
+    nav button {
+        display: inline-block;
+        overflow-wrap: normal;
+        left: 0;
+    }
+    nav summary {
+        width: max-content;
+    }
+    #contenedor {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px; 
+        padding: 10px; 
+    }
+    
+    .tarjeta {
+        width: 100%; 
+        padding: 10px;
+        justify-content: space-evenly; 
+        margin: 0; 
+    }
+    
+    .portada {
+        width: 100%; 
+        height: auto; 
+        width: 100px;
+        object-fit: cover; 
+    }
+    .creditos img {
+        width: 15vw;
+    }
+}
+/*===================*/
