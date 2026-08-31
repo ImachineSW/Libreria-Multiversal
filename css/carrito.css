@@ -84,6 +84,7 @@ html {
 
 /*Contenedor de los libros*/
 .productos {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 20px;
@@ -147,15 +148,13 @@ html {
 
 .vacio {
     position: absolute;
-    left: 50%;
     top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 1.5rem;
     color: #EA4573;
+    text-align: center;
+    width: 100%;
 }
 
 /*Contenedor de la compra*/
