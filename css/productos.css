@@ -224,7 +224,7 @@ footer span {
 .mensaje-flotante {
     z-index: 1000;
     position: fixed;
-    width: max-content;
+    width: 90%;
     height: max-content;
     align-items: center;
     top: 20%;
@@ -235,7 +235,9 @@ footer span {
     color: white;
     padding: 0.75rem 1.25rem;
     border-radius: 8px;
+    border: 1px solid black;
     font-size: 0.9rem;
+    text-align: center;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease, transform 0.25s ease;
