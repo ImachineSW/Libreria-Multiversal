@@ -15,7 +15,7 @@ html {
     align-items: center;
     justify-content: center;
     position: relative;
-    height: 10%;
+    height: 15vh;
     min-height: 100px;
     width: 100%;
     border-bottom: 2px solid #5F100F;
@@ -43,7 +43,7 @@ html {
 }
 
 .derecha img {
-    width: 30px;
+    width: 100%;
 }
 
 .derecha a {
@@ -272,7 +272,7 @@ footer span {
     transform: translateX(-50%) translateY(10%);
 }
 
-/*Media querie*/
+/*Media queries*/
 @media (max-width: 1024px) {
     .banner {
         height: 20%;

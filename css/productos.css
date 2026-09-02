@@ -71,6 +71,8 @@ header {
 
 .Producto {
     display: flex;
+    justify-content: center;
+    padding: 50px;
     align-items: center;
     gap: 40px;
 }
@@ -332,6 +334,7 @@ footer span {
         flex-direction: column;
         gap: 20px;
         margin-top: 50px;
+        padding: 25px;
     }
 
     .Libro {
@@ -343,7 +346,8 @@ footer span {
     }
 
     .Detalles-Producto {
-        width: 90%;
+        width: 100%;
+        padding: 15px;
         font-size: 0.8rem;
     }
 
@@ -402,6 +406,7 @@ footer span {
         flex-direction: column;
         gap: 20px;
         margin-top: 50px;
+        padding: 10px;
     }
 
     .Libro {
@@ -412,7 +417,7 @@ footer span {
     }
 
     .Detalles-Producto {
-        width: 90%;
+        width: 100%;
         gap: 10px;
         font-size: 0.8rem;
     }
