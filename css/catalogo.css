@@ -18,7 +18,7 @@ header {
 }
 
 .banner {
-    height: 100%;
+    height: max-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,7 +28,6 @@ header {
 }
 
 .banner table {
-    height: auto;
     width: 100%;
     table-layout: fixed;
 }
@@ -54,7 +53,7 @@ table td {
 }
 
 .logo {
-    width: 30vh;
+    width: 20vw;
 }
 
 .search-bar {
@@ -299,17 +298,18 @@ footer span {
         height: 12vh;
     }
     .logo {
-        width: 20vw;
+        width: 25vw;
     }
     .derecha img {
-        width: 3vw;
+        width: 4vw;
     }
     .creditos img {
         width: 10vw;
     }
     nav {
         gap: 2vw;
-        height: 5vh;
+        height: 6vh;
+        font-size: 0.8rem;
     }
 }
 /*===================*/
@@ -317,16 +317,13 @@ footer span {
 /*Tablet 768px*/
 @media (max-width: 768px) and (min-width: 426px) {
     .banner {
-        height: 100%;
-    }
-    .banner table {
-        height: auto;
+        height: 12vh;
     }
     .logo {
         width: 30vw;
     }
-    .search-bar {
-        width: 100%;
+    .banner input {
+        width: 80%;
     }
     .derecha img {
         width: 5vw;
@@ -375,8 +372,11 @@ footer span {
     .search-bar {
         width: 100%;
     }
-    .derecha {
-        width: 8vw;
+    .banner table {
+        height: 100%;
+    }
+    .banner input {
+        width: 80%;
     }
     .derecha img {
         width: 8vw;
