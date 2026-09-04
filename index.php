@@ -7,6 +7,7 @@
         <link rel="icon" type="image/png" href="./img/favicon.png"> <!--Prueba de favicon (la imagen que aparece al lado del titulo en el tab)-->
         <link rel="stylesheet" href="./css/catalogo.css"> <!--Link a archivo de estilo-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--etiqueta para que la pagina sea responsive-->
+        <meta charset="UTF-8">
     </head>
 
     <body>
@@ -17,7 +18,7 @@
                 <table>
                     <tr>
                         <td>
-                            <a href="./index.html">
+                            <a href="./index.php">
                                 <img src="./img/multiversal.png" alt="Logo de Multiversal Librería" class="logo">
                             </a>
                         </td>
