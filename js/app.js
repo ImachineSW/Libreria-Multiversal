@@ -1,9 +1,9 @@
 // funcion para agregar carrito
 function agregar() { 
-    const carrito = cargarCarrito(); // carga el carrito
     const add = document.querySelectorAll(".addb"); // busca el boton de agregar al carrito
     add.forEach(boton => { // recorre el array de los botones
         boton.onclick = function(e) {
+            const carrito = cargarCarrito(); // carga el carrito
             const btn = e.currentTarget; // boton actual      
             const id = btn.dataset.id; // obtiene el id del boton
             const nombre = btn.dataset.nombre; // obtiene el nombre del boton
@@ -34,3 +34,7 @@ function mostrarMensaje(texto) {
     }, 1500);
 }
 //
+
+document.addEventListener("DOMContentLoaded", () => {
+    agregar();
+});
