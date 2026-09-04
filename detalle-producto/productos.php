@@ -121,7 +121,7 @@
 
         </footer>
     <script src="../js/storage.js"></script>
-    <script src="../js/productos.js"></script>
+    <script src="../js/app.js"></script>
     </body>
 
 </html>

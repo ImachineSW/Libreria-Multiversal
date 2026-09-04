@@ -1,3 +1,10 @@
+<?php
+require_once "conexion.php"; // pide una vez la conexion a la db
+
+$sql = "SELECT id, nombre, precio, autor, formato, imagen, genero, editorial, año, idioma, sinopsis FROM libros"; // le asigna la consulta a la db
+$resultado = mysqli_query($conexion, $sql); // ejecuta la consulta y la guarda en la variable resultado
+?>
+
 <!--Joaquín Mandirola 12/07-->
 <!DOCTYPE html>
 <html>
@@ -83,7 +90,25 @@
         <!--Catálogo de productos-->
         <main>
         <div id="mensaje-flotante" class="mensaje-flotante"></div>
-        <div id="contenedor"> <!--Contenedor de las tarjetas--></div>
+            <div id="contenedor"> 
+                <?php if (mysqli_num_rows($resultado) > 0): //devuelve el numero de filas que hay en la tabla ?> 
+                    <?php while ($libro = mysqli_fetch_assoc($resultado)): //mientras haya lineas en la tabla muestra los libros ?>
+                        <div class="tarjeta">
+                            <a href="./detalle-producto/productos.php?id=<?php echo $libro["id"]; //le asigna el id del libro a la redireccion a productos.php ?>">
+                                <img src="<?php echo $libro["imagen"]; //le asigna la imagen del libro a la portada ?>" alt="<?php echo $libro["nombre"]; //le asigna el nombre del libro al alt ?>" class="portada">
+                                <h3><?php echo $libro["nombre"]; //le asigna el nombre del libro a el titulo ?></h3>
+                                <p class="precio">$<?php echo $libro["precio"]; //le as igna el precio del libro a el precio ?></p>
+                                <p><?php echo $libro["autor"]; //le asigna el autor del libro a el autor ?></p>
+                                <p><?php echo $libro["formato"]; //le asigna el formato del libro a el formato ?></p>
+                            </a>
+                            <button class="addb" data-id="<?php echo $libro["id"]; ?>" data-nombre="<?php echo $libro["nombre"]; ?>" data-precio="<?php echo $libro["precio"]; ?>" data-autor="<?php echo $libro["autor"]; ?>" data-formato="<?php echo $libro["formato"]; ?>" data-imagen="<?php echo $libro["imagen"]; ?>">Agregar al Carrito</button> <!--manda los datos de los data  a la funcion de agregar al carrito-->
+        	            </div>
+        <?php endwhile; //termina de recorrer el array?>
+        <?php else: //si no hay productos cargados muestra mensaje de que no hay productos?>
+            <p>No hay productos cargados en este momento.</p>
+            <?php endif; //termina el if?>
+                
+            </div>
         </main>
 
         <!--Footer-->
@@ -134,7 +159,7 @@
 
         </footer>
     <script src="./js/storage.js"></script>
-    <script src="./js/catalogo.js"></script>
+    <script src="./js/app.js"></script>
     </body>
 
 </html>
