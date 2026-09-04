@@ -168,7 +168,20 @@ header {
 }
 
 .Botones button, .Botones a {
-    width: 100%;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    flex: 1;
+    color: white;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
 .Sinopsis {
