@@ -14,6 +14,13 @@ Se utilizará para definir el diseño visual del sistema, incluyendo colores, ti
 JavaScript
 Permitirá agregar interactividad a la aplicación mediante validación de formularios, manipulación del DOM, eventos del usuario y funciones dinámicas que mejoren la experiencia de navegación.
 
+Tecnologías Back-End:
+
+PHP
+Será utilizado como lenguaje de programación del lado del servidor (backend) para procesar la lógica de negocio del sistema. Permite gestionar peticiones HTTP, autenticar usuarios, conectar el frontend con la base de datos y generar respuestas dinámicas de forma eficiente.
+
+MySQL
+Se utilizará como el sistema de gestión de bases de datos relacional para almacenar, organizar y consultar la información de manera estructurada. Permite garantizar la integridad, persistencia y seguridad de las tablas del sistema mediante sentencias SQL.
 
 Git y GitHub
 Git será utilizado como sistema de control de versiones para registrar los cambios realizados durante el desarrollo, mientras que GitHub permitirá almacenar el repositorio privado y facilitar el trabajo colaborativo entre los integrantes del equipo.
