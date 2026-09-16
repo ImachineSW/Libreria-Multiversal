@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php"; // pide una vez la conexion a la db
+require_once "./config/conexion.php"; // pide una vez la conexion a la db
 
 $sql = "SELECT id, nombre, precio, autor, formato, imagen, genero, editorial, año, idioma, sinopsis FROM libros"; // le asigna la consulta a la db
 $resultado = mysqli_query($conexion, $sql); // ejecuta la consulta y la guarda en la variable resultado

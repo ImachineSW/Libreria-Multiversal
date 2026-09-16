@@ -1,5 +1,5 @@
 <?php
-require_once "../conexion.php"; // pide una vez la conexion a la db
+require_once "../config/conexion.php"; // pide una vez la conexion a la db
 
 $id = (int)$_GET['id']; // obtiene el valor de la id de la url y la transforma a entero para que no haya problemas de seguridad
 $sql = "SELECT id, nombre, precio, autor, formato, imagen, genero, editorial, año, idioma, sinopsis FROM libros WHERE id = $id"; // le asigna la consulta a la db
