@@ -11,8 +11,8 @@ $resultado = mysqli_query($conexion, $sql); // ejecuta la consulta y la guarda e
 
     <head>
         <title>Catálogo</title> <!--Titulo-->
-        <link rel="icon" type="image/png" href="./img/favicon.png"> <!--Prueba de favicon (la imagen que aparece al lado del titulo en el tab)-->
-        <link rel="stylesheet" href="./css/catalogo.css"> <!--Link a archivo de estilo-->
+        <link rel="icon" type="image/png" href="./public/img/favicon.png"> <!--Prueba de favicon (la imagen que aparece al lado del titulo en el tab)-->
+        <link rel="stylesheet" href="./public/css/catalogo.css"> <!--Link a archivo de estilo-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--etiqueta para que la pagina sea responsive-->
         <meta charset="UTF-8">
     </head>
@@ -26,7 +26,7 @@ $resultado = mysqli_query($conexion, $sql); // ejecuta la consulta y la guarda e
                     <tr>
                         <td>
                             <a href="./index.php">
-                                <img src="./img/multiversal.png" alt="Logo de Multiversal Librería" class="logo">
+                                <img src="./public/img/multiversal.png" alt="Logo de Multiversal Librería" class="logo">
                             </a>
                         </td>
                         <td class="centro">
@@ -37,10 +37,10 @@ $resultado = mysqli_query($conexion, $sql); // ejecuta la consulta y la guarda e
                         </td>
                         <td class="derecha">
                             <a href="./carrito/carrito.html">
-                                <img src="./img/carrito.png" alt="Carrito icon" class="icono">
+                                <img src="./public/img/carrito.png" alt="Carrito icon" class="icono">
                             </a>
                             <a href="./sesion/login/login.html">
-                                <img src="./img/usuario.png" alt="Usuario icon." class="icono">
+                                <img src="./public/img/usuario.png" alt="Usuario icon." class="icono">
                             </a>
                         </td>
                     </tr>
@@ -125,10 +125,10 @@ $resultado = mysqli_query($conexion, $sql); // ejecuta la consulta y la guarda e
                 </div>
                 <div>
                     <span>Contacto</span>
-                    <p><img src="./img/phone.png" alt="" class="sm"> 2401-1010*</p>
-                    <p><img src="./img/whatsapp.png" alt="" class="sm"> 091285193</p>
-                    <p><img src="./img/instagram.png" alt="" class="sm"> multiversallibreria</p>
-                    <p><img src="./img/email.png" alt="" class="sm"> multiversallibreria@gmail.com</p>
+                    <p><img src="./public/img/phone.png" alt="" class="sm"> 2401-1010*</p>
+                    <p><img src="./public/img/whatsapp.png" alt="" class="sm"> 091285193</p>
+                    <p><img src="./public/img/instagram.png" alt="" class="sm"> multiversallibreria</p>
+                    <p><img src="./public/img/email.png" alt="" class="sm"> multiversallibreria@gmail.com</p>
                 </div>
                 <div>
                     <span>Horarios</span>
@@ -152,14 +152,14 @@ $resultado = mysqli_query($conexion, $sql); // ejecuta la consulta y la guarda e
                 <table>
                     <tr>
                         <td>© Copyright / Multiversal</td>
-                        <td class="derecha"><img src="./img/imachine.png" alt="Logo de ImachineSW."></td>
+                        <td class="derecha"><img src="./public/img/imachine.png" alt="Logo de ImachineSW."></td>
                     </tr>
                 </table>
             </div>
 
         </footer>
-    <script src="./js/storage.js"></script>
-    <script src="./js/app.js"></script>
+    <script src="./public/js/storage.js"></script>
+    <script src="./public/js/app.js"></script>
     </body>
 
 </html>
