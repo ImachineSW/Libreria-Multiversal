@@ -8,7 +8,5 @@ $conexion = mysqli_connect($server, $user, $passwd, $db); // se la asgina la con
 
 if (!$conexion) {
     die("Conexión fallida: " . mysqli_connect_error()); // muestra mensaje de error si la conexion falla
-} else {
-    echo "conexion realizada correctamente"; // muestra mensaje si la conexion es exitosa
 }
 ?>

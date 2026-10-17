@@ -4,8 +4,8 @@
                 <table>
                     <tr>
                         <td>
-                            <a href="./catalogo.php">
-                                <img src="../public/img/multiversal.png" alt="Logo de Multiversal Librería" class="logo">
+                            <a href="./index.php?pagina=catalogo">
+                                <img src="./public/img/multiversal.png" alt="Logo de Multiversal Librería" class="logo">
                             </a>
                         </td>
                         <td class="centro">
@@ -15,11 +15,11 @@
                             </div>
                         </td>
                         <td class="derecha">
-                            <a href="./carrito.php">
-                                <img src="../public/img/carrito.png" alt="Carrito icon" class="icono">
+                            <a href="./index.php?pagina=carrito">
+                                <img src="./public/img/carrito.png" alt="Carrito icon" class="icono">
                             </a>
-                            <a href="./login.php">
-                                <img src="../public/img/usuario.png" alt="Usuario icon." class="icono">
+                            <a href="./index.php?pagina=login">
+                                <img src="./public/img/usuario.png" alt="Usuario icon." class="icono">
                             </a>
                         </td>
                     </tr>

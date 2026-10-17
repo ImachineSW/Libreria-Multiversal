@@ -3,10 +3,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="../public/img/favicon.png">
+    <link rel="icon" type="image/png" href="./public/img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear cuenta</title>
-    <link rel="stylesheet" href="../public/css/sesion.css">
+    <link rel="stylesheet" href="./public/css/sesion.css">
 </head>
 <body>
 
@@ -70,7 +70,7 @@
 
         <div class="register">
             ¿Ya tenés una cuenta?
-            <a href="./login.php">Iniciar sesión</a>
+            <a href="./index.php?pagina=login">Iniciar sesión</a>
         </div>
 
     </div>

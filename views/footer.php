@@ -11,10 +11,10 @@
                 </div>
                 <div>
                     <span>Contacto</span>
-                    <p><img src="../public/img/phone.png" alt="" class="sm"> 2401-1010*</p>
-                    <p><img src="../public/img/whatsapp.png" alt="" class="sm"> 091285193</p>
-                    <p><img src="../public/img/instagram.png" alt="" class="sm"> multiversallibreria</p>
-                    <p><img src="../public/img/email.png" alt="" class="sm"> multiversallibreria@gmail.com</p>
+                    <p><img src="./public/img/phone.png" alt="" class="sm"> 2401-1010*</p>
+                    <p><img src="./public/img/whatsapp.png" alt="" class="sm"> 091285193</p>
+                    <p><img src="./public/img/instagram.png" alt="" class="sm"> multiversallibreria</p>
+                    <p><img src="./public/img/email.png" alt="" class="sm"> multiversallibreria@gmail.com</p>
                 </div>
                 <div>
                     <span>Horarios</span>
@@ -38,7 +38,7 @@
                 <table>
                     <tr>
                         <td>© Copyright / Multiversal</td>
-                        <td class="derecha"><img src="../public/img/imachine.png" alt="Logo de ImachineSW."></td>
+                        <td class="derecha"><img src="./public/img/imachine.png" alt="Logo de ImachineSW."></td>
                     </tr>
                 </table>
             </div>
