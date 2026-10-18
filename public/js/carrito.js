@@ -32,7 +32,7 @@ function mostrarCarrito() {
         
         div.innerHTML = `
         <h3>${libro.nombre}</h3>
-        <img src=".${libro.imagen}" alt="${libro.nombre}">
+        <img src="${libro.imagen}" alt="${libro.nombre}">
         <h4>Cantidad: ${libro.cantidad}</h4>
         <button class="eliminar">ELIMINAR</button>
         `; // por cada libro en el array agrega eso
