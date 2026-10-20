@@ -332,3 +332,50 @@ footer span {
         width: 60px;
     }
 }
+
+/*Detalle del pedido*/
+.pedido-detalle {
+    max-width: 900px;
+    padding: 2rem;
+}
+
+.pedido-detalle h1 {
+    margin-bottom: 20px;
+}
+
+.pedido-detalle p {
+    margin: 8px 0;
+    font-size: 1.05rem;
+}
+
+.estado {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+}
+
+.detalle-pedido {
+    width: 100%;
+    margin: 25px 0;
+    border-collapse: collapse;
+}
+
+.detalle-pedido th,
+.detalle-pedido td {
+    width: auto;
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #EA4573;
+}
+
+.detalle-pedido .num {
+    text-align: right;
+}
+
+.total-pedido {
+    text-align: right;
+    font-size: 1.3rem !important;
+}

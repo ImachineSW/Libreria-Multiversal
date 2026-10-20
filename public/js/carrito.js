@@ -82,21 +82,3 @@ function vaciarCarrito() {
 document.addEventListener("DOMContentLoaded", () => {
     mostrarCarrito();
 });
- const formulario = document.querySelector("#form-confirmar-pedido");
-    if (formulario) {
-        formulario.addEventListener("submit", (evento) => {
-            const carrito = cargarCarrito();
-            if (!Array.isArray(carrito) || carrito.length === 0) {
-                evento.preventDefault();
-                mostrarMensaje("El carrito está vacío.");
-                return;
-            }
-
-            // Enviamos únicamente identificadores y cantidades. El servidor consulta los precios reales.
-            const carritoParaServidor = carrito.map(libro => ({
-                id: Number(libro.id),
-                cantidad: Number(libro.cantidad)
-            }));
-            document.querySelector("#carrito-json").value = JSON.stringify(carritoParaServidor);
-        });
-    }

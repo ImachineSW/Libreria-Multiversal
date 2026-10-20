@@ -24,3 +24,23 @@ INSERT INTO libros (id, nombre, precio, autor, formato, imagen, genero, editoria
 (6, 'Heartstopper', 850, 'Alice Oseman', 'Fisico', './public/img/Libros/heartstopper.webp', 'Ficción Literaria', 'Kobold Publishing', 2023, 'Español', 'Una historia de amor y amistad que explora temas de identidad y aceptación.'),
 (7, 'The Lord of the Rings', 670, 'J. R. R. Tolkien', 'Fisico', './public/img/Libros/lordofthering.webp', 'Fantasía', 'Allen & Unwin', 1954, 'Inglés', 'Una épica obra de fantasía que sigue el viaje de Frodo Baggins para destruir el Anillo Único.');
 
+-- Pedidos: se guarda un pedido por cada compra y su detalle (un registro por libro comprado)
+CREATE TABLE pedidos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  total DECIMAL(10,2) NOT NULL,
+  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  estado VARCHAR(20) NOT NULL DEFAULT 'Pendiente'
+);
+
+-- Si la tabla pedidos ya estaba creada sin la columna estado, ejecutar solo esta linea:
+-- ALTER TABLE pedidos ADD estado VARCHAR(20) NOT NULL DEFAULT 'Pendiente';
+
+CREATE TABLE detalle_pedido (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  pedido_id INT NOT NULL,
+  libro_id INT NOT NULL,
+  cantidad INT NOT NULL,
+  precio_unitario DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+  FOREIGN KEY (libro_id) REFERENCES libros(id)
+);

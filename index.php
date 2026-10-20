@@ -6,6 +6,10 @@ require_once __DIR__ . '/models/libroModel.php'; // Se carga el modelo de libros
 
 require_once __DIR__ . '/controllers/libroController.php'; // Se carga el controlador de libros
 
+require_once __DIR__ . '/models/pedidoModel.php'; // Se carga el modelo de pedidos
+
+require_once __DIR__ . '/controllers/pedidoController.php'; // Se carga el controlador de pedidos
+
 
 $paginaSolicitada = $_GET['pagina'] ?? 'catalogo'; // Se define la pagina que se va a mostrar segun lo que se ingrese en la url, si no se ingresa nada se muestra el catalogo
 
@@ -31,6 +35,16 @@ switch ($paginaSolicitada) {
     case 'libro': // Si se ingresa 'libro' se muestra el libro
         $libroController = new LibroController($conexion); // Se crea el controlador de libros
         $libroController->mostrarDetalle(); // Se muestra el detalle del libro
+        break;
+
+    case 'pedido': // Si se ingresa 'pedido' se guarda el pedido enviado desde el carrito
+        $pedidoController = new PedidoController($conexion); // Se crea el controlador de pedidos
+        $pedidoController->crear(); // Se guarda el pedido y su detalle
+        break;
+
+    case 'pedido_detalle': // Si se ingresa 'pedido_detalle' se muestra el detalle del pedido realizado
+        $pedidoController = new PedidoController($conexion); // Se crea el controlador de pedidos
+        $pedidoController->detalle(); // Se muestra el detalle del pedido
         break;
 
     default: // Si no se ingresa nada se muestra la pagina no encontrada

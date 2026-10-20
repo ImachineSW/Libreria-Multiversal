@@ -37,6 +37,7 @@
     <script src="./public/js/storage.js"></script>
     <script src="./public/js/carrito.js"></script>
     <script src="./public/js/app.js"></script>
+    <script src="./public/js/pedido.js"></script>
     </body>
 
 </html>
