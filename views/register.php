@@ -1,4 +1,4 @@
-<!--mathias 07/06/2026-->
+<!--mathias 20/10/2026-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,14 +8,20 @@
     <title>Crear cuenta</title>
     <link rel="stylesheet" href="./public/css/sesion.css">
 </head>
-<body>
 
+<body>
     <div class="container">
 
         <h1>Crear cuenta</h1>
         <p class="subtitle">Complete sus datos para registrarse</p>
 
-        <form action="#" method="POST">
+        <?php if ($mensaje !== ""): ?>
+            <p>
+                <?= htmlspecialchars($mensaje, ENT_QUOTES, "UTF-8") ?>
+            </p>
+        <?php endif; ?>
+
+        <form action="./index.php?pagina=register" method="POST">
 
             <div class="input-group">
                 <label for="nombre">Nombre completo</label>
@@ -44,6 +50,7 @@
                     id="password"
                     name="password"
                     placeholder="••••••••"
+                    minlength="8"
                     required>
             </div>
 
@@ -56,17 +63,11 @@
                     placeholder="••••••••"
                     required>
             </div>
-            
-            <button type="submit">Crear cuenta</button>
 
+            <button type="submit">Crear cuenta</button>
         </form>
 
         <hr>
-
-        <div class="social">
-            <button type="button">Google</button>
-            <button type="button">Facebook</button>
-        </div>
 
         <div class="register">
             ¿Ya tenés una cuenta?
@@ -74,6 +75,5 @@
         </div>
 
     </div>
-
 </body>
 </html>

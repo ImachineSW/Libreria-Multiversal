@@ -15,6 +15,14 @@ CREATE TABLE libros (
   sinopsis TEXT
 );
 
+CREATE TABLE IF NOT EXISTS usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    rol ENUM('cliente', 'admin') NOT NULL DEFAULT 'cliente'
+);
+
 INSERT INTO libros (id, nombre, precio, autor, formato, imagen, genero, editorial, `año`, idioma, sinopsis) VALUES
 (1, 'El Héroe Perdido (Volumen 1)', 875, 'Rick Riordan', 'Físico', './public/img/Libros/elheroeperdido.jpg', 'Fantasía', 'Montena', 2025, 'Español', 'Tras ser atacados por espíritus de la tormenta, los tres son llevados al Campamento Mestizo donde descubren que son semidioses: Jason es hijo de Zeus, Piper de Afrodita y Leo de Hefesto. Su destino es cumplir una profecía que exige que Leo y Piper liberen a la diosa Hera de su prisión antes del solsticio de invierno, para impedir que los gigantes despierten a la diosa Gaia.'),
 (2, 'El Arte de la Guerra', 723, 'Sun Tzu', 'Fisico', './public/img/Libros/elartedelaguerra.webp', 'Filosofía', 'Penguin Random House', 2020, 'Español', 'Tratado de estrategia militar y táctica, considerado uno de los textos más antiguos y reconocidos en la historia de la guerra.'),
