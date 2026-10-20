@@ -23,3 +23,4 @@ INSERT INTO libros (id, nombre, precio, autor, formato, imagen, genero, editoria
 (5, 'Voces Anonimas', 490, 'Guillermo Lockhart', 'Fisico', './public/img/Libros/vocesanonimas.webp', 'Ficción Literaria', 'Editorial Planeta', 2022, 'Español', 'Una obra maestra del realismo mágico latinoamericano que combina elementos de fantasía y realidad.'),
 (6, 'Heartstopper', 850, 'Alice Oseman', 'Fisico', './public/img/Libros/heartstopper.webp', 'Ficción Literaria', 'Kobold Publishing', 2023, 'Español', 'Una historia de amor y amistad que explora temas de identidad y aceptación.'),
 (7, 'The Lord of the Rings', 670, 'J. R. R. Tolkien', 'Fisico', './public/img/Libros/lordofthering.webp', 'Fantasía', 'Allen & Unwin', 1954, 'Inglés', 'Una épica obra de fantasía que sigue el viaje de Frodo Baggins para destruir el Anillo Único.');
+
