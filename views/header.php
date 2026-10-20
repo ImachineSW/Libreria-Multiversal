@@ -9,10 +9,7 @@
                             </a>
                         </td>
                         <td class="centro">
-                            <div class="search-bar">
-                                <label for="busqueda">🔍︎</label>
-                                <input type="text" placeholder="Búsqueda...">
-                            </div>
+                            
                         </td>
                         <td class="derecha">
                             <a href="./index.php?pagina=carrito">
