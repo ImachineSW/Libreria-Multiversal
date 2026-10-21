@@ -68,6 +68,10 @@ switch ($paginaSolicitada) {
         $libroController->mostrarDetalle(); // Se muestra el detalle del libro
         break;
 
+    case 'panel': // Si se ingresa 'panel' se muestra el panel
+        require __DIR__ . '/views/panel.php'; // Se muestra el panel
+        break;
+
     default: // Si no se ingresa nada se muestra la pagina no encontrada
         http_response_code(404);
         echo 'Página no encontrada.';

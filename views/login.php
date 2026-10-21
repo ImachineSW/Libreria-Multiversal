@@ -13,16 +13,7 @@
         <a href="./index.php?pagina=catalogo" class="back-btn">← Volver al catálogo</a>
 
         <?php if (isset($_SESSION["usuario_id"])): ?>
-            <h1>Mi cuenta</h1>
-            <p class="subtitle">
-                Bienvenido, <?= htmlspecialchars($_SESSION["nombre"], ENT_QUOTES, "UTF-8") ?>.
-            </p>
-            <p>Tu rol es: <?= htmlspecialchars($_SESSION["rol"], ENT_QUOTES, "UTF-8") ?></p>
-
-            <form action="./index.php?pagina=login" method="POST">
-                <input type="hidden" name="accion" value="logout">
-                <button type="submit">Cerrar sesión</button>
-            </form>
+            <?php header('Location: ./index.php?pagina=catalogo')?>
         <?php else: ?>
             <h1>Iniciar sesión</h1>
             <p class="subtitle">Ingrese a su cuenta</p>
