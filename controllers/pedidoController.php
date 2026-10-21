@@ -10,7 +10,6 @@ class PedidoController {
 
     // recibe el carrito enviado por el navegador, lo valida y guarda el pedido
     public function crear() {
-        session_start(); // se usa la sesion para recordar los pedidos hechos por esta persona
         header('Content-Type: application/json; charset=UTF-8');
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') { // solo se acepta el metodo POST
@@ -61,7 +60,6 @@ class PedidoController {
 
     // muestra el detalle de un pedido (id, fecha, estado y libros comprados)
     public function detalle() {
-        session_start();
 
         // si no se ingresa un id valido, o el pedido no se hizo en esta sesion, muestra pedido no encontrado
         if (!isset($_GET['id']) || !ctype_digit((string) $_GET['id'])

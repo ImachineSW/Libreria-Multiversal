@@ -85,12 +85,23 @@ button {
 }
 
 .contenedor {
-    margin: 10px;
+    margin: 40px auto;
     padding: 10px;
     background-color: white;
     border-radius: 10px;
     align-items: center;
     font-size: large;
+    width: 90%;
+}
+
+.contenedor table {
+    margin: 10px auto;
+    width: 80%;
+    border-collapse: collapse;
+}
+
+.contenedor table td {
+    padding: 10px;
 }
 
 #opciones {
@@ -155,29 +166,63 @@ footer span {
     width: 20px;
 }
 
-.mensaje-flotante {
-    z-index: 1000;
-    position: fixed;
-    width: 90%;
-    height: max-content;
-    align-items: center;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0 auto;
-    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
-    color: white;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    border: 1px solid black;
-    font-size: 0.9rem;
-    text-align: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+
+@media (max-width: 1024px) {
+    .banner {
+        height: 12vh;
+    }
+    .logo {
+        width: 25vw;
+    }
+    .derecha img {
+        width: 4vw;
+    }
+    .multiversal {
+        flex-wrap: wrap;
+    }
+    .creditos img {
+        width: 60px;
+    }
 }
 
-.mensaje-flotante-visible {
-    opacity: 1;
-    transform: translateX(-50%) translateY(10%);
+
+
+/*Tablet 768px*/
+@media (max-width: 768px) and (min-width: 426px) {
+    .banner {
+        height: 12vh;
+    }
+    .logo {
+        width: 30vw;
+    }
+    .banner input {
+        width: 80%;
+    }
+    .derecha img {
+        width: 5vw;
+    }
 }
+/*=================*/
+
+/*Celular 425px*/
+@media (max-width: 425px) {
+    .banner {
+        height: 10vh;
+    }
+    .logo {
+        width: 30vw;
+    }
+    .search-bar {
+        width: 100%;
+    }
+    .banner table {
+        height: 100%;
+    }
+    .banner input {
+        width: 80%;
+    }
+    .derecha img {
+        width: 8vw;
+    }
+} 
+/*=================*/
