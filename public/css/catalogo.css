@@ -6,6 +6,7 @@
 }
 
 html {
+    scroll-behavior: smooth;
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
 }
 
@@ -30,6 +31,7 @@ header {
     width: 100%;
     table-layout: fixed;
 }
+
 table td {
     width: 33%;
 }
@@ -50,14 +52,12 @@ table td {
 
 .buscador {
     color: #EA4573;
-    padding: 2%;
     border-radius: 10px;
-    border-bottom: 2px solid black;
 }
 
 .buscador form {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     justify-content: center;
     min-height: max-content;
 }
@@ -80,7 +80,7 @@ table td {
     border: 2px solid #EA4573;
     border-radius: 10px;
     padding: 5px;
-    width: 30%;
+    width: 80%;
 }
 
 .resumen-busqueda {
@@ -107,12 +107,6 @@ table td {
     transform: scale(1.1);
 }
 
-.wrap { 
-    margin: 3%;
-    background-color: white;
-    border-radius: 10px;
-}
-
 #contenedor {
     height: max-content;
     display: grid;
@@ -120,6 +114,9 @@ table td {
     gap: 20px;
     justify-content: center;
     min-height: max-content;
+    margin: 3%;
+    background-color: white;
+    border-radius: 10px;
 }
 
 a {

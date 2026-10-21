@@ -19,7 +19,8 @@ switch ($paginaSolicitada) {
         break;
 
     case 'carrito': // Si se ingresa 'carrito' se muestra el carrito
-        require __DIR__ . '/views/carrito.php'; // Se muestra el carrito
+        $libroController = new LibroController($conexion); // Se crea el controlador de libros
+        $libroController->carrito(); // Se muestra el carrito
         break;
 
     case 'register': // Si se ingresa 'register' se muestra el registro

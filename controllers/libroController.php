@@ -28,6 +28,14 @@ class LibroController {
 
     // muestra el detalle del libro
     public function mostrarDetalle() {
+
+    $busqueda = trim($_GET['q'] ?? '');
+        $busqueda = mb_substr($busqueda, 0, 50);
+
+        $resultado = $this->libroModel->listarLibros(
+            $busqueda
+        );
+
     if (!isset($_GET['id']) || !is_numeric($_GET['id'])) { // si no se ingresa un id o no es numerico muestra la pagina no encontrada
         http_response_code(404);
         echo "<p>Libro no encontrado.</p>"; // muestra el mensaje de libro no encontrado
@@ -49,5 +57,19 @@ class LibroController {
     $libro = mysqli_fetch_assoc($resultado);
 
     require __DIR__ . '/../views/productos.php';
+    }
+
+    public function carrito() {
+
+        $busqueda = trim($_GET['q'] ?? '');
+            $busqueda = mb_substr($busqueda, 0, 50);
+
+            $resultado = $this->libroModel->listarLibros(
+                $busqueda
+            );
+
+        require __DIR__ . '/../views/carrito.php';
+    }
+
 }
-}
+
