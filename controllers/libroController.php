@@ -11,7 +11,12 @@ class LibroController {
     // muestra el catalogo
     public function catalogo() {
 
-        $resultado = $this->libroModel->obtenerTodos();
+        $busqueda = trim($_GET['q'] ?? '');
+        $busqueda = mb_substr($busqueda, 0, 50);
+
+        $resultado = $this->libroModel->listarLibros(
+            $busqueda
+        );
 
         if ($resultado === false) {
             die("Error al consultar los libros: " .
