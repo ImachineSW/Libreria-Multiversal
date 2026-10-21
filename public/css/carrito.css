@@ -14,7 +14,6 @@ header {
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: white;
     box-shadow: 0px 5px 10px #DE3A3E88;
 }
 
@@ -26,6 +25,7 @@ header {
     border-bottom: 2px solid black;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
+    background-color: white;
 }
 
 .banner table {
@@ -42,6 +42,7 @@ table td {
 
 .derecha {
     position: relative;
+    height: 100%;
     text-align: end;
 }
 
@@ -212,21 +213,67 @@ main {
     color: #EA4573;
 }
 
+/*Detalle del pedido*/
+.pedido-detalle {
+    max-width: 900px;
+    padding: 2rem;
+}
+
+.pedido-detalle h1 {
+    margin-bottom: 20px;
+}
+
+.pedido-detalle p {
+    margin: 8px 0;
+    font-size: 1.05rem;
+}
+
+.estado {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+}
+
+.detalle-pedido {
+    width: 100%;
+    margin: 25px 0;
+    border-collapse: collapse;
+}
+
+.detalle-pedido th, .detalle-pedido td {
+    width: auto;
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #EA4573;
+}
+
+.detalle-pedido .num {
+    text-align: right;
+}
+
+.total-pedido {
+    text-align: right;
+    font-size: 1.3rem !important;
+}
+
 /*Footer*/
 .multiversal {
     display: flex;
     border-top: 2px solid white;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     color: white;
-    padding: 5%;
-    gap: 8%;
+    padding: 20px;
+    gap: 20px;
 }
 
 .multiversal div {
-    width: 250px;
+    width: fit-content;
     padding: 10px;
 }
 
@@ -293,14 +340,13 @@ footer span {
 /*Media queries*/
 @media (max-width: 1024px) {
     .banner {
-        height: 20%;
+        height: 12vh;
     }
     .logo {
-        width: 30vh;
-        min-width: 250px;
+        width: 25vw;
     }
     .derecha img {
-        width: 100%;
+        width: 4vw;
     }
     .carrito a {
         font-size: 20px;
@@ -333,49 +379,44 @@ footer span {
     }
 }
 
-/*Detalle del pedido*/
-.pedido-detalle {
-    max-width: 900px;
-    padding: 2rem;
-}
 
-.pedido-detalle h1 {
-    margin-bottom: 20px;
-}
 
-.pedido-detalle p {
-    margin: 8px 0;
-    font-size: 1.05rem;
+/*Tablet 768px*/
+@media (max-width: 768px) and (min-width: 426px) {
+    .banner {
+        height: 12vh;
+    }
+    .logo {
+        width: 30vw;
+    }
+    .banner input {
+        width: 80%;
+    }
+    .derecha img {
+        width: 5vw;
+    }
 }
+/*=================*/
 
-.estado {
-    display: inline-block;
-    padding: 2px 12px;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
-}
-
-.detalle-pedido {
-    width: 100%;
-    margin: 25px 0;
-    border-collapse: collapse;
-}
-
-.detalle-pedido th,
-.detalle-pedido td {
-    width: auto;
-    padding: 12px 10px;
-    text-align: left;
-    border-bottom: 1px solid #EA4573;
-}
-
-.detalle-pedido .num {
-    text-align: right;
-}
-
-.total-pedido {
-    text-align: right;
-    font-size: 1.3rem !important;
-}
+/*Celular 425px*/
+@media (max-width: 425px) {
+    .banner {
+        height: 10vh;
+    }
+    .logo {
+        width: 30vw;
+    }
+    .search-bar {
+        width: 100%;
+    }
+    .banner table {
+        height: 100%;
+    }
+    .banner input {
+        width: 80%;
+    }
+    .derecha img {
+        width: 8vw;
+    }
+} 
+/*=================*/

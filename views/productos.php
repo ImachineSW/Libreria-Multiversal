@@ -13,7 +13,7 @@
     <body>
 
         <!--Header-->
-        <?php require_once __DIR__ . "/header.php"; ?>
+        <?php require __DIR__ . "/header.php"; ?>
 
         <main>
             <!--Creacion del Articulo, Dividido-->
@@ -46,7 +46,7 @@
             </div>
         </main>
 
-        <?php require_once __DIR__ . "/footer.php"; ?>
+        <?php require __DIR__ . "/footer.php"; ?>
     <script src="./public/js/storage.js"></script>
     <script src="./public/js/app.js"></script>
     </body>

@@ -13,7 +13,6 @@ header {
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: white;
     box-shadow: 0px 5px 10px #DE3A3E88;
 }
 
@@ -25,6 +24,7 @@ header {
     border-bottom: 2px solid black;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
+    background-color: white;
 }
 
 .banner table {
@@ -72,77 +72,6 @@ table td {
 
 .icono:hover {
     transform: scale(1.1);
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5vw;
-    padding: 1%;
-    border-bottom-left-radius: 1vw;
-    border-bottom-right-radius: 1vw;
-}
-
-nav button {
-    background-color: white;
-    border: none;
-    text-transform: uppercase;
-    font-size: 10px;
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 5px;
-    transition: all 0.3s ease-out;
-}
-
-summary:hover, details[open] summary {
-    background-color: #EA4573;
-    color: white;
-    cursor: pointer;
-    transform: scale(1.5) translateY(-2px);
-}
-
-nav summary {
-    background-color: white;
-    border: none;
-    text-transform: uppercase;
-    font-size: 10px;
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 5px;
-    transition: all 0.3s ease-out;
-}
-
-.generos {
-    position: absolute;
-    background-color: white;
-    width: max-content;
-    padding: 20px;
-    margin-top: 2px;
-    border-top: 2px solid #EA4573;
-    border-radius: 10px;
-    transform: translateX(-40px);
-    box-shadow: 0px 5px 5px #00000088;
-}
-
-.generos ul {
-    list-style: none;
-}
-
-.generos a {
-    color: black;
-    text-decoration: none;
-}
-
-.generos a:hover {
-    color: #EA4573;
-}
-
-nav button:hover {
-    background-color: #EA4573;
-    color: white;
-    cursor: pointer;
-    transform: scale(1.5) translateY(-2px);
 }
 
 #contenedor {
@@ -219,16 +148,16 @@ a {
     border-top: 2px solid white;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: space-evenly;
     align-items: center;
     color: white;
-    padding: 50px;
-    gap: 8%;
+    padding: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .multiversal div {
-    width: 250px;
+    width: fit-content;
     padding: 10px;
 }
 
@@ -306,11 +235,6 @@ footer span {
     .creditos img {
         width: 10vw;
     }
-    nav {
-        gap: 2vw;
-        height: 6vh;
-        font-size: 0.8rem;
-    }
 }
 /*===================*/
 
@@ -327,21 +251,6 @@ footer span {
     }
     .derecha img {
         width: 5vw;
-    }
-    nav {
-        height: 8vh;
-        font-size: 0.8rem;
-        gap: 5vw;
-        overflow-x: scroll;
-        justify-content: flex-start;
-    }
-    nav button {
-        display: inline-block;
-        overflow-wrap: normal;
-        left: 0;
-    }
-    nav summary {
-        width: max-content;
     }
     .tarjeta {
         width: 150px;
@@ -380,21 +289,6 @@ footer span {
     }
     .derecha img {
         width: 8vw;
-    }
-    nav {
-        height: 8vh;
-        font-size: 0.8rem;
-        gap: 5vw;
-        overflow-x: scroll;
-        justify-content: flex-start;
-    }
-    nav button {
-        display: inline-block;
-        overflow-wrap: normal;
-        left: 0;
-    }
-    nav summary {
-        width: max-content;
     }
     #contenedor {
         grid-template-columns: repeat(2, 1fr); 
