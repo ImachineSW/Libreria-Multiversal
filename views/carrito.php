@@ -10,10 +10,12 @@
         <meta charset="UTF-8">
     </head>
 
-    <body>
-
+    <header>
         <!--Header-->
         <?php require __DIR__ . "/header.php"; ?>
+    </header>
+
+    <body>
         
         <main>
             <div id="mensaje-flotante" class="mensaje-flotante"></div>

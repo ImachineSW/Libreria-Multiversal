@@ -10,10 +10,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--etiqueta para que la pagina sea responsive-->
     </head>
 
-    <body>
-
+    <header>
         <!--Header-->
         <?php require __DIR__ . "/header.php"; ?>
+    </header>
+
+    <body>
 
         <main>
             <!--Creacion del Articulo, Dividido-->

@@ -21,7 +21,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #EA4573;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
     background-color: white;
@@ -105,6 +105,45 @@ table td {
 
 .icono:hover {
     transform: scale(1.1);
+}
+
+.generos {
+    padding: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    background-color: white;
+    border-radius: 10px;
+    margin: 3%;
+}
+
+.genero {
+    color: #EA4573;
+    font-weight: bold;
+    background-color: white;
+    border: 0px;
+    padding: 5px;
+    border-radius: 10px;
+    transition: all 0.3s ease-out;
+}
+
+.genero:hover {
+    color: white;
+    font-weight: bold;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    border: 0px;
+    transform: scale(1.1);
+}
+
+.borrar-filtros {
+    color: black;
+    font-size: small;
+}
+
+.borrar-filtros:hover {
+    color: black;
+    text-decoration: underline;
 }
 
 #contenedor {

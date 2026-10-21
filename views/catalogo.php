@@ -10,12 +10,26 @@
         <meta charset="UTF-8">
     </head>
 
-    <body> 
+    <header>
+
         <!--Header-->
         <?php require __DIR__ . "/header.php"; ?>
+
+    </header>
+
+    <body>
  
         <!--Catálogo de productos-->
         <main>
+
+        <div class="generos">
+            <a class="genero" href="index.php?pagina=catalogo&genero=Terror">Terror</a>
+            <a class="genero" href="index.php?pagina=catalogo&genero=Fantasía">Fantasía</a>
+            <a class="genero" href="index.php?pagina=catalogo&genero=Ficción%20Literaria">Ficción Literaria</a>
+            <a class="genero" href="index.php?pagina=catalogo&genero=Filosofía">Filosofía</a>
+            <a class="borrar-filtros" href="index.php?pagina=catalogo">Borrar filtros</a>
+        </div>
+
         <div id="mensaje-flotante" class="mensaje-flotante"></div>
             <div id="contenedor">
                 <?php if ($resultado && !empty($resultado) > 0): //devuelve el numero de filas que hay en la tabla ?> 

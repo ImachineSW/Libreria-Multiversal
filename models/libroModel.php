@@ -8,7 +8,7 @@ class LibroModel {
         $this->conexion = $conexion;
     }
 
-    public function listarLibros($busqueda = "") { //devuelve todos los libros cargados en el base de datos
+    public function listarLibros($busqueda = "", $genero = "") { //devuelve todos los libros cargados en el base de datos
         $sql = "SELECT * FROM libros WHERE 1=1";
         $tipos = '';
         $params = [];
@@ -19,6 +19,12 @@ class LibroModel {
             $patron = '%' . $this->escaparLike($busqueda) . '%';
             $params[] = $patron;
             $params[] = $patron;
+        }
+
+        if ($genero !== "") {
+            $sql .= " AND genero = ?";
+            $tipos .= 's';
+            $params[] = $genero;
         }
 
         $sql .= " ORDER BY nombre";

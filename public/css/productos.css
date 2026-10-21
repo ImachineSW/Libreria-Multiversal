@@ -21,7 +21,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #EA4573;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
     background-color: white;
