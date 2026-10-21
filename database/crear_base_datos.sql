@@ -15,14 +15,6 @@ CREATE TABLE libros (
   sinopsis TEXT
 );
 
-CREATE TABLE IF NOT EXISTS usuario (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    rol ENUM('cliente', 'admin') NOT NULL DEFAULT 'cliente'
-);
-
 INSERT INTO libros (id, nombre, precio, autor, formato, imagen, genero, editorial, `año`, idioma, sinopsis) VALUES
 (1, 'El Héroe Perdido (Volumen 1)', 875, 'Rick Riordan', 'Físico', './public/img/Libros/elheroeperdido.jpg', 'Fantasía', 'Montena', 2025, 'Español', 'Tras ser atacados por espíritus de la tormenta, los tres son llevados al Campamento Mestizo donde descubren que son semidioses: Jason es hijo de Zeus, Piper de Afrodita y Leo de Hefesto. Su destino es cumplir una profecía que exige que Leo y Piper liberen a la diosa Hera de su prisión antes del solsticio de invierno, para impedir que los gigantes despierten a la diosa Gaia.'),
 (2, 'El Arte de la Guerra', 723, 'Sun Tzu', 'Fisico', './public/img/Libros/elartedelaguerra.webp', 'Filosofía', 'Penguin Random House', 2020, 'Español', 'Tratado de estrategia militar y táctica, considerado uno de los textos más antiguos y reconocidos en la historia de la guerra.'),
@@ -33,15 +25,19 @@ INSERT INTO libros (id, nombre, precio, autor, formato, imagen, genero, editoria
 (7, 'The Lord of the Rings', 670, 'J. R. R. Tolkien', 'Fisico', './public/img/Libros/lordofthering.webp', 'Fantasía', 'Allen & Unwin', 1954, 'Inglés', 'Una épica obra de fantasía que sigue el viaje de Frodo Baggins para destruir el Anillo Único.');
 
 -- Pedidos: se guarda un pedido por cada compra y su detalle (un registro por libro comprado)
-CREATE TABLE pedidos (
+-- Si ya existian las tablas de la version anterior (pedidos y detalle_pedido), borrarlas antes de ejecutar esto:
+-- DROP TABLE detalle_pedido;
+-- DROP TABLE pedidos;
+CREATE TABLE pedido (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  total DECIMAL(10,2) NOT NULL,
+  id_usuario INT NULL, -- NULL mientras la compra pueda hacerla un invitado (sin login)
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  estado VARCHAR(20) NOT NULL DEFAULT 'Pendiente'
+  estado VARCHAR(20) NOT NULL DEFAULT 'pendiente',
+  total DECIMAL(10,2) NOT NULL
 );
 
--- Si la tabla pedidos ya estaba creada sin la columna estado, ejecutar solo esta linea:
--- ALTER TABLE pedidos ADD estado VARCHAR(20) NOT NULL DEFAULT 'Pendiente';
+-- Cuando exista la tabla usuario, vincular el pedido con el usuario (relacion 1:N):
+-- ALTER TABLE pedido ADD CONSTRAINT fk_pedido_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id);
 
 CREATE TABLE detalle_pedido (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,6 +45,6 @@ CREATE TABLE detalle_pedido (
   libro_id INT NOT NULL,
   cantidad INT NOT NULL,
   precio_unitario DECIMAL(10,2) NOT NULL,
-  FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+  FOREIGN KEY (pedido_id) REFERENCES pedido(id),
   FOREIGN KEY (libro_id) REFERENCES libros(id)
 );

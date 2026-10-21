@@ -9,7 +9,7 @@ class PedidoModel {
     }
 
     // obtiene el precio actual de un libro (el precio se toma de la base de datos, no del navegador)
-    private function obtenerPrecio($idLibro) {
+    public function obtenerPrecio($idLibro) {
         $sql = "SELECT precio FROM libros WHERE id = ?"; //busca el precio del libro con parametros por seguridad
         $stmt = mysqli_prepare($this->conexion, $sql); //se prepara la consulta
 
@@ -26,64 +26,63 @@ class PedidoModel {
         return $fila ? $fila["precio"] : null; //devuelve el precio o null si el libro no existe
     }
 
-    // guarda el pedido y su detalle, recibe un array con 'id' y 'cantidad' de cada libro
+    // transaccion: si algo falla al guardar el pedido no se guarda nada a medias
+    public function iniciarTransaccion() {
+        mysqli_begin_transaction($this->conexion);
+    }
+
+    public function confirmarTransaccion() {
+        mysqli_commit($this->conexion);
+    }
+
+    public function cancelarTransaccion() {
+        mysqli_rollback($this->conexion);
+    }
+
+    // crea el pedido, recibe el id del usuario (null si compra un invitado) y el total
     // devuelve el id del pedido creado o false si ocurrio un error
-    public function crearPedido($items) {
-        mysqli_begin_transaction($this->conexion); //si algo falla no se guarda nada a medias
+    public function crearPedido($idUsuario, $totalDelPedido) {
+        $consultaSql = "INSERT INTO pedido (id_usuario, fecha, estado, total) VALUES (?, ?, ?, ?)";
+        $consultaPreparada = mysqli_prepare($this->conexion, $consultaSql);
 
-        try {
-            // calcula el total en el servidor con los precios de la base de datos
-            $total = 0;
-            $lineas = [];
-            foreach ($items as $item) {
-                $precio = $this->obtenerPrecio($item["id"]);
-                if ($precio === null) { //si el libro no existe se cancela el pedido
-                    throw new Exception("Libro inexistente");
-                }
-                $total += $precio * $item["cantidad"];
-                $lineas[] = ["id" => $item["id"], "cantidad" => $item["cantidad"], "precio" => $precio];
-            }
-
-            // inserta el pedido con la fecha y hora actual de Montevideo (no depende del servidor de la base de datos)
-            $stmt = mysqli_prepare($this->conexion, "INSERT INTO pedidos (total, fecha) VALUES (?, ?)");
-            if (!$stmt) {
-                throw new Exception("Error al preparar el pedido");
-            }
-            $total = round($total, 2);
-            $fecha = (new DateTime('now', new DateTimeZone('America/Montevideo')))->format('Y-m-d H:i:s');
-            mysqli_stmt_bind_param($stmt, "ds", $total, $fecha);
-            if (!mysqli_stmt_execute($stmt)) {
-                throw new Exception("Error al guardar el pedido");
-            }
-            $idPedido = mysqli_insert_id($this->conexion); //id del pedido recien creado
-            mysqli_stmt_close($stmt);
-
-            // inserta una fila de detalle por cada libro
-            $stmt = mysqli_prepare($this->conexion,
-                "INSERT INTO detalle_pedido (pedido_id, libro_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)");
-            if (!$stmt) {
-                throw new Exception("Error al preparar el detalle");
-            }
-            foreach ($lineas as $linea) {
-                mysqli_stmt_bind_param($stmt, "iiid", $idPedido, $linea["id"], $linea["cantidad"], $linea["precio"]);
-                if (!mysqli_stmt_execute($stmt)) {
-                    throw new Exception("Error al guardar el detalle");
-                }
-            }
-            mysqli_stmt_close($stmt);
-
-            mysqli_commit($this->conexion); //confirma todo junto
-            return $idPedido;
-
-        } catch (Throwable $e) {
-            mysqli_rollback($this->conexion); //deshace todo si hubo un error
+        if (!$consultaPreparada) {
             return false;
         }
+
+        $estadoInicial = "pendiente";
+        $fecha = (new DateTime('now', new DateTimeZone('America/Montevideo')))->format('Y-m-d H:i:s'); //fecha y hora actual de Montevideo (no depende del servidor de la base de datos)
+        mysqli_stmt_bind_param($consultaPreparada, "issd", $idUsuario, $fecha, $estadoInicial, $totalDelPedido);
+
+        if (!mysqli_stmt_execute($consultaPreparada)) {
+            mysqli_stmt_close($consultaPreparada);
+            return false;
+        }
+
+        mysqli_stmt_close($consultaPreparada);
+
+        // mysqli_insert_id() devuelve el id que genero el AUTO_INCREMENT
+        return mysqli_insert_id($this->conexion);
+    }
+
+    // guarda una fila del detalle del pedido (un libro del carrito), devuelve true si se guardo
+    public function agregarDetalleAlPedido($idPedido, $idLibro, $cantidad, $precioUnitario) {
+        $consultaSql = "INSERT INTO detalle_pedido (pedido_id, libro_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)";
+        $consultaPreparada = mysqli_prepare($this->conexion, $consultaSql);
+
+        if (!$consultaPreparada) {
+            return false;
+        }
+
+        mysqli_stmt_bind_param($consultaPreparada, "iiid", $idPedido, $idLibro, $cantidad, $precioUnitario);
+        $guardado = mysqli_stmt_execute($consultaPreparada);
+        mysqli_stmt_close($consultaPreparada);
+
+        return $guardado;
     }
 
     // obtiene un pedido con su detalle (libros comprados), devuelve null si no existe
     public function obtenerPedido($idPedido) {
-        $stmt = mysqli_prepare($this->conexion, "SELECT id, fecha, estado, total FROM pedidos WHERE id = ?"); //busca el pedido con parametros por seguridad
+        $stmt = mysqli_prepare($this->conexion, "SELECT id, fecha, estado, total FROM pedido WHERE id = ?"); //busca el pedido con parametros por seguridad
         if (!$stmt) {
             return null;
         }

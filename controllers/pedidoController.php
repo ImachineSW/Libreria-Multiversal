@@ -8,79 +8,83 @@ class PedidoController {
         $this->pedidoModel = new PedidoModel($conexion);
     }
 
-    // recibe el carrito enviado por el navegador, lo valida y guarda el pedido
-    public function crear() {
-        header('Content-Type: application/json; charset=UTF-8');
+    // recibe el carrito enviado por el formulario, lo valida, guarda el pedido y muestra la confirmacion
+    public function confirmarPedido() {
+        // Cuando exista el login: requerirLogin() y $idUsuario = usuarioActualId();
+        $idUsuario = null; // por ahora puede comprar un invitado, el pedido queda sin usuario
 
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { // solo se acepta el metodo POST
-            http_response_code(405);
-            echo json_encode(["ok" => false, "mensaje" => "Metodo no permitido."]);
-            return;
+        // Si alguien intenta entrar a esta pagina sin enviar el formulario, lo mandamos de vuelta al carrito
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['carritoJson'])) {
+            header('Location: index.php?pagina=carrito');
+            exit;
         }
 
-        $datos = json_decode(file_get_contents('php://input'), true); // lee el carrito enviado en formato JSON
+        $carritoRecibido = json_decode($_POST['carritoJson'], true);
 
-        if (!is_array($datos) || !isset($datos['items']) || !is_array($datos['items']) || count($datos['items']) === 0) { // si no hay libros no se guarda nada
-            http_response_code(400);
-            echo json_encode(["ok" => false, "mensaje" => "El carrito esta vacio."]);
-            return;
+        if (empty($carritoRecibido) || !is_array($carritoRecibido)) {
+            header('Location: index.php?pagina=carrito');
+            exit;
         }
 
-        // valida cada item y junta las cantidades si un libro viene repetido
+        // Valida cada item y junta las cantidades si un libro viene repetido
         $items = [];
-        foreach ($datos['items'] as $item) {
-            if (!is_array($item) || !isset($item['id'], $item['cantidad'])
-                || !ctype_digit((string) $item['id']) || !ctype_digit((string) $item['cantidad'])
-                || (int) $item['id'] < 1 || (int) $item['cantidad'] < 1) { // id y cantidad deben ser enteros positivos
-                http_response_code(400);
-                echo json_encode(["ok" => false, "mensaje" => "Los datos del carrito no son validos."]);
-                return;
+        foreach ($carritoRecibido as $itemDelCarrito) {
+            if (!is_array($itemDelCarrito) || !isset($itemDelCarrito['id'], $itemDelCarrito['cantidad'])
+                || !ctype_digit((string) $itemDelCarrito['id']) || !ctype_digit((string) $itemDelCarrito['cantidad'])
+                || (int) $itemDelCarrito['id'] < 1 || (int) $itemDelCarrito['cantidad'] < 1) { // id y cantidad deben ser enteros positivos
+                header('Location: index.php?pagina=carrito');
+                exit;
             }
-            $id = (int) $item['id'];
-            $items[$id] = ($items[$id] ?? 0) + (int) $item['cantidad'];
+            $id = (int) $itemDelCarrito['id'];
+            $items[$id] = ($items[$id] ?? 0) + (int) $itemDelCarrito['cantidad'];
         }
 
-        $lista = [];
-        foreach ($items as $id => $cantidad) {
-            $lista[] = ["id" => $id, "cantidad" => $cantidad];
+        // Calcula el total del pedido sumando (precio x cantidad) de cada libro
+        // El precio se toma de la base de datos, no del navegador, para que nadie pueda modificarlo
+        $totalDelPedido = 0;
+        $lineas = [];
+        foreach ($items as $idLibro => $cantidad) {
+            $precio = $this->pedidoModel->obtenerPrecio($idLibro);
+            if ($precio === null) { // si el libro no existe no se guarda nada
+                header('Location: index.php?pagina=carrito');
+                exit;
+            }
+            $totalDelPedido += $precio * $cantidad;
+            $lineas[] = ["id" => $idLibro, "cantidad" => $cantidad, "precio" => $precio];
+        }
+        $totalDelPedido = round($totalDelPedido, 2);
+
+        $this->pedidoModel->iniciarTransaccion(); // si algo falla no se guarda nada a medias
+
+        // 1. Creamos el pedido y obtenemos el id que le asigno la base de datos
+        $idPedidoCreado = $this->pedidoModel->crearPedido($idUsuario, $totalDelPedido);
+        $guardado = ($idPedidoCreado !== false);
+
+        // 2. Guardamos el detalle: una fila por cada libro del carrito
+        if ($guardado) {
+            foreach ($lineas as $linea) {
+                if (!$this->pedidoModel->agregarDetalleAlPedido($idPedidoCreado, $linea["id"], $linea["cantidad"], $linea["precio"])) {
+                    $guardado = false;
+                    break;
+                }
+            }
         }
 
-        $idPedido = $this->pedidoModel->crearPedido($lista); // guarda el pedido y su detalle
-
-        if ($idPedido === false) { // si el modelo fallo (por ejemplo un libro que no existe)
-            http_response_code(422);
-            echo json_encode(["ok" => false, "mensaje" => "No se pudo guardar el pedido."]);
+        if (!$guardado) { // si algo fallo se deshace todo
+            $this->pedidoModel->cancelarTransaccion();
+            http_response_code(500);
+            echo "<p>No se pudo guardar el pedido.</p>";
             return;
         }
 
-        $_SESSION['pedidos'][] = $idPedido; // guarda el id del pedido en la sesion para poder ver su detalle
+        $this->pedidoModel->confirmarTransaccion(); // confirma todo junto
 
-        echo json_encode(["ok" => true, "pedido_id" => $idPedido, "mensaje" => "Pedido realizado correctamente."]);
-    }
-
-    // muestra el detalle de un pedido (id, fecha, estado y libros comprados)
-    public function detalle() {
-
-        // si no se ingresa un id valido, o el pedido no se hizo en esta sesion, muestra pedido no encontrado
-        if (!isset($_GET['id']) || !ctype_digit((string) $_GET['id'])
-            || !in_array((int) $_GET['id'], $_SESSION['pedidos'] ?? [], true)) {
-            http_response_code(404);
-            echo "<p>Pedido no encontrado.</p>";
-            return;
-        }
-
-        $datos = $this->pedidoModel->obtenerPedido((int) $_GET['id']); // busca el pedido en la base de datos
-
-        if ($datos === null) { // si el pedido no existe
-            http_response_code(404);
-            echo "<p>Pedido no encontrado.</p>";
-            return;
-        }
-
-        // La vista pedido_detalle.php utiliza las variables $pedido y $items
+        // 3. Mostramos la vista de confirmacion con el resumen del pedido
+        // La vista pedido_confirmado.php utiliza las variables $pedido y $items
+        $datos = $this->pedidoModel->obtenerPedido($idPedidoCreado);
         $pedido = $datos["pedido"];
         $items = $datos["items"];
 
-        require __DIR__ . '/../views/pedido_detalle.php';
+        require __DIR__ . '/../views/pedido_confirmado.php';
     }
 }

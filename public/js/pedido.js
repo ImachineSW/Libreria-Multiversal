@@ -10,21 +10,19 @@ function comprar() {
     // solo se envian el id y la cantidad, el precio lo toma el servidor de la base de datos
     const items = carrito.map(libro => ({ id: libro.id, cantidad: libro.cantidad }));
 
-    fetch("./index.php?pagina=pedido", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items })
-    })
-        .then(respuesta => respuesta.json())
-        .then(datos => {
-            if (datos.ok) {
-                guardarCarrito([]); // vacia el carrito guardado luego de comprar
-                window.location.href = `./index.php?pagina=pedido_detalle&id=${datos.pedido_id}`; // muestra el detalle del pedido
-            } else {
-                mostrarMensaje(datos.mensaje); // muestra el error que devolvio el servidor
-            }
-        })
-        .catch(() => mostrarMensaje("No se pudo realizar el pedido.")); // error de conexion
+    // se crea un formulario POST con el carrito en el campo oculto carritoJson
+    const formulario = document.createElement("form");
+    formulario.method = "POST";
+    formulario.action = "./index.php?pagina=pedido";
+
+    const campo = document.createElement("input");
+    campo.type = "hidden";
+    campo.name = "carritoJson";
+    campo.value = JSON.stringify(items);
+
+    formulario.appendChild(campo);
+    document.body.appendChild(formulario);
+    formulario.submit(); // el servidor guarda el pedido y muestra la confirmacion
 }
 //
 
