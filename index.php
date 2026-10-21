@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/config/conexion.php'; // Se inica la conexion a la base datos para  que todas las paginas puedan acceder a la misma
 
+require_once __DIR__ . '/config/auth.php'; // Se carga funciones de ayuda
+
 require_once __DIR__ . '/models/libroModel.php'; // Se carga el modelo de libros
 
 require_once __DIR__ . '/controllers/libroController.php'; // Se carga el controlador de libros
