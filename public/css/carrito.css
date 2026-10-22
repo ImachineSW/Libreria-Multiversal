@@ -62,6 +62,13 @@ table td {
     min-height: max-content;
 }
 
+.producto h3 {
+    width: 150%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .buscador .boton {
     border: 0px;
     padding: 5px;

@@ -9,12 +9,18 @@ class LibroModel {
     }
 
     public function listarLibros($busqueda = "", $genero = "") { //devuelve todos los libros cargados en el base de datos
-        $sql = "SELECT * FROM libros WHERE 1=1";
+        $sql = "SELECT l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis,
+                    GROUP_CONCAT(DISTINCT g.nombre ORDER BY g.nombre SEPARATOR ', ') 
+                AS genero
+                FROM libros l
+                LEFT JOIN libros_generos lg ON l.id = lg.libro_id
+                LEFT JOIN generos g ON lg.genero_id = g.id
+                WHERE 1=1";
         $tipos = '';
         $params = [];
 
         if ($busqueda !== "") {
-            $sql .= " AND (nombre LIKE ? OR autor LIKE ?)";
+            $sql .= " AND (l.nombre LIKE ? OR l.autor LIKE ?)";
             $tipos .= 'ss';
             $patron = '%' . $this->escaparLike($busqueda) . '%';
             $params[] = $patron;
@@ -22,12 +28,12 @@ class LibroModel {
         }
 
         if ($genero !== "") {
-            $sql .= " AND genero = ?";
+            $sql .= " AND EXISTS (SELECT 1 FROM libros_generos lg2 INNER JOIN generos g2 ON lg2.genero_id = g2.id WHERE lg2.libro_id = l.id AND g2.nombre = ?)";
             $tipos .= 's';
             $params[] = $genero;
         }
 
-        $sql .= " ORDER BY nombre";
+        $sql .= " GROUP BY l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis ORDER BY l.nombre";
 
         $stmt = $this->conexion->prepare($sql);
         if (!empty($params)) {
@@ -44,10 +50,15 @@ class LibroModel {
 
 
     public function obtenerPorId($id) { //obtiene el libro por id para mostrar el detalle de cada uno
-        $sql = "SELECT id, nombre, precio, autor, formato, imagen,
-                    genero, editorial, año, idioma, sinopsis
-                FROM libros
-                WHERE id = ?"; //busca el libro por id con parametros por seguridad
+        $sql = "SELECT l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis,
+                    GROUP_CONCAT(DISTINCT g.nombre ORDER BY g.nombre SEPARATOR ', ') 
+                AS genero
+                FROM libros l
+                LEFT JOIN libros_generos lg ON l.id = lg.libro_id
+                LEFT JOIN generos g ON lg.genero_id = g.id
+                WHERE l.id = ?
+                GROUP BY l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis";
+                //busca el libro por id con parametros por seguridad
 
         $stmt = mysqli_prepare($this->conexion, $sql); //se prepara la consulta
 
@@ -60,4 +71,19 @@ class LibroModel {
 
         return mysqli_stmt_get_result($stmt); //devuelve el resultado
     }
+
+    public function listarGeneros() {
+
+        $sql = "SELECT id, nombre FROM generos ORDER BY nombre";
+
+        $resultado = $this->conexion->query($sql);
+
+        if (!$resultado) {
+            return false;
+        }
+
+        return $resultado->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
+

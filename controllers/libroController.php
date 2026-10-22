@@ -15,16 +15,18 @@ class LibroController {
         $busqueda = mb_substr($busqueda, 0, 50);
 
         $genero = trim($_GET['genero'] ?? '');
-        $genero = mb_substr($genero, 0, 50);
+        $genero = mb_substr($genero, 0, 100);
 
         $resultado = $this->libroModel->listarLibros(
             $busqueda,
             $genero
         );
 
-        if ($resultado === false) {
-            die("Error al consultar los libros: " .
-                mysqli_error($this->conexion ?? null));
+        $generos = $this->libroModel->listarGeneros();
+
+        if ($resultado === false || $generos == false) {
+            http_response_code(500);
+            die("Error al consultar el catálogo.");
         }
 
         require __DIR__ . "/../views/catalogo.php";
@@ -33,44 +35,53 @@ class LibroController {
     // muestra el detalle del libro
     public function mostrarDetalle() {
 
-    $busqueda = trim($_GET['q'] ?? '');
+        $busqueda = trim($_GET['q'] ?? '');
         $busqueda = mb_substr($busqueda, 0, 50);
 
-        $resultado = $this->libroModel->listarLibros(
-            $busqueda
+        $genero = trim($_GET['genero'] ?? '');
+        $genero = mb_substr($genero, 0, 100);
+
+        if (
+            !isset($_GET['id']) ||
+            !ctype_digit((string) $_GET['id']) ||
+            (int) $_GET['id'] < 1
+        ) {
+            http_response_code(404);
+            echo "<p>Libro no encontrado.</p>";
+            return;
+        }
+
+        $idLibro = (int) $_GET['id'];
+
+        $resultado = $this->libroModel->obtenerPorId(
+            $idLibro
         );
 
-    if (!isset($_GET['id']) || !is_numeric($_GET['id'])) { // si no se ingresa un id o no es numerico muestra la pagina no encontrada
-        http_response_code(404);
-        echo "<p>Libro no encontrado.</p>"; // muestra el mensaje de libro no encontrado
-        return;
-    }
+        if (!$resultado || $resultado->num_rows === 0) {
+            http_response_code(404);
+            echo "<p>El libro solicitado no existe.</p>";
+            return;
+        }
 
-    $idLibro = (int) $_GET['id']; // obtiene el id del libro, transofrma el numero en entero
+        $libro = $resultado->fetch_assoc();
 
-    // Obtener el libro desde el modelo
-    $resultado = $this->libroModel->obtenerPorId($idLibro);
-
-    if (!$resultado || mysqli_num_rows($resultado) === 0) { //mostrar erro si no existe
-        http_response_code(404);
-        echo "<p>El libro solicitado no existe.</p>";
-        return;
-    }
-
-    // La vista libros.php utiliza la variable $libro
-    $libro = mysqli_fetch_assoc($resultado);
-
-    require __DIR__ . '/../views/productos.php';
+        require __DIR__ . "/../views/productos.php";
     }
 
     public function carrito() {
 
         $busqueda = trim($_GET['q'] ?? '');
-            $busqueda = mb_substr($busqueda, 0, 50);
+        $busqueda = mb_substr($busqueda, 0, 50);
 
             $resultado = $this->libroModel->listarLibros(
                 $busqueda
             );
+
+            if ($resultado === false) {
+            http_response_code(500);
+            die("Error al consultar los libros.");
+            }
+
 
         require __DIR__ . '/../views/carrito.php';
     }

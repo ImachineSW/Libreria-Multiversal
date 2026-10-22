@@ -108,14 +108,22 @@ table td {
 }
 
 .generos {
-    padding: 1%;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1.5%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    gap: 10%;
+    gap: 100px;
     background-color: white;
     border-radius: 10px;
     margin: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    scrollbar-color: #EA4573 white;
 }
 
 .genero {
@@ -134,16 +142,6 @@ table td {
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
     border: 0px;
     transform: scale(1.1);
-}
-
-.borrar-filtros {
-    color: black;
-    font-size: small;
-}
-
-.borrar-filtros:hover {
-    color: black;
-    text-decoration: underline;
 }
 
 #contenedor {
@@ -175,6 +173,12 @@ a {
     justify-content: space-between;
     text-align: center;
     transition: all 0.3s ease-out;
+}
+
+.titulo-libro {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .portada {

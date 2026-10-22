@@ -213,6 +213,10 @@ table td {
 }
 
 .Sinopsis {
+    border-top: 2px solid #EA4573;
+    border-bottom: 2px solid #EA4573;
+    margin: 2%;
+    padding: 2%;
     text-align: left;
     font-size: 20px;
 }

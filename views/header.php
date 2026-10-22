@@ -22,8 +22,12 @@
                             <?php endif; ?>
                         </form>
                         <div class="resumen-busqueda">
-                            <?php if ($busqueda !== ''): ?>
-                                <p>Se encontraron <?= count($resultado) ?> libros con "<strong><?= escapar($busqueda) ?></strong>"<?= !empty($genero) ? ' en ' : '' ?><strong><?= escapar($genero) ?></strong> — <a href="index.php?pagina=catalogo">Limpiar búsqueda</a></p>
+                            <?php if ($busqueda !== '' || $genero !== ''): ?>
+                                <p>Se encontraron <?= count($resultado) ?> libros <?= $busqueda !== '' ? ' con ' : '' ?>
+                                <?php if ($busqueda !== ''): ?><strong>"<?= escapar($busqueda) ?>"</strong><?php endif; ?>
+                                <?= $genero !== '' ? ' en ' : '' ?>
+                                <?php if ($genero !== ''): ?><strong><?= escapar($genero) ?></strong><?php endif; ?>
+                                — <a href="index.php?pagina=catalogo">Limpiar búsqueda</a></p>
                             <?php endif; ?>
                         </div>
                     </div>

@@ -23,26 +23,25 @@
         <main>
 
         <div class="generos">
-            <a class="genero" href="index.php?pagina=catalogo&genero=Terror">Terror</a>
-            <a class="genero" href="index.php?pagina=catalogo&genero=Fantasía">Fantasía</a>
-            <a class="genero" href="index.php?pagina=catalogo&genero=Ficción%20Literaria">Ficción Literaria</a>
-            <a class="genero" href="index.php?pagina=catalogo&genero=Filosofía">Filosofía</a>
-            <a class="borrar-filtros" href="index.php?pagina=catalogo">Borrar filtros</a>
-        </div>
+            <?php foreach ($generos as $g): ?>
+                <a class="genero" href="index.php?pagina=catalogo&amp;genero=<?= urlencode($g['nombre']) ?>&amp;q=<?= urlencode($busqueda) ?>">
+                    <?= htmlspecialchars($g['nombre'], ENT_QUOTES, 'UTF-8') ?>
+                </a>
+            <?php endforeach; ?>
+        </div> 
 
         <div id="mensaje-flotante" class="mensaje-flotante"></div>
             <div id="contenedor">
-                <?php if ($resultado && !empty($resultado) > 0): //devuelve el numero de filas que hay en la tabla ?> 
+                <?php if (!empty($resultado)): ?> 
                     <?php foreach ($resultado as $libro): //mientras haya lineas en la tabla muestra los libros ?>
                         <div class="tarjeta">
-                            <a href="./index.php?pagina=libro&id=<?php echo $libro["id"]; //le asigna el id del libro a la redireccion a productos.php ?>">
-                                <img src="<?php echo $libro["imagen"]; //le asigna la imagen del libro a la portada ?>" alt="<?php echo $libro["nombre"]; //le asigna el nombre del libro al alt ?>" class="portada">
-                                <h3><?php echo $libro["nombre"]; //le asigna el nombre del libro a el titulo ?></h3>
-                                <p class="precio">$<?php echo $libro["precio"]; //le as igna el precio del libro a el precio ?></p>
-                                <p><?php echo $libro["autor"]; //le asigna el autor del libro a el autor ?></p>
-                                <p><?php echo $libro["formato"]; //le asigna el formato del libro a el formato ?></p>
+                            <a href="./index.php?pagina=libro&amp;id=<?php echo (int) $libro['id']; //le asigna el id del libro a la redireccion a productos.php ?>">
+                                <img src="<?php echo htmlspecialchars($libro['imagen'] ?? '', ENT_QUOTES, 'UTF-8'); //le asigna la imagen del libro a la portada ?>" alt="<?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); //le asigna el nombre del libro al alt ?>" class="portada">
+                                <h3 class="titulo-libro"><?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); //le asigna el nombre del libro a el titulo ?></h3>
+                                <p class="precio">$<?php echo htmlspecialchars($libro["precio"], ENT_QUOTES, 'UTF-8'); //le as igna el precio del libro a el precio ?></p>
+                                <p><?php echo htmlspecialchars($libro["autor"], ENT_QUOTES, 'UTF-8'); //le asigna el autor del libro a el autor ?></p>
                             </a>
-                            <button class="addb" data-id="<?php echo $libro["id"]; ?>" data-nombre="<?php echo $libro["nombre"]; ?>" data-precio="<?php echo $libro["precio"]; ?>" data-autor="<?php echo $libro["autor"]; ?>" data-formato="<?php echo $libro["formato"]; ?>" data-imagen="<?php echo $libro["imagen"]; ?>">Agregar al Carrito</button> <!--manda los datos de los data  a la funcion de agregar al carrito-->
+                            <button class="addb" data-id="<?php echo (int) $libro["id"]; ?>" data-nombre="<?php echo htmlspecialchars($libro["nombre"], ENT_QUOTES, 'UTF-8'); ?>" data-precio="<?php echo htmlspecialchars((string) $libro["precio"], ENT_QUOTES, 'UTF-8'); ?>" data-autor="<?php echo htmlspecialchars($libro["autor"], ENT_QUOTES, 'UTF-8'); ?>" data-paginas="<?php echo (int) ($libro["paginas"] ?? 0); ?>" data-imagen="<?php echo htmlspecialchars($libro["imagen"] ?? '', ENT_QUOTES, 'UTF-8'); ?>">Agregar al Carrito</button> <!--manda los datos de los data  a la funcion de agregar al carrito-->
                         </div>
                     <?php endforeach; //termina de recorrer el array?>
                 <?php endif?>
