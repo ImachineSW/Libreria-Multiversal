@@ -73,6 +73,9 @@ class LibroController {
         $busqueda = trim($_GET['q'] ?? '');
         $busqueda = mb_substr($busqueda, 0, 50);
 
+        $genero = trim($_GET['genero'] ?? '');
+        $genero = mb_substr($genero, 0, 100);
+
             $resultado = $this->libroModel->listarLibros(
                 $busqueda
             );
