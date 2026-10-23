@@ -34,13 +34,19 @@ function mostrarCarrito() {
         <h3>${libro.nombre}</h3>
         <img src="${libro.imagen}" alt="${libro.nombre}">
         <h4>Cantidad: ${libro.cantidad}</h4>
-        <button class="eliminar">ELIMINAR</button>
+        <div class="botones">
+        <button class="eliminar">-</button>
+        <button class="addb" data-id="${libro.id}" data-nombre="${libro.nombre}" data-precio="${libro.precio}" data-imagen="${libro.imagen}">+</button>
+        </div>
         `; // por cada libro en el array agrega eso
 
         cont.appendChild(div); // agrega los div a la pagina
 
         const boton = div.querySelector(".eliminar"); // busca el boton de los libros
         boton.addEventListener("click", () => eliminar(libro)); // a los botones le da la funcion de eliminar el libro
+
+        const botonadd = div.querySelector(".addb"); // busca el boton de los libros
+        botonadd.addEventListener("click", () => agregar(libro)); // a los botones le da la funcion de eliminar el libro
     });
 
     const vaciarbtn = document.querySelector(".vaciar"); // busca el boton de vaciar carrito

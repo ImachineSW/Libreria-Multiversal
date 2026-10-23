@@ -10,10 +10,10 @@
     </head>
 
     <body>
-
+        <header>
         <!--Header-->
         <?php require_once __DIR__ . "/header.php"; ?>
-
+        </header>
         <main>
             <div class="carrito pedido-detalle">
                 <a href="./index.php?pagina=catalogo" class="back-btn">← Volver al catálogo</a>

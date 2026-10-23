@@ -1,16 +1,17 @@
 <?php
 
 require_once __DIR__ . '/config/conexion.php'; // Se inica la conexion a la base datos para  que todas las paginas puedan acceder a la misma
-
 require_once __DIR__ . '/config/auth.php'; // Se carga funciones de ayuda
 
 require_once __DIR__ . '/models/libroModel.php'; // Se carga el modelo de libros
+require_once __DIR__ . '/models/pedidoModel.php'; // Se carga el modelo de pedidos
+require_once __DIR__ . '/models/usuario.php'; // Se carga el modelo de usuarios
 
 require_once __DIR__ . '/controllers/libroController.php'; // Se carga el controlador de libros
-
-require_once __DIR__ . '/models/pedidoModel.php'; // Se carga el modelo de pedidos
-
 require_once __DIR__ . '/controllers/pedidoController.php'; // Se carga el controlador de pedidos
+require_once __DIR__ . '/controllers/authController.php'; // Se carga el controlador de autenticacion
+
+
 
 
 $paginaSolicitada = $_GET['pagina'] ?? 'catalogo'; // Se define la pagina que se va a mostrar segun lo que se ingrese en la url, si no se ingresa nada se muestra el catalogo
@@ -27,12 +28,43 @@ switch ($paginaSolicitada) {
         $libroController->carrito(); // Se muestra el carrito
         break;
 
-    case 'register': // Si se ingresa 'register' se muestra el registro
-        require __DIR__ . '/views/register.php'; // Se muestra el registro
+        case 'register': // Si se ingresa 'register' se muestra el registro
+        $mensaje = "";
+
+        // Primero se procesa el formulario y después se muestra la vista.
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $controller = new AuthController($conexion);
+            $mensaje = $controller->registrar($_POST);
+
+            if ($mensaje === "Usuario registrado correctamente." || $mensaje === "") {
+                header("Location: index.php?pagina=login&registrado=1", true, 303);
+                exit;
+            }
+        }
+
+        require __DIR__ . '/views/register.php';
         break;
 
     case 'login': // Si se ingresa 'login' se muestra el login
-        require __DIR__ . '/views/login.php'; // Se muestra el login
+        $mensaje = "";
+
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            if (($_POST["accion"] ?? "") === "logout") {
+                AuthController::cerrarSesion();
+                header("Location: index.php?pagina=login&salio=1", true, 303);
+                exit;
+            }
+
+            $controller = new AuthController($conexion);
+            $mensaje = $controller->iniciarSesion($_POST);
+
+            if ($mensaje === "") {
+                header("Location: index.php?pagina=login", true, 303);
+                exit;
+            }
+        }
+
+        require __DIR__ . '/views/login.php';
         break;
 
     case 'libro': // Si se ingresa 'libro' se muestra el libro
@@ -43,6 +75,10 @@ switch ($paginaSolicitada) {
     case 'pedido': // Si se ingresa 'pedido' se guarda el pedido enviado desde el carrito
         $pedidoController = new PedidoController($conexion); // Se crea el controlador de pedidos
         $pedidoController->confirmarPedido(); // Se guarda el pedido y su detalle y se muestra la confirmacion
+        break;
+
+    case 'panel': // Si se ingresa 'panel' se muestra el panel
+        require __DIR__ . '/views/panel.php'; // Se muestra el panel
         break;
 
     default: // Si no se ingresa nada se muestra la pagina no encontrada

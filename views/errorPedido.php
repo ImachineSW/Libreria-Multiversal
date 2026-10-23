@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="./public/css/carrito.css">
 </head>
 <body>
+    <header>
     <?php require __DIR__ . '/header.php'; ?>
+    </header>
     <main class="error-pedido">
         <h1>No se pudo confirmar el pedido</h1>
         <p><?= htmlspecialchars($errorPedido ?? 'Ocurrió un error. Intentá nuevamente.', ENT_QUOTES, 'UTF-8') ?></p>

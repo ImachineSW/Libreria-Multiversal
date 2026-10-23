@@ -4,7 +4,7 @@
 /**
 * Convierte caracteres especiales en texto inofensivo.
 * Usar SIEMPRE al mostrar en pantalla datos que escribió un
-usuario.
+* usuario.
 * Ej: <script> se convierte en &lt;script&gt; y no se ejecuta.
 */
 function escapar($texto) {

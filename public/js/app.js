@@ -19,6 +19,10 @@ function agregar() {
             }
             mostrarMensaje(`Se agregó "${nombre}" al carrito.`); // muestra el mensaje flotante
             guardarCarrito(carrito); // guarda el carrito
+
+            if (typeof mostrarCarrito === "function") {
+                mostrarCarrito(); // muestra el carrito
+            }
         };
     });
 }

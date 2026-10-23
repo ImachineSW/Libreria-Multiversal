@@ -1,4 +1,10 @@
-    <!--Barra superior-->
+ <?php
+$busqueda = $busqueda ?? '';
+$genero = $genero ?? '';
+$resultado = $resultado ?? [];
+?>
+
+ <!--Barra superior-->
     <div class="banner">
         <table>
             <tr>
@@ -22,7 +28,7 @@
                         </form>
                         <div class="resumen-busqueda">
                             <?php if ($busqueda !== '' || $genero !== ''): ?>
-                                <p>Se encontraron <?= count($resultado) ?> libros <?= $busqueda !== '' ? ' con ' : '' ?>
+                                <p>Se encontraron <?= is_array($resultado) ? count($resultado) : 0 ?> libros <?= $busqueda !== '' ? ' con ' : '' ?>
                                 <?php if ($busqueda !== ''): ?><strong>"<?= escapar($busqueda) ?>"</strong><?php endif; ?>
                                 <?= $genero !== '' ? ' en ' : '' ?>
                                 <?php if ($genero !== ''): ?><strong><?= escapar($genero) ?></strong><?php endif; ?>
