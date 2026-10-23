@@ -6,6 +6,7 @@
 }
 
 html {
+    scroll-behavior: smooth;
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
 }
 
@@ -13,7 +14,6 @@ header {
     position: sticky;
     top: 0;
     z-index: 1;
-    box-shadow: 0px 5px 10px #DE3A3E88;
 }
 
 .banner {
@@ -21,7 +21,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #EA4573;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
     background-color: white;
@@ -31,6 +31,7 @@ header {
     width: 100%;
     table-layout: fixed;
 }
+
 table td {
     width: 33%;
 }
@@ -45,19 +46,51 @@ table td {
     text-align: end;
 }
 
-.banner input {
-    border: 2px solid #EA4573;
-    border-radius: 10px;
-    padding: 5px;
-    width: 30vw;
-}
-
 .logo {
     width: 20vw;
 }
 
-.search-bar {
+.buscador {
     color: #EA4573;
+    border-radius: 10px;
+}
+
+.buscador form {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    min-height: max-content;
+}
+
+.buscador .boton {
+    border: 0px;
+    padding: 5px;
+    color: white;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    border-radius: 10px;
+}
+
+.buscador .boton:hover {
+    transition: all 0.3s ease-out;
+    box-shadow: 0px 0px 5px #EA4573;
+    cursor: pointer;
+}
+
+.barra {
+    border: 2px solid #EA4573;
+    border-radius: 10px;
+    padding: 5px;
+    width: 80%;
+}
+
+.resumen-busqueda {
+    display: flex;
+    justify-content: center;
+    min-height: max-content;
+}
+
+.resumen-busqueda a:hover {
+    text-decoration: underline;
 }
 
 .banner a {
@@ -74,16 +107,53 @@ table td {
     transform: scale(1.1);
 }
 
-#contenedor {
-    height: max-content;
-    margin: 5%;
+.generos {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1.5%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 100px;
     background-color: white;
     border-radius: 10px;
+    margin: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    scrollbar-color: #EA4573 white;
+}
+
+.genero {
+    color: #EA4573;
+    font-weight: bold;
+    background-color: white;
+    border: 0px;
+    padding: 5px;
+    border-radius: 10px;
+    transition: all 0.3s ease-out;
+}
+
+.genero:hover {
+    color: white;
+    font-weight: bold;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    border: 0px;
+    transform: scale(1.1);
+}
+
+#contenedor {
+    height: max-content;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     justify-content: center;
     min-height: max-content;
+    margin: 3%;
+    background-color: white;
+    border-radius: 10px;
 }
 
 a {
@@ -103,6 +173,12 @@ a {
     justify-content: space-between;
     text-align: center;
     transition: all 0.3s ease-out;
+}
+
+.titulo-libro {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .portada {

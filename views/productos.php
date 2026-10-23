@@ -4,16 +4,18 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $libro["nombre"]?></title>
+        <title><?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); ?></title>
         <link rel="stylesheet" href="./public/css/productos.css">
         <link rel="icon" type="image/png" href="./public/img/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--etiqueta para que la pagina sea responsive-->
     </head>
 
-    <body>
-
+    <header>
         <!--Header-->
         <?php require __DIR__ . "/header.php"; ?>
+    </header>
+
+    <body>
 
         <main>
             <!--Creacion del Articulo, Dividido-->
@@ -26,21 +28,67 @@
                 <div class="Detalles-Producto">
                     <a href="./index.php?pagina=catalogo" class="back-btn">← Volver al catálogo</a>
                     <h1 id="titulo"><?php echo $libro["nombre"]; // le asigna el nombre del libro ?></h1>
-                    <div class="Info">
-                        <p>Genero: <span id="genero"><?php echo $libro["genero"]; // le asigna el genero del libro ?></span></p>
-                        <p>Autor: <span id="autor"><?php echo $libro["autor"]; // le asigna el autor del libro ?></span></p>
-                        <p>Editorial: <span id="editorial"><?php echo $libro["editorial"]; // le asigna el editorial del libro ?></span></p>
-                        <p>Año: <span id="año"><?php echo $libro["año"]; // le asigna el año del libro ?></span></p>
-                        <p>Idioma: <span id="idioma"><?php echo $libro["idioma"]; // le asigna el idioma del libro ?></span></p>
-                        <p>Formato: <span id="formato"><?php echo $libro["formato"]; // le asigna el formato del libro ?></span></p>
-                    </div>
                     <div class="Precio">
-                        <p>Precio: <span id="precio"><?php echo $libro["precio"]; // le asigna el precio del libro ?></span></p>
+                        <p>Precio: <span id="precio">$<?php echo $libro["precio"]; // le asigna el precio del libro ?></span></p>
                     </div>
                     <p class="Sinopsis" id="sinopsis"><?php echo $libro["sinopsis"]; // le asigna la sinopsis del libro ?></p>
+                    <div class="Info">
+                        <p>
+                            Género(s):
+                            <span id="genero">
+                                <?php echo htmlspecialchars($libro['genero'] ?? 'Sin género', ENT_QUOTES, 'UTF-8'); ?>
+                            </span>
+                        </p>
+                        <p>
+                            Autor:
+                            <span id="autor">
+                                <?php echo htmlspecialchars($libro['autor'], ENT_QUOTES, 'UTF-8'); ?>
+                            </span>
+                        </p>
+                        <p>
+                            Editorial:
+                            <span id="editorial">
+                                <?php echo htmlspecialchars($libro['editorial'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+                            </span>
+                        </p>
+                        <p>
+                            Fecha de publicación:
+                            <span id="fecha">
+                                <?php echo htmlspecialchars($libro['fecha'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+                            </span>
+                        </wp>
+                        <p>
+                            Idioma:
+                            <span id="idioma">
+                                <?php echo htmlspecialchars($libro['idioma'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+                            </span>
+                        </p>
+                        <p>
+                            Páginas:
+                            <span id="paginas">
+                                <?php echo $libro['paginas'] !== null ? (int) $libro['paginas']: 'No especificado'; ?>
+                            </span>
+                        </p>
+                    </div>
                     <div class="Botones">
-                        <a href="./index.php?pagina=carrito" class="addb" data-id="<?php echo $libro["id"]; ?>" data-nombre="<?php echo $libro["nombre"]; ?>" data-precio="<?php echo $libro["precio"]; ?>" data-autor="<?php echo $libro["autor"]; ?>" data-formato="<?php echo $libro["formato"]; ?>" data-imagen="<?php echo $libro["imagen"]; ?>">Comprar</a> <!-- manda los datos de los data- a la funcion de agregar al carrito -->
-                        <button class="addb" data-id="<?php echo $libro["id"]; ?>" data-nombre="<?php echo $libro["nombre"]; ?>" data-precio="<?php echo $libro["precio"]; ?>" data-autor="<?php echo $libro["autor"]; ?>" data-formato="<?php echo $libro["formato"]; ?>" data-imagen="<?php echo $libro["imagen"]; ?>">Agregar al Carrito</button> <!-- manda los datos de los data- a la funcion de agregar al carrito -->
+                        <a
+                            href="./index.php?pagina=carrito"
+                            class="addb"
+                            data-id="<?php echo (int) $libro['id']; ?>"
+                            data-nombre="<?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-precio="<?php echo htmlspecialchars((string) $libro['precio'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-autor="<?php echo htmlspecialchars($libro['autor'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-paginas="<?php echo (int) ($libro['paginas'] ?? 0); ?>"
+                            data-imagen="<?php echo htmlspecialchars($libro['imagen'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                            Comprar</a>
+                        <button class="addb" data-id="<?php echo (int) $libro['id']; ?>"
+                            data-nombre="<?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-precio="<?php echo htmlspecialchars((string) $libro['precio'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-autor="<?php echo htmlspecialchars($libro['autor'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-paginas="<?php echo (int) ($libro['paginas'] ?? 0); ?>"
+                            data-imagen="<?php echo htmlspecialchars($libro['imagen'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                            Agregar al carrito
+                        </button>
                     </div>
                 </div>              
             </div>
