@@ -10,7 +10,7 @@ require_once __DIR__ . '/models/usuario.php'; // Se carga el modelo de usuarios
 require_once __DIR__ . '/controllers/libroController.php'; // Se carga el controlador de libros
 require_once __DIR__ . '/controllers/pedidoController.php'; // Se carga el controlador de pedidos
 require_once __DIR__ . '/controllers/authController.php'; // Se carga el controlador de autenticacion
-
+require_once __DIR__ . '/controllers/adminController.php'; // Se carga el controlador de admin
 
 
 
@@ -79,6 +79,11 @@ switch ($paginaSolicitada) {
 
     case 'panel': // Si se ingresa 'panel' se muestra el panel
         require __DIR__ . '/views/panel.php'; // Se muestra el panel
+        break;
+
+    case 'admin':
+        // Debemos incluir el controlador antes
+        (new AdminController($conexion))->panel();
         break;
 
     default: // Si no se ingresa nada se muestra la pagina no encontrada

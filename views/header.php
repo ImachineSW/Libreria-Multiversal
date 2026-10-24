@@ -41,10 +41,10 @@ $resultado = $resultado ?? [];
                             <a href="./index.php?pagina=carrito">
                                 <img src="./public/img/carrito.png" alt="Carrito icon" class="icono">
                             </a>
-                            <?php if (isset($_SESSION['usuario_id'])):?>
+                            <?php if (estaLogueado()):?>
                                 <a href="./index.php?pagina=panel">
                                     <img src="./public/img/usuario.png" alt="Usuario icon." class="icono">
-                                    <?php echo $_SESSION['nombre'];?>
+                                    <?php echo escapar(usuarioActualNombre());?>
                                 </a>
                             <?php else:?>
                                 <a href="./index.php?pagina=login">

@@ -11,22 +11,17 @@
     <?php require __DIR__ . "/header.php"?>
     
     <div class="contenedor">
-    <?php if (isset($_SESSION["usuario_id"])): ?>
-        <?php if (isset($_SESSION["rol"]) && $_SESSION["rol"] == "admin"): ?>
-        <select name="opciones" id="opciones">
-            <option value="">Mi Cuenta</option>
-            <option value="">Modificar catalogo</option>
-            <option value="">Ver informes mensuales</option>
-            <option value="">Modificar usuario</option>
-        </select>
+    <?php if (estaLogueado()): ?>
+        <?php if (esAdmin()): ?>
+            <a href="./index.php?pagina=admin">Panel de administracion</a>
         <?php endif; ?>
             <h1>Mi cuenta</h1>
             <table>
                 <tr>
-                    <td>Nombre: <?= htmlspecialchars($_SESSION["nombre"], ENT_QUOTES, "UTF-8") ?></td>
+                    <td>Nombre: <?php echo escapar(usuarioActualNombre());?></td>
                 </tr>
                 <tr>
-                <td>Rol: <?= htmlspecialchars($_SESSION["rol"], ENT_QUOTES, "UTF-8") ?></td>
+                <td>Rol: <?php echo escapar(usuarioActualRol());?></td>
                 </tr>
                 <tr>
                     <td>Contraseña: ***********<button>Cambiar contraseña</button> </td>
@@ -34,7 +29,7 @@
                 <tr>
                     <td>Correo: *********@gmail.com<button>Cambiar correo</button> </td>
                 </tr>
-                <?php if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "cliente"): ?>
+                <?php if(!esAdmin()): ?>
                 <tr>
                     <td>Historial de pedidos: <button>Ver historial de pedidos</button> </td>
                 </tr>
@@ -47,7 +42,7 @@
             </form>
             </div>
         <?php else: ?>
-            <?php header('Location: ./index.php?pagina=login')?>
+            <?php requerirLogin(); ?>
     <?php endif; ?>
 
     <?php require __DIR__ . "/footer.php"?>
