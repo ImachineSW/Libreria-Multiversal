@@ -22,7 +22,7 @@
             <div id="mensaje-flotante" class="mensaje-flotante"></div>
             <div class="Producto">
                 <div class="Libro">
-                    <img src="<?php echo $libro["imagen"]; // le asigna la ruta de la imagen ?>" alt="<?php echo $libro["nombre"]; //le asigna el nombre al alt ?>">
+                    <img src="./public/img/Libros/<?php echo $libro["imagen"]; // le asigna la ruta de la imagen ?>" alt="<?php echo $libro["nombre"]; //le asigna el nombre al alt ?>">
                 </div>
                 <!--Creando un Grupo para los detalles del Producto-->
                 <div class="Detalles-Producto">

@@ -11,6 +11,7 @@ require_once __DIR__ . '/controllers/libroController.php'; // Se carga el contro
 require_once __DIR__ . '/controllers/pedidoController.php'; // Se carga el controlador de pedidos
 require_once __DIR__ . '/controllers/authController.php'; // Se carga el controlador de autenticacion
 require_once __DIR__ . '/controllers/adminController.php'; // Se carga el controlador de admin
+require_once __DIR__ . '/controllers/adminLibroController.php'; // Se carga el controlador de admin de libros
 
 
 
@@ -85,6 +86,22 @@ switch ($paginaSolicitada) {
         // Debemos incluir el controlador antes
         (new AdminController($conexion))->panel();
         break;
+
+    case 'admin_libros':
+        (new AdminLibroController($conexion))->listar();
+    break;
+
+    case 'admin_libro_crear':
+        (new AdminLibroController($conexion))->crear();
+    break;
+
+    case 'admin_libro_editar':
+    (new AdminLibroController($conexion))->editar();
+    break;
+
+    case 'admin_libro_estado':
+    (new AdminLibroController($conexion))->cambiarEstado();
+    break;
 
     default: // Si no se ingresa nada se muestra la pagina no encontrada
         http_response_code(404);

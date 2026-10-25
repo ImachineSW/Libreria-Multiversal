@@ -13,8 +13,8 @@ return htmlspecialchars((string)$texto, ENT_QUOTES, 'UTF-8');
 /**
 * Redirige a otra página del sitio y corta la ejecución.
 */
-function redirigir($pagina) {
-header("Location: index.php?pagina=" . $pagina);
+function redirigir($pagina, $extra = '') {
+header("Location: index.php?pagina=" . $pagina . $extra);
 exit;
 }
 

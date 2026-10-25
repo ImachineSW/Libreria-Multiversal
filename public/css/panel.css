@@ -97,6 +97,11 @@ table td {
     transform: scale(1.1);
 }
 
+.contenedor a {
+    text-decoration: none;
+    color: #EA4573;
+}
+
 button {
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
     color: white;

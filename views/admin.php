@@ -29,8 +29,50 @@
                 <a href="./index.php?pagina=admin_pedidos">Ver pedidos</a>
             </article>
         </div>
+           <section class="contenedor">
+            <h2>Alertas de stock</h2>
 
-        <div class="pedidos">
+            <?php if (empty($libroStockBajo)): ?>
+                <p>Todo en orden: ningún producto está por debajo de su stock mínimo.</p>
+            <?php else: ?>
+                <p class="aviso-stock">
+                    ! <?= count($libroStockBajo) ?> producto(s) con stock bajo o
+                    agotado.
+                </p>
+
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Stock</th>
+                            <th>Mínimo</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php foreach ($libroStockBajo as $l): ?>
+                            <tr>
+                                <td><?= escapar($l['nombre']) ?></td>
+                                <td><?= (int)$l['stock'] ?></td>
+                                <td><?= (int)$l['stock_minimo'] ?></td>
+                                <td>
+                                    <span class="stock stock-<?= escapar($l['nivel_stock']) ?>">
+                                        <?= ($l['nivel_stock'] === 'agotado') ? 'Sin stock' : 'Stock bajo' ?>
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <a href="index.php?pagina=admin_libro_editar&id=<?= (int)$l['id'] ?>">Reponer</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </section> 
+        <div class="contenedor">
             <h2>Ultimos pedidos</h2>
             <p>aqui va el listado de los ultimos pedidos</p>
         </div>
