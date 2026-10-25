@@ -32,7 +32,7 @@ function mostrarCarrito() {
         
         div.innerHTML = `
         <h3>${libro.nombre}</h3>
-        <img src="${libro.imagen}" alt="${libro.nombre}">
+        <img src="./public/img/Libros/${libro.imagen}" alt="${libro.nombre}">
         <h4>Cantidad: ${libro.cantidad}</h4>
         <div class="botones">
         <button class="eliminar">-</button>

@@ -23,6 +23,11 @@ function estaLogueado() {
 return isset($_SESSION['usuario_id']);
 }
 
+/** Id del usuario logueado (o null si no hay). */
+function usuarioActualId() {
+return $_SESSION['usuario_id'] ?? null;
+}
+
 /** Nombre del usuario logueado (o null). */
 function usuarioActualNombre() {
 return $_SESSION['nombre'] ?? null;
@@ -51,4 +56,21 @@ http_response_code(403); // 403 = Prohibido
 require __DIR__ . '/../views/sin_permiso.php';
 exit;
 }
+}
+
+
+function sincronizarSesion($usuario) {
+    if (!estaLogueado()) {
+        return;
+    }
+
+    $usuario = $usuario->obtenerPorId(usuarioActualId());
+
+    if (!$usuario || (int) $usuario['activo'] !== 1) {
+        AuthController::cerrarSesion();
+        redirigir('login', '&cuenta=desactivada');
+    }
+
+    $_SESSION['rol'] = $usuario['rol'];
+    $_SESSION['nombre'] = $usuario['nombre'];
 }

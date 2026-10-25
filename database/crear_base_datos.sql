@@ -147,6 +147,9 @@ CREATE TABLE IF NOT EXISTS usuario (
     rol ENUM('cliente', 'admin') NOT NULL DEFAULT 'cliente'
 );
 
+ALTER TABLE usuario
+ADD COLUMN activo TINYINT(1) NOT NULL DEFAULT 1;
+
 -- Pedidos: se guarda un pedido por cada compra y su detalle (un registro por libro comprado)
 -- Si ya existian las tablas de la version anterior (pedidos y detalle_pedido), borrarlas antes de ejecutar esto:
 -- DROP TABLE detalle_pedido;

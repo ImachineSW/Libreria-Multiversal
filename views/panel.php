@@ -29,11 +29,9 @@
                 <tr>
                     <td>Correo: *********@gmail.com<button>Cambiar correo</button> </td>
                 </tr>
-                <?php if(!esAdmin()): ?>
                 <tr>
-                    <td>Historial de pedidos: <button>Ver historial de pedidos</button> </td>
+                    <td>Historial de pedidos: <button>Mis pedidos</button> </td>
                 </tr>
-                <?php endif; ?>
             </table>
 
             <form action="./index.php?pagina=login" method="POST">

@@ -51,8 +51,8 @@ class AuthController
     }
 
     // Devuelve un mensaje de error, o texto vacio si el login es correcto.
-    public function iniciarSesion($datos)
-    {
+    public function iniciarSesion($datos) {
+
         $email = strtolower(trim($datos["email"] ?? ""));
         $password = $datos["password"] ?? "";
 
@@ -68,6 +68,10 @@ class AuthController
 
         if (!$datosUsuario || !password_verify($password, $datosUsuario["password"])) {
             return "Correo o contraseña incorrectos.";
+        }
+
+        if ((int) $datosUsuario["activo"] !== 1) {
+            return "Tu cuenta está desactivada. Comunicate con el administrador del sitio.";
         }
 
         session_regenerate_id(true);

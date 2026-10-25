@@ -9,11 +9,13 @@ require_once __DIR__ . '/models/usuario.php'; // Se carga el modelo de usuarios
 
 require_once __DIR__ . '/controllers/libroController.php'; // Se carga el controlador de libros
 require_once __DIR__ . '/controllers/pedidoController.php'; // Se carga el controlador de pedidos
-require_once __DIR__ . '/controllers/authController.php'; // Se carga el controlador de autenticacion
+require_once __DIR__ . '/controllers/AuthController.php'; // Se carga el controlador de autenticacion
 require_once __DIR__ . '/controllers/adminController.php'; // Se carga el controlador de admin
 require_once __DIR__ . '/controllers/adminLibroController.php'; // Se carga el controlador de admin de libros
+require_once __DIR__ . '/controllers/adminUsuarioController.php'; // Se carga el controlador de admin de usuarios
 
-
+$usuarioModel = new Usuario($conexion);
+sincronizarSesion($usuarioModel);
 
 $paginaSolicitada = $_GET['pagina'] ?? 'catalogo'; // Se define la pagina que se va a mostrar segun lo que se ingrese en la url, si no se ingresa nada se muestra el catalogo
 
@@ -101,6 +103,18 @@ switch ($paginaSolicitada) {
 
     case 'admin_libro_estado':
     (new AdminLibroController($conexion))->cambiarEstado();
+    break;
+
+    case 'admin_usuarios':
+    (new AdminUsuarioController($conexion))->listar();
+    break;
+
+    case 'admin_usuario_rol':
+    (new AdminUsuarioController($conexion))->cambiarRol();
+    break;
+
+    case 'admin_usuario_estado':
+    (new AdminUsuarioController($conexion))->cambiarEstado();
     break;
 
     default: // Si no se ingresa nada se muestra la pagina no encontrada

@@ -11,7 +11,12 @@
 <body>
     <div class="container">
         <a href="./index.php?pagina=catalogo" class="back-btn">← Volver al catálogo</a>
-
+        <?php if (($_GET['cuenta'] ?? '') === 'desactivada'): ?>
+        <p class="error">
+            Tu sesión se cerró porque la cuenta fue desactivada o ya no existe.
+            Si creés que es un error, comunicate con el administrador.
+        </p>
+        <?php endif; ?>
         <?php if (isset($_SESSION["usuario_id"])): ?>
             <?php header('Location: ./index.php?pagina=catalogo')?>
         <?php else: ?>
