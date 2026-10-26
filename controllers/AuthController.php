@@ -14,8 +14,7 @@ class AuthController
     {
         $this->usuario = new Usuario($conexion);
     }
-
-    // Se mantiene compatible con el register.php que hicimos antes.
+// Valida los datos del formulario y registra al nuevo usuario si no está duplicado.
     public function registrar($datos)
     {
         $nombre = trim($datos["nombre"] ?? "");
