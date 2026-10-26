@@ -5,6 +5,7 @@ require_once __DIR__ . '/config/auth.php'; // Se carga funciones de ayuda
 
 require_once __DIR__ . '/models/libroModel.php'; // Se carga el modelo de libros
 require_once __DIR__ . '/models/pedidoModel.php'; // Se carga el modelo de pedidos
+require_once __DIR__ . '/models/pagoModel.php'; // Se carga el modelo de pagos
 require_once __DIR__ . '/models/usuario.php'; // Se carga el modelo de usuarios
 
 require_once __DIR__ . '/controllers/libroController.php'; // Se carga el controlador de libros
@@ -75,9 +76,19 @@ switch ($paginaSolicitada) {
         $libroController->mostrarDetalle(); // Se muestra el detalle del libro
         break;
 
-    case 'pedido': // Si se ingresa 'pedido' se guarda el pedido enviado desde el carrito
+    case 'checkout': // Si se ingresa 'checkout' se piden los datos de envio y se crea el pedido
         $pedidoController = new PedidoController($conexion); // Se crea el controlador de pedidos
-        $pedidoController->confirmarPedido(); // Se guarda el pedido y su detalle y se muestra la confirmacion
+        $pedidoController->checkout(); // Se muestra el formulario de envio y se crea el pedido
+        break;
+
+    case 'pago': // Si se ingresa 'pago' se muestra la pantalla de pago
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->pagar(); // Se valida la tarjeta y se simula el cobro
+        break;
+
+    case 'pago_resultado': // Si se ingresa 'pago_resultado' se muestra si el pago fue aprobado o rechazado
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->resultado();
         break;
 
     case 'panel': // Si se ingresa 'panel' se muestra el panel

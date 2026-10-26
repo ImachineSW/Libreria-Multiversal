@@ -2,89 +2,278 @@
 
 class PedidoController {
 
+    private $conexion;
     private $pedidoModel;
+    private $pagoModel;
+    private $libroModel;
 
-    public function __construct($conexion) { //recibe la conexion y crea el modelo de pedidos
+    private $departamentos = [
+        'Artigas', 'Canelones', 'Cerro Largo', 'Colonia', 'Durazno', 'Flores',
+        'Florida', 'Lavalleja', 'Maldonado', 'Montevideo', 'Paysandú',
+        'Río Negro', 'Rivera', 'Rocha', 'Salto', 'San José', 'Soriano',
+        'Tacuarembó', 'Treinta y Tres'
+    ];
+
+    public function __construct($conexion) { //recibe la conexion y crea los modelos que usa la clase
+        $this->conexion = $conexion;
         $this->pedidoModel = new PedidoModel($conexion);
+        $this->pagoModel = new PagoModel($conexion);
+        $this->libroModel = new LibroModel($conexion);
     }
 
-    // recibe el carrito enviado por el formulario, lo valida, guarda el pedido y muestra la confirmacion
-    public function confirmarPedido() {
-        // Cuando exista el login: requerirLogin() y $idUsuario = usuarioActualId();
-        $idUsuario = null; // por ahora puede comprar un invitado, el pedido queda sin usuario
+    // ---------- Metodos publicos (paginas) ----------
 
-        // Si alguien intenta entrar a esta pagina sin enviar el formulario, lo mandamos de vuelta al carrito
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['carritoJson'])) {
-            header('Location: index.php?pagina=carrito');
-            exit;
+    // recibe el carrito, pide la direccion de envio, la valida y crea el pedido
+    public function checkout() {
+        requerirLogin(); // sin sesion iniciada se redirige al login
+
+        // 1) que quiere comprar (llega desde pedido.js: solo ids y cantidades)
+        $items = $this->leerCarrito();
+        if (empty($items)) {
+            redirigir('carrito');
         }
 
-        $carritoRecibido = json_decode($_POST['carritoJson'], true);
-
-        if (empty($carritoRecibido) || !is_array($carritoRecibido)) {
-            header('Location: index.php?pagina=carrito');
-            exit;
+        // 2) precios y total: SIEMPRE desde la base de datos
+        $datos = $this->calcularCarrito($items);
+        if ($datos === null) {
+            redirigir('carrito');
         }
+        $carrito = $datos['carrito'];
+        $total = $datos['total'];
 
-        // Valida cada item y junta las cantidades si un libro viene repetido
-        $items = [];
-        foreach ($carritoRecibido as $itemDelCarrito) {
-            if (!is_array($itemDelCarrito) || !isset($itemDelCarrito['id'], $itemDelCarrito['cantidad'])
-                || !ctype_digit((string) $itemDelCarrito['id']) || !ctype_digit((string) $itemDelCarrito['cantidad'])
-                || (int) $itemDelCarrito['id'] < 1 || (int) $itemDelCarrito['cantidad'] < 1) { // id y cantidad deben ser enteros positivos
-                header('Location: index.php?pagina=carrito');
-                exit;
-            }
-            $id = (int) $itemDelCarrito['id'];
-            $items[$id] = ($items[$id] ?? 0) + (int) $itemDelCarrito['cantidad'];
-        }
+        // 3) variables que usa la vista
+        $departamentos = $this->departamentos;
+        $carritoJson = json_encode($items); // se reenvia dentro del formulario
+        $errores = [];
+        $envio = [
+            'nombre' => '', 'direccion' => '', 'ciudad' => '',
+            'departamento' => '', 'telefono' => ''
+        ];
 
-        // Calcula el total del pedido sumando (precio x cantidad) de cada libro
-        // El precio se toma de la base de datos, no del navegador, para que nadie pueda modificarlo
-        $totalDelPedido = 0;
-        $lineas = [];
-        foreach ($items as $idLibro => $cantidad) {
-            $precio = $this->pedidoModel->obtenerPrecio($idLibro);
-            if ($precio === null) { // si el libro no existe no se guarda nada
-                header('Location: index.php?pagina=carrito');
-                exit;
-            }
-            $totalDelPedido += $precio * $cantidad;
-            $lineas[] = ["id" => $idLibro, "cantidad" => $cantidad, "precio" => $precio];
-        }
-        $totalDelPedido = round($totalDelPedido, 2);
+        // 4) enviaron el formulario de direccion?
+        if (isset($_POST['confirmar'])) {
+            $envio = [
+                'nombre' => trim($_POST['nombre'] ?? ''),
+                'direccion' => trim($_POST['direccion'] ?? ''),
+                'ciudad' => trim($_POST['ciudad'] ?? ''),
+                'departamento' => trim($_POST['departamento'] ?? ''),
+                'telefono' => preg_replace('/\D/', '', $_POST['telefono'] ?? '')
+            ];
 
-        $this->pedidoModel->iniciarTransaccion(); // si algo falla no se guarda nada a medias
+            $errores = $this->validarEnvio($envio);
 
-        // 1. Creamos el pedido y obtenemos el id que le asigno la base de datos
-        $idPedidoCreado = $this->pedidoModel->crearPedido($idUsuario, $totalDelPedido);
-        $guardado = ($idPedidoCreado !== false);
+            // 5) si no hay errores, crear el pedido (queda "pendiente") asociado al usuario de la sesion
+            if (empty($errores)) {
+                $idPedido = $this->pedidoModel->crearPedidoCompleto(
+                    usuarioActualId(), $total, $envio, $carrito
+                );
 
-        // 2. Guardamos el detalle: una fila por cada libro del carrito
-        if ($guardado) {
-            foreach ($lineas as $linea) {
-                if (!$this->pedidoModel->agregarDetalleAlPedido($idPedidoCreado, $linea["id"], $linea["cantidad"], $linea["precio"])) {
-                    $guardado = false;
-                    break;
+                if ($idPedido) {
+                    redirigir('pago', '&id=' . (int) $idPedido);
                 }
+
+                $errores[] = 'No pudimos crear el pedido. Intentá de nuevo.';
             }
         }
 
-        if (!$guardado) { // si algo fallo se deshace todo
-            $this->pedidoModel->cancelarTransaccion();
-            http_response_code(500);
-            echo "<p>No se pudo guardar el pedido.</p>";
-            return;
+        // 6) mostrar el formulario (con errores, si los hay)
+        require __DIR__ . '/../views/checkout.php';
+    }
+
+    // pantalla de pago: valida la tarjeta, simula el cobro y registra el pago
+    public function pagar() {
+        $pedido = $this->obtenerPedidoDelUsuario();
+
+        // si ya esta pagado no tiene sentido volver a cobrar
+        if ($pedido['estado'] === 'pagado') {
+            redirigir('pago_resultado', '&id=' . (int) $pedido['id']);
         }
 
-        $this->pedidoModel->confirmarTransaccion(); // confirma todo junto
+        $errores = [];
+        $titular = '';
 
-        // 3. Mostramos la vista de confirmacion con el resumen del pedido
-        // La vista pedido_confirmado.php utiliza las variables $pedido y $items
-        $datos = $this->pedidoModel->obtenerPedido($idPedidoCreado);
-        $pedido = $datos["pedido"];
-        $items = $datos["items"];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $titular = trim($_POST['titular'] ?? '');
+            $numero = preg_replace('/\D/', '', $_POST['numero'] ?? '');
+            $vencimiento = trim($_POST['vencimiento'] ?? '');
+            $cvv = $_POST['cvv'] ?? '';
 
-        require __DIR__ . '/../views/pedido_confirmado.php';
+            $errores = $this->validarTarjeta($titular, $numero, $vencimiento, $cvv);
+
+            if (empty($errores)) {
+                $resultado = $this->simularPasarela($numero);
+
+                $ok = $this->pagoModel->registrarIntento(
+                    $pedido['id'],
+                    $pedido['total'],     // sale de la base de datos, no del formulario
+                    substr($numero, -4),  // solo los ultimos 4 digitos
+                    $resultado
+                );
+
+                if ($ok) {
+                    redirigir('pago_resultado', '&id=' . (int) $pedido['id']);
+                }
+
+                $errores[] = 'Ocurrió un problema al procesar el pago. Intentá de nuevo.';
+            }
+        }
+
+        require __DIR__ . '/../views/pago.php';
+    }
+
+    // muestra si el pago fue aprobado o rechazado (se lee de la base de datos, no de la URL)
+    public function resultado() {
+        $pedido = $this->obtenerPedidoDelUsuario();
+
+        // todavia no se intento pagar: lo mandamos a pagar
+        if ($pedido['estado'] === 'pendiente') {
+            redirigir('pago', '&id=' . (int) $pedido['id']);
+        }
+
+        require __DIR__ . '/../views/pago_resultado.php';
+    }
+
+    // ---------- Metodos privados de apoyo ----------
+
+    // lee carritoJson (POST) y devuelve [['id' => 5, 'cantidad' => 2], ...]
+    // si algun dato no es valido devuelve un arreglo vacio; si un libro viene repetido junta las cantidades
+    private function leerCarrito() {
+        $json = $_POST['carritoJson'] ?? '';
+        if (!is_string($json)) {
+            return [];
+        }
+
+        $lista = json_decode($json, true);
+        if (!is_array($lista)) {
+            return [];
+        }
+
+        $acumulado = [];
+        foreach ($lista as $item) {
+            if (!is_array($item)) {
+                return [];
+            }
+            $id = filter_var($item['id'] ?? null, FILTER_VALIDATE_INT);
+            $cantidad = filter_var($item['cantidad'] ?? null, FILTER_VALIDATE_INT);
+
+            if ($id === false || $id < 1 || $cantidad === false || $cantidad < 1) {
+                return []; // un solo dato invalido invalida todo el carrito
+            }
+            $acumulado[$id] = ($acumulado[$id] ?? 0) + $cantidad;
+        }
+
+        $items = [];
+        foreach ($acumulado as $id => $cantidad) {
+            $items[] = ['id' => $id, 'cantidad' => $cantidad];
+        }
+        return $items;
+    }
+
+    // busca cada libro en la base y calcula el total
+    // devuelve null si algun libro no existe o esta dado de baja
+    private function calcularCarrito($items) {
+        $carrito = [];
+        $total = 0;
+
+        foreach ($items as $item) {
+            $resultado = $this->libroModel->obtenerPorId($item['id']);
+            $libro = $resultado ? $resultado->fetch_assoc() : null;
+
+            if (!$libro) {
+                return null;
+            }
+
+            $precio = (float) $libro['precio']; // el precio sale de la BASE
+            $carrito[] = [
+                'id' => $item['id'],
+                'nombre' => $libro['nombre'],
+                'cantidad' => $item['cantidad'],
+                'precio' => $precio
+            ];
+            $total += $precio * $item['cantidad'];
+        }
+
+        $total = round($total, 2);
+
+        return ($total > 0) ? ['carrito' => $carrito, 'total' => $total] : null;
+    }
+
+    // el texto tiene entre $min y $max caracteres?
+    private function largoEntre($texto, $min, $max) {
+        $largo = mb_strlen($texto);
+        return $largo >= $min && $largo <= $max;
+    }
+
+    // devuelve la lista de errores del formulario de envio
+    private function validarEnvio($envio) {
+        $errores = [];
+
+        if (!$this->largoEntre($envio['nombre'], 3, 60)) {
+            $errores[] = 'El nombre debe tener entre 3 y 60 caracteres.';
+        }
+        if (!$this->largoEntre($envio['direccion'], 5, 100)) {
+            $errores[] = 'La dirección debe tener entre 5 y 100 caracteres.';
+        }
+        if (!$this->largoEntre($envio['ciudad'], 2, 50)) {
+            $errores[] = 'La ciudad debe tener entre 2 y 50 caracteres.';
+        }
+        if (!in_array($envio['departamento'], $this->departamentos, true)) {
+            $errores[] = 'Elegí un departamento de la lista.';
+        }
+        if (!$this->largoEntre($envio['telefono'], 8, 12)) {
+            $errores[] = 'El teléfono debe tener entre 8 y 12 dígitos.';
+        }
+
+        return $errores;
+    }
+
+    // devuelve la lista de errores del formulario de tarjeta
+    private function validarTarjeta($titular, $numero, $vencimiento, $cvv) {
+        $errores = [];
+
+        if (!$this->largoEntre($titular, 3, 60)) {
+            $errores[] = 'El nombre del titular debe tener entre 3 y 60 caracteres.';
+        }
+        if (strlen($numero) !== 16) {
+            $errores[] = 'El número de tarjeta debe tener 16 dígitos.';
+        }
+        if (!preg_match('/^(0[1-9]|1[0-2])\/\d{2}$/', $vencimiento)) {
+            $errores[] = 'El vencimiento debe tener el formato MM/AA.';
+        } else {
+            $zona = new DateTimeZone('America/Montevideo');
+            $vence = DateTime::createFromFormat('!m/y', $vencimiento, $zona);
+            $vence->modify('last day of this month')->setTime(23, 59, 59);
+            if ($vence < new DateTime('now', $zona)) {
+                $errores[] = 'La tarjeta está vencida.';
+            }
+        }
+        if (!preg_match('/^\d{3}$/', $cvv)) {
+            $errores[] = 'El código de seguridad debe tener 3 dígitos.';
+        }
+
+        return $errores;
+    }
+
+    // SIMULACION de la pasarela: ultimo digito par = aprobado, impar = rechazado
+    private function simularPasarela($numeroTarjeta) {
+        $ultimoDigito = (int) substr($numeroTarjeta, -1);
+        return ($ultimoDigito % 2 === 0) ? 'aprobado' : 'rechazado';
+    }
+
+    // busca el pedido de la URL y verifica que sea del usuario logueado
+    private function obtenerPedidoDelUsuario() {
+        requerirLogin();
+
+        $idPedido = (int) ($_GET['id'] ?? 0);
+        $pedido = $this->pedidoModel->obtenerPorId($idPedido, usuarioActualId());
+
+        if (!$pedido) {
+            // mismo mensaje si no existe o si es de otro usuario: no damos pistas
+            http_response_code(403);
+            require __DIR__ . '/../views/sin_permiso.php';
+            exit;
+        }
+
+        return $pedido;
     }
 }

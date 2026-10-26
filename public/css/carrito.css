@@ -420,3 +420,81 @@ footer span {
     text-align: right;
     font-size: 1.3rem !important;
 }
+
+/*Checkout y pago*/
+.lista-checkout {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.lista-checkout li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.formulario-pedido {
+    margin: 20px 0;
+}
+
+.formulario-pedido label {
+    display: block;
+    margin: 14px 0 6px;
+    font-weight: bold;
+}
+
+.formulario-pedido input[type="text"],
+.formulario-pedido input[type="password"],
+.formulario-pedido select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.formulario-pedido input:focus,
+.formulario-pedido select:focus {
+    outline: none;
+    border-color: #EA4573;
+}
+
+.formulario-pedido input[type="submit"] {
+    width: 100%;
+    margin-top: 22px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+}
+
+.errores {
+    color: #DE3A3E;
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+p.errores {
+    padding-left: 0;
+}
+
+.ayuda {
+    margin-top: 20px;
+}
+
+.ayuda ul {
+    margin: 8px 0 8px 20px;
+}
+
+.estado-pagado {
+    background: #2E9E5B;
+}
+
+.estado-rechazado {
+    background: #555555;
+}

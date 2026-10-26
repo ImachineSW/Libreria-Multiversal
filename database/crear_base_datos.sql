@@ -150,20 +150,20 @@ CREATE TABLE IF NOT EXISTS usuario (
 ALTER TABLE usuario
 ADD COLUMN activo TINYINT(1) NOT NULL DEFAULT 1;
 
--- Pedidos: se guarda un pedido por cada compra y su detalle (un registro por libro comprado)
--- Si ya existian las tablas de la version anterior (pedidos y detalle_pedido), borrarlas antes de ejecutar esto:
--- DROP TABLE detalle_pedido;
--- DROP TABLE pedidos;
+-- Pedidos: un pedido por cada compra, con su dirección de envío y su detalle
 CREATE TABLE pedido (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  id_usuario INT NULL, -- NULL mientras la compra pueda hacerla un invitado (sin login)
+  id_usuario INT NOT NULL,
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  estado VARCHAR(20) NOT NULL DEFAULT 'pendiente',
-  total DECIMAL(10,2) NOT NULL
+  estado ENUM('pendiente', 'pagado', 'rechazado') NOT NULL DEFAULT 'pendiente',
+  total DECIMAL(10,2) NOT NULL,
+  envio_nombre VARCHAR(60) NULL,
+  envio_direccion VARCHAR(100) NULL,
+  envio_ciudad VARCHAR(50) NULL,
+  envio_departamento VARCHAR(30) NULL,
+  envio_telefono VARCHAR(15) NULL,
+  CONSTRAINT fk_pedido_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
-
--- Cuando exista la tabla usuario, vincular el pedido con el usuario (relacion 1:N):
--- ALTER TABLE pedido ADD CONSTRAINT fk_pedido_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id);
 
 CREATE TABLE detalle_pedido (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -175,3 +175,13 @@ CREATE TABLE detalle_pedido (
   FOREIGN KEY (libro_id) REFERENCES libros(id)
 );
 
+-- Pago: un pedido puede tener varios intentos (relación 1:N). Solo se guardan los últimos 4 dígitos
+CREATE TABLE pago (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_pedido INT NOT NULL,
+  monto DECIMAL(10,2) NOT NULL,
+  ultimos4 CHAR(4) NOT NULL,
+  resultado ENUM('aprobado', 'rechazado') NOT NULL,
+  fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_pago_pedido FOREIGN KEY (id_pedido) REFERENCES pedido(id)
+);
