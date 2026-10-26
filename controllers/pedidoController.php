@@ -6,6 +6,7 @@ class PedidoController {
     private $pedidoModel;
     private $pagoModel;
     private $libroModel;
+    private $errorCarrito = ''; // motivo por el que el carrito no es valido (por ejemplo, falta stock)
 
     private $departamentos = [
         'Artigas', 'Canelones', 'Cerro Largo', 'Colonia', 'Durazno', 'Flores',
@@ -36,6 +37,11 @@ class PedidoController {
         // 2) precios y total: SIEMPRE desde la base de datos
         $datos = $this->calcularCarrito($items);
         if ($datos === null) {
+            if ($this->errorCarrito !== '') { // falta stock: se explica el motivo
+                $errorPedido = $this->errorCarrito;
+                require __DIR__ . '/../views/errorPedido.php';
+                return;
+            }
             redirigir('carrito');
         }
         $carrito = $datos['carrito'];
@@ -133,6 +139,23 @@ class PedidoController {
         require __DIR__ . '/../views/pago_resultado.php';
     }
 
+    // historial: lista de pedidos del usuario logueado
+    public function misPedidos() {
+        requerirLogin();
+
+        $pedidos = $this->pedidoModel->listarPorUsuario(usuarioActualId());
+
+        require __DIR__ . '/../views/mis_pedidos.php';
+    }
+
+    // detalle de un pedido del usuario logueado
+    public function verPedido() {
+        $pedido = $this->obtenerPedidoDelUsuario(); // primero se verifica que el pedido es del usuario
+        $detalle = $this->pedidoModel->obtenerDetalle($pedido['id']); // despues se piden sus libros
+
+        require __DIR__ . '/../views/pedido_detalle.php';
+    }
+
     // ---------- Metodos privados de apoyo ----------
 
     // lee carritoJson (POST) y devuelve [['id' => 5, 'cantidad' => 2], ...]
@@ -180,6 +203,12 @@ class PedidoController {
             $libro = $resultado ? $resultado->fetch_assoc() : null;
 
             if (!$libro) {
+                return null;
+            }
+
+            // si piden mas unidades de las que hay, el carrito no es valido
+            if ($item['cantidad'] > (int) $libro['stock']) {
+                $this->errorCarrito = 'No hay stock suficiente de "' . $libro['nombre'] . '" (disponible: ' . (int) $libro['stock'] . ').';
                 return null;
             }
 

@@ -71,6 +71,7 @@
                         </p>
                     </div>
                     <div class="Botones">
+                        <?php if ((int) $libro['stock'] > 0): ?>
                         <a
                             href="./index.php?pagina=carrito"
                             class="addb"
@@ -89,6 +90,9 @@
                             data-imagen="<?php echo htmlspecialchars($libro['imagen'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                             Agregar al carrito
                         </button>
+                        <?php else: ?>
+                            <span class="stock stock-agotado">Sin stock</span>
+                        <?php endif; ?>
                     </div>
                 </div>              
             </div>

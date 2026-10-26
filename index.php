@@ -14,6 +14,7 @@ require_once __DIR__ . '/controllers/AuthController.php'; // Se carga el control
 require_once __DIR__ . '/controllers/adminController.php'; // Se carga el controlador de admin
 require_once __DIR__ . '/controllers/adminLibroController.php'; // Se carga el controlador de admin de libros
 require_once __DIR__ . '/controllers/adminUsuarioController.php'; // Se carga el controlador de admin de usuarios
+require_once __DIR__ . '/controllers/adminPedidoController.php'; // Se carga el controlador de admin de pedidos
 
 $usuarioModel = new Usuario($conexion);
 sincronizarSesion($usuarioModel);
@@ -127,6 +128,32 @@ switch ($paginaSolicitada) {
     case 'admin_usuario_estado':
     (new AdminUsuarioController($conexion))->cambiarEstado();
     break;
+
+    case 'mis_pedidos': // Si se ingresa 'mis_pedidos' se muestra el historial de pedidos del cliente
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->misPedidos();
+        break;
+
+    case 'pedido_detalle': // Si se ingresa 'pedido_detalle' se muestra el detalle de un pedido del cliente
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->verPedido();
+        break;
+
+    case 'admin_pedidos':
+        (new AdminPedidoController($conexion))->listar();
+        break;
+
+    case 'admin_pedido_detalle':
+        (new AdminPedidoController($conexion))->ver();
+        break;
+
+    case 'admin_pedido_envio':
+        (new AdminPedidoController($conexion))->cambiarEnvio();
+        break;
+
+    case 'admin_informes':
+        (new AdminPedidoController($conexion))->informe();
+        break;
 
     default: // Si no se ingresa nada se muestra la pagina no encontrada
         http_response_code(404);

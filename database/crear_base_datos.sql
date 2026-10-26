@@ -43,6 +43,9 @@ ADD COLUMN stock INT NOT NULL DEFAULT 0,
 ADD COLUMN stock_minimo INT NOT NULL DEFAULT 5,
 ADD COLUMN activo TINYINT(1) NOT NULL DEFAULT 1;
 
+-- Datos de prueba: los libros arrancan con stock 0 (no se pueden comprar), se les da stock para poder probar
+UPDATE libros SET stock = 20 WHERE stock = 0;
+
 CREATE TABLE generos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL UNIQUE
@@ -155,7 +158,8 @@ CREATE TABLE pedido (
   id INT AUTO_INCREMENT PRIMARY KEY,
   id_usuario INT NOT NULL,
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  estado ENUM('pendiente', 'pagado', 'rechazado') NOT NULL DEFAULT 'pendiente',
+  estado ENUM('pendiente', 'pagado', 'rechazado') NOT NULL DEFAULT 'pendiente', -- estado del pago (lo decide la pasarela)
+  estado_envio ENUM('preparando', 'enviado', 'entregado') NOT NULL DEFAULT 'preparando', -- estado del envio (lo cambia el admin)
   total DECIMAL(10,2) NOT NULL,
   envio_nombre VARCHAR(60) NULL,
   envio_direccion VARCHAR(100) NULL,

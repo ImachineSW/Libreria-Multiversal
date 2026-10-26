@@ -41,7 +41,11 @@
                                 <p class="precio">$<?php echo escapar($libro["precio"]); //le as igna el precio del libro a el precio ?></p>
                                 <p><?php echo escapar($libro["autor"]); //le asigna el autor del libro a el autor ?></p>
                             </a>
-                            <button class="addb" data-id="<?php echo (int) $libro["id"]; ?>" data-nombre="<?php echo escapar($libro["nombre"]); ?>" data-precio="<?php echo escapar($libro["precio"]); ?>" data-autor="<?php echo escapar($libro["autor"]); ?>" data-paginas="<?php echo (int) ($libro["paginas"] ?? 0); ?>" data-imagen="<?php echo escapar($libro["imagen"]); ?>">Agregar al Carrito</button> <!--manda los datos de los data  a la funcion de agregar al carrito-->
+                            <?php if ((int) $libro["stock"] > 0): ?>
+                                <button class="addb" data-id="<?php echo (int) $libro["id"]; ?>" data-nombre="<?php echo escapar($libro["nombre"]); ?>" data-precio="<?php echo escapar($libro["precio"]); ?>" data-autor="<?php echo escapar($libro["autor"]); ?>" data-paginas="<?php echo (int) ($libro["paginas"] ?? 0); ?>" data-imagen="<?php echo escapar($libro["imagen"]); ?>">Agregar al Carrito</button> <!--manda los datos de los data  a la funcion de agregar al carrito-->
+                            <?php else: ?>
+                                <span class="stock stock-agotado">Sin stock</span>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; //termina de recorrer el array?>
                 <?php endif?>

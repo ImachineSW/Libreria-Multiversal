@@ -9,7 +9,7 @@ class LibroModel {
     }
 
     public function listarLibros($busqueda = "", $genero = "") { //devuelve todos los libros cargados en el base de datos
-        $sql = "SELECT l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis,
+        $sql = "SELECT l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis, l.stock,
                     GROUP_CONCAT(DISTINCT g.nombre ORDER BY g.nombre SEPARATOR ', ') 
                 AS genero
                 FROM libros l
@@ -33,7 +33,7 @@ class LibroModel {
             $params[] = $genero;
         }
 
-        $sql .= " GROUP BY l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis ORDER BY l.nombre";
+        $sql .= " GROUP BY l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis, l.stock ORDER BY l.nombre";
 
         $stmt = $this->conexion->prepare($sql);
         if (!empty($params)) {
@@ -50,14 +50,14 @@ class LibroModel {
 
 
     public function obtenerPorId($id) { //obtiene el libros por id para mostrar el detalle de cada uno
-        $sql = "SELECT l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis,
+        $sql = "SELECT l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis, l.stock,
                     GROUP_CONCAT(DISTINCT g.nombre ORDER BY g.nombre SEPARATOR ', ') 
                 AS genero
                 FROM libros l
                 LEFT JOIN libros_generos lg ON l.id = lg.libro_id
                 LEFT JOIN generos g ON lg.genero_id = g.id
                 WHERE l.id = ? AND l.activo = 1
-                GROUP BY l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis";
+                GROUP BY l.id, l.nombre, l.precio, l.autor, l.paginas, l.imagen, l.editorial, l.fecha, l.idioma, l.sinopsis, l.stock";
                 //busca el libros por id con parametros por seguridad
 
         $stmt = mysqli_prepare($this->conexion, $sql); //se prepara la consulta
@@ -285,6 +285,20 @@ public function cambiarActivo($id, $activo) {
     $stmt->bind_param("ii", $activo, $id);
 
     return $stmt->execute();
+}
+
+// Resta stock SOLO si alcanza. Devuelve true si desconto, false si no habia suficiente.
+// La resta la hace la base en una sola sentencia: si dos clientes compran la ultima unidad
+// a la vez, solo uno la consigue.
+public function descontarStock($idLibro, $cantidad) {
+    $stmt = $this->conexion->prepare(
+        "UPDATE libros SET stock = stock - ? WHERE id = ? AND stock >= ?"
+    );
+
+    $stmt->bind_param("iii", $cantidad, $idLibro, $cantidad);
+    $stmt->execute();
+
+    return $stmt->affected_rows === 1;
 }
 
 public function obtenerOCrearGenero($nombre) {

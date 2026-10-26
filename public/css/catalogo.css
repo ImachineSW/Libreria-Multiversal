@@ -390,3 +390,14 @@ footer span {
     }
 }
 /*===================*/
+
+/*Sin stock*/
+.stock-agotado {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 12px;
+    background: #f8d7da;
+    color: #721c24;
+    font-weight: bold;
+    font-size: 0.9em;
+}

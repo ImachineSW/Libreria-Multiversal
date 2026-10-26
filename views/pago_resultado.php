@@ -22,7 +22,7 @@
                     <p>Gracias por tu compra. Tu pedido N.º <strong><?= escapar($pedido['id']) ?></strong> fue pagado correctamente.</p>
                     <p>Estado: <span class="estado estado-pagado"><?= escapar(ucfirst($pedido['estado'])) ?></span></p>
                     <p>Total abonado: <strong>$ <?= escapar(number_format($pedido['total'], 2, ',', '.')) ?></strong></p>
-                    <p><a href="./index.php?pagina=catalogo">Seguir comprando</a></p>
+                    <p><a href="./index.php?pagina=catalogo">Seguir comprando</a> | <a href="./index.php?pagina=mis_pedidos">Ver mis pedidos</a></p>
                 <?php else: ?>
                     <h1>Pago rechazado</h1>
                     <p>No pudimos procesar el pago del pedido N.º <strong><?= escapar($pedido['id']) ?></strong>.</p>
@@ -31,6 +31,8 @@
                         <a href="./index.php?pagina=pago&id=<?= (int) $pedido['id'] ?>">Intentar de nuevo</a>
                         |
                         <a href="./index.php?pagina=catalogo">Volver al catálogo</a>
+                        |
+                        <a href="./index.php?pagina=mis_pedidos">Ver mis pedidos</a>
                     </p>
                 <?php endif; ?>
             </div>

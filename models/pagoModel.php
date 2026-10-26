@@ -42,4 +42,20 @@ class PagoModel {
             return false;
         }
     }
+
+    // ultimo pago aprobado de un pedido (null si no hay)
+    public function obtenerAprobado($idPedido) {
+        $stmt = $this->conexion->prepare(
+            "SELECT ultimos4, monto, fecha
+             FROM pago
+             WHERE id_pedido = ? AND resultado = 'aprobado'
+             ORDER BY id DESC LIMIT 1"
+        );
+        $stmt->bind_param("i", $idPedido);
+        $stmt->execute();
+        $pago = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+
+        return $pago ?: null;
+    }
 }

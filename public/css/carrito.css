@@ -498,3 +498,26 @@ p.errores {
 .estado-rechazado {
     background: #555555;
 }
+
+/*Historial de pedidos*/
+.estado-pendiente {
+    background: #E0A100;
+}
+
+.estado-preparando {
+    background: #6C757D;
+}
+
+.estado-enviado {
+    background: #2F7DE1;
+}
+
+.estado-entregado {
+    background: #17A2B8;
+}
+
+.detalle-pedido a {
+    color: #EA4573;
+    font-weight: bold;
+    text-decoration: none;
+}

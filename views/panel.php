@@ -30,7 +30,12 @@
                     <td>Correo: *********@gmail.com<button>Cambiar correo</button> </td>
                 </tr>
                 <tr>
-                    <td>Historial de pedidos: <button>Mis pedidos</button> </td>
+                    <td>Historial de pedidos:
+                        <form action="./index.php" method="GET">
+                            <input type="hidden" name="pagina" value="mis_pedidos">
+                            <button type="submit">Mis pedidos</button>
+                        </form>
+                    </td>
                 </tr>
             </table>
 
