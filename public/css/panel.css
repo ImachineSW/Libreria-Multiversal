@@ -21,7 +21,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #EA4573;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
     background-color: white;
@@ -106,19 +106,20 @@ button {
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
     color: white;
     border: none;
-    padding: 10px;
+    padding: 15px;
     border-radius: 8px;
     width: 100%;
     cursor: pointer;
+    font-size: large;
 }
 
 .contenedor {
     margin: 40px auto;
-    padding: 10px;
+    padding: 20px;
     background-color: white;
     border-radius: 10px;
     align-items: center;
-    font-size: large;
+    font-size: 25px;
     width: 90%;
 }
 
@@ -129,19 +130,28 @@ button {
 }
 
 .contenedor table td {
-    padding: 10px;
+    padding: 15px;
 }
 
-#opciones {
+#cerrarSesion button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border: 2px solid #DE3A3E;
+    color: #DE3A3E;
+    font-size: large;
+    width: 50%; 
+    transition: all 0.3s ease-out;
     margin: 0 auto;
-    margin-top: 20px;
-    width: max-content;
-    padding: 10px;
-    background-color: white;
-    border-radius: 10px;
-    border: 2px solid #EA4573;
 }
 
+#cerrarSesion button:hover {
+    cursor: pointer;
+    background: #DE3A3E;
+    color: white;
+    box-shadow: 0px 0px 5px #DE3A3E;
+}
 
 .multiversal {
     display: flex;
@@ -195,7 +205,7 @@ footer span {
 }
 
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (min-width: 769px) {
     .banner {
         height: 12vh;
     }

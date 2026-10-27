@@ -33,6 +33,11 @@ function usuarioActualNombre() {
 return $_SESSION['nombre'] ?? null;
 }
 
+/** Email del usuario logueado (o null). */
+function usuarioActualEmail() {
+return $_SESSION['email'] ?? null;
+}
+
 /** Rol del usuario logueado (o null). */
 function usuarioActualRol() {
 return $_SESSION['rol'] ?? null;

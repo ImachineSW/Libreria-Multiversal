@@ -79,4 +79,16 @@ class Usuario
         $stmt->bind_param("ii", $activo, $id);
         return $stmt->execute();
     }
+
+// Cambiar contraseña
+public function cambiarPasswd($id, $passwordNueva) {
+    $hash = password_hash($passwordNueva, PASSWORD_DEFAULT);
+    
+    $sql = "UPDATE usuario SET password = ? WHERE id = ?";
+    $stmt = $this->conexion->prepare($sql);
+    $stmt->bind_param("si", $hash, $id);
+    return $stmt->execute();
+
+}
+
 }

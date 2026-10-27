@@ -78,6 +78,7 @@ class AuthController
         $_SESSION["usuario_id"] = $datosUsuario["id"];
         $_SESSION["nombre"] = $datosUsuario["nombre"];
         $_SESSION["rol"] = $datosUsuario["rol"];
+        $_SESSION["email"] = $datosUsuario["email"];
 
         return "";
     }
@@ -111,5 +112,48 @@ class AuthController
             http_response_code(403);
             exit("Acceso denegado.");
         }
+    }
+
+    //cambiar contraseña del usuario
+    public function cambiarPassword($datos) {
+        if (!isset($_SESSION["usuario_id"], $_SESSION["email"])) {
+            return "Tenés que iniciar sesión.";
+        }
+        $actual = $datos["passwordActual"] ?? "";
+        $nueva = $datos["passwordNueva"] ?? "";
+        $confirmar = $datos["passwordConfirmar"] ?? "";
+
+        if ($actual === "" || $nueva === "" || $confirmar === "") {
+            return "Todos los campos deben estar completados";
+        } 
+        if (strlen($nueva) < 8) {
+            return "La contraseña debe tener al menos 8 caracteres";
+        }
+        if ($nueva !== $confirmar) {
+            return "Las contraseñas no coinciden";
+        }
+        if ($nueva === $actual) {
+            return "La contraseña nueva no puede ser igual a la contraseña actual";
+        }
+
+        try {
+
+            $datosUsuario = $this->usuario->buscarPorEmail($_SESSION["email"]);
+
+            if (!$datosUsuario || !password_verify($actual, $datosUsuario["password"])) {
+                return "Contraseña actual incorrecta";
+            }
+
+            if (!$this->usuario->cambiarPasswd($datosUsuario["id"], $nueva)) {
+                return "No se pudo cambiar la contraseña.";
+            }
+            
+        } catch (mysqli_sql_exception $error) {
+            return "No se pudo cambiar la contraseña.";
+        }
+
+        session_regenerate_id(true);
+
+        return "";
     }
 }

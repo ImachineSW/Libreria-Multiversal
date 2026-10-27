@@ -24,10 +24,11 @@
                 <td>Rol: <?php echo escapar(usuarioActualRol());?></td>
                 </tr>
                 <tr>
-                    <td>Contraseña: ***********<button>Cambiar contraseña</button> </td>
+                    <td>Correo: <?php echo escapar(usuarioActualEmail());?></td>
                 </tr>
                 <tr>
-                    <td>Correo: *********@gmail.com<button>Cambiar correo</button> </td>
+                    <td>Contraseña: ***********<a href="./index.php?pagina=cambiar_password"><button>Cambiar contraseña</button></a>
+                    </td>
                 </tr>
                 <tr>
                     <td>Historial de pedidos:
@@ -39,7 +40,7 @@
                 </tr>
             </table>
 
-            <form action="./index.php?pagina=login" method="POST">
+            <form action="./index.php?pagina=login" method="POST" id="cerrarSesion">
                 <input type="hidden" name="accion" value="logout">
                 <button type="submit">Cerrar sesión</button>
             </form>

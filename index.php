@@ -96,6 +96,22 @@ switch ($paginaSolicitada) {
         require __DIR__ . '/views/panel.php'; // Se muestra el panel
         break;
 
+    case 'cambiar_password': // Si se ingresa 'cambiar_password' se muestra el formulario para cambiar la contraseña
+    $mensaje = "";
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $controller = new AuthController($conexion);
+        $mensaje = $controller->cambiarPassword($_POST);
+
+        if ($mensaje === "") {
+            header("Location: index.php?pagina=panel", true, 303);
+            exit;
+        }
+    }
+
+    require __DIR__ . '/views/cambiar_password.php';
+    break;
+
     case 'admin':
         // Debemos incluir el controlador antes
         (new AdminController($conexion))->panel();

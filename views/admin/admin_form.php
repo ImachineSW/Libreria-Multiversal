@@ -46,7 +46,7 @@
         <input type="text" id="editorial" name="editorial" maxlength="150"
             value="<?= escapar($libro['editorial'] ?? '') ?>">
 
-        <label for="fecha">Fecha</label>
+        <label for="fecha">Fecha (DD-MM-AAAA)</label>
         <input type="text" id="fecha" name="fecha" maxlength="50"
             value="<?= escapar($libro['fecha'] ?? '') ?>">
 
