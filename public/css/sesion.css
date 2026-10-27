@@ -43,6 +43,13 @@ h1{
     color:#222;
 }
 
+.subtitle{
+    text-align:center;
+    color:#777;
+    margin-bottom:30px;
+    font-size:15px;
+}
+
 .input-group{
     margin-bottom:18px;
 }
@@ -154,4 +161,25 @@ hr{
 .back-btn:hover{
     color:#EA4573;
     transform:translateX(-3px);
+}
+.input-group {
+    position: relative;
+}
+
+.input-group input[type="password"],
+.input-group input[type="text"] {
+    box-sizing: border-box;
+}
+
+.input-group button {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    width: auto;
+    padding: 5px;
+    color: black;
 }
