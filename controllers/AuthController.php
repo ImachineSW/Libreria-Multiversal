@@ -15,7 +15,6 @@ class AuthController
         $this->usuario = new Usuario($conexion);
     }
 
-    // Se mantiene compatible con el register.php que hicimos antes.
     public function registrar($datos)
     {
         $nombre = trim($datos["nombre"] ?? "");

@@ -24,7 +24,7 @@
         <form action="./index.php?pagina=register" method="POST">
 
             <div class="input-group">
-                <label for="nombre">Nombre completo</label>
+                <label for="nombre">Nombre usuario</label>
                 <input
                     type="text"
                     id="nombre"
@@ -52,6 +52,7 @@
                     placeholder="••••••••"
                     minlength="8"
                     required>
+                    <button type="button" onclick="mostrarPassword('password')">👁</button>
             </div>
 
             <div class="input-group">
@@ -62,6 +63,7 @@
                     name="confirmPassword"
                     placeholder="••••••••"
                     required>
+                    <button type="button" onclick="mostrarPassword('password')">👁</button>
             </div>
 
             <button type="submit">Crear cuenta</button>
@@ -75,5 +77,16 @@
         </div>
 
     </div>
+    <script>
+    function mostrarPassword(id) {
+        const input = document.getElementById(id);
+
+        if (input.type === "password") {
+            input.type = "text";
+        } else {
+            input.type = "password";
+        }
+    }
+    </script>
 </body>
 </html>
