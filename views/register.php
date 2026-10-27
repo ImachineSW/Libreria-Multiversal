@@ -63,7 +63,7 @@
                     name="confirmPassword"
                     placeholder="••••••••"
                     required>
-                    <button type="button" onclick="mostrarPassword('password')">👁</button>
+                    <button type="button" onclick="mostrarPassword('confirmPassword')">👁</button>
             </div>
 
             <button type="submit">Crear cuenta</button>
