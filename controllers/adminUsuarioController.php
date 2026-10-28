@@ -5,7 +5,7 @@ class AdminUsuarioController {
     private $conexion;
     private $usuarioModel;
 
-    private $rolesValidos = ['cliente', 'admin'];
+    private $rolesValidos = ['cliente', 'admin', 'empleado'];
 
     private $avisos = [
         'rol_cambiado' => [

@@ -10,25 +10,24 @@
     </head>
     <body>
         <?php require __DIR__ . "/header.php";?>
-        <?php if(esAdmin()): ?>
-        <div class="contenedor admin-accesos">
+        <?php if(esAdmin() || esEmpleado()): ?>
+        <div class="contenedor">
             <article>
                 <h2>Modificar catalogo</h2>
-                
                 <a href="./index.php?pagina=admin_libros">Modificar catalogo</a>
             </article>
+            <?php if (esAdmin()): ?>
             <article>
                 <h2>Ver informes mensuales</h2>
                 <a href="./index.php?pagina=admin_informes">Ver informes mensuales</a>
             </article>
             <article>
                 <h2>Modificar usuario</h2>
-                
                 <a href="./index.php?pagina=admin_usuarios">Modificar usuario</a>
             </article>
+            <?php endif; ?>
             <article>
                 <h2>Ver todos los pedidos</h2>
-                
                 <a href="./index.php?pagina=admin_pedidos">Ver pedidos</a>
             </article>
         </div>
@@ -137,7 +136,7 @@
         </section>
         
         <?php else: ?>
-            <?php requerirRol('admin'); ?>
+            <?php esSuperUser(); ?>
         <?php endif; ?>
 
         <?php require __DIR__ . "/footer.php";?>

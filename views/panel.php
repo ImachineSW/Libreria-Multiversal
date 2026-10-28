@@ -12,7 +12,7 @@
     
     <div class="contenedor">
     <?php if (estaLogueado()): ?>
-        <?php if (esAdmin()): ?>
+        <?php if (esAdmin() || esEmpleado()): ?>
             <a href="./index.php?pagina=admin">Panel de administracion</a>
         <?php endif; ?>
             <h1>Mi cuenta</h1>

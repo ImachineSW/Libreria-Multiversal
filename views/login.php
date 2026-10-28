@@ -13,6 +13,7 @@
         <a href="./index.php?pagina=catalogo" class="back-btn">← Volver al catálogo</a>
 
         <?php if (isset($_SESSION["usuario_id"])): ?>
+            <?php header("Location: ./index.php?pagina=catalogo"); ?>
             <h1>Mi cuenta</h1>
             <p class="subtitle">
                 Bienvenido, <?= htmlspecialchars($_SESSION["nombre"], ENT_QUOTES, "UTF-8") ?>.

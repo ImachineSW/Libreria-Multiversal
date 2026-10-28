@@ -144,10 +144,10 @@ INSERT INTO libros_generos (libro_id, genero_id) VALUES
 
 CREATE TABLE IF NOT EXISTS usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    rol ENUM('cliente', 'admin') NOT NULL DEFAULT 'cliente'
+    rol ENUM('cliente', 'admin', 'empleado') NOT NULL DEFAULT 'cliente'
 );
 
 ALTER TABLE usuario

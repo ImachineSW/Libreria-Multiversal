@@ -29,6 +29,23 @@ class Usuario
     {
         return $this->buscarPorEmail($email) !== null;
     }
+    
+    public function existeNombre($nombre)
+    {
+    $consulta = mysqli_prepare(
+        $this->conexion, "SELECT id FROM usuario WHERE nombre = ? LIMIT 1"
+    );
+
+    mysqli_stmt_bind_param($consulta, "s", $nombre);
+    mysqli_stmt_execute($consulta);
+
+    $resultado = mysqli_stmt_get_result($consulta);
+    $existe = mysqli_num_rows($resultado) > 0;
+
+    mysqli_stmt_close($consulta);
+
+    return $existe;
+    }
 
     public function registrar($nombre, $email, $password)
     {

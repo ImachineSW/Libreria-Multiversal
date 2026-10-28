@@ -47,6 +47,19 @@ function esAdmin() {
 return usuarioActualRol() === 'admin';
 }
 
+/** ¿El usuario logueado es empleado? */
+function esEmpleado() {
+    return usuarioActualRol() === 'empleado';
+}
+
+function esSuperUser() {
+    requerirLogin();
+    if (usuarioActualRol() !== 'admin' && usuarioActualRol() !== 'empleado') {
+        http_response_code(403);
+        require __DIR__ . '/../views/sin_permiso.php';
+        exit;
+    }
+}
 /** Si no está logueado, manda al login. */
 function requerirLogin() {
 if (!estaLogueado()) {

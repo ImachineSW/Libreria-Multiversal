@@ -15,41 +15,56 @@ class AuthController
         $this->usuario = new Usuario($conexion);
     }
 
-    // Se mantiene compatible con el register.php que hicimos antes.
     public function registrar($datos)
     {
-        $nombre = trim($datos["nombre"] ?? "");
+        $nombre = trim($datos["usuario"] ?? "");
         $email = strtolower(trim($datos["email"] ?? ""));
         $password = $datos["password"] ?? "";
         $confirmPassword = $datos["confirmPassword"] ?? "";
 
         if ($nombre === "" || $email === "" || $password === "" || $confirmPassword === "") {
-            return "Todos los campos son obligatorios.";
+        return "Todos los campos son obligatorios.";
         }
+
+        if (preg_match('/\s/u', $nombre)) {
+            return "El nombre de usuario no puede contener espacios.";
+        }
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return "El correo electrónico no es válido.";
         }
+
         if (strlen($password) < 8) {
             return "La contraseña debe tener al menos 8 caracteres.";
         }
+
         if ($password !== $confirmPassword) {
             return "Las contraseñas no coinciden.";
         }
 
         try {
-            if ($this->usuario->existeEmail($email)) {
-                return "Este correo ya está registrado.";
-            }
-            if ($this->usuario->registrar($nombre, $email, $password)) {
-                return "Usuario registrado correctamente.";
-            }
+        if ($this->usuario->existeNombre($nombre)) {
+            return "Este nombre de usuario ya está registrado.";
+        }
+
+        if ($this->usuario->existeEmail($email)) {
+            return "Este correo ya está registrado.";
+        }
+
+        if ($this->usuario->registrar($nombre, $email, $password)) {
+            return "Usuario registrado correctamente.";
+        }
+
         } catch (mysqli_sql_exception $error) {
-            return "No se pudo registrar el usuario.";
+        if ($error->getCode() == 1062) {
+            return "El nombre de usuario o correo ya está registrado.";
+        }
+
+        return "No se pudo registrar el usuario.";
         }
 
         return "No se pudo registrar el usuario.";
     }
-
     // Devuelve un mensaje de error, o texto vacio si el login es correcto.
     public function iniciarSesion($datos) {
 

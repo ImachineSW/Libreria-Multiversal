@@ -23,7 +23,7 @@ class AdminPedidoController {
 
     public function __construct($conexion) {
         // Lo PRIMERO: si no es admin, no sigue (login o "Acceso denegado")
-        requerirRol('admin');
+        esSuperUser();
 
         $this->conexion = $conexion;
         $this->pedidoModel = new PedidoModel($conexion);
@@ -126,6 +126,9 @@ class AdminPedidoController {
 
     // ---------- INFORME DE TRANSACCIONES ----------
     public function informe() {
+        if (!esAdmin()) {
+            redirigir('admin');
+        }
         // Rango por defecto: desde el dia 1 del mes actual hasta hoy (hora de Montevideo)
         $ahora = new DateTime('now', new DateTimeZone('America/Montevideo'));
         $desde = $this->leerFecha('desde') ?: $ahora->format('Y-m-01');
