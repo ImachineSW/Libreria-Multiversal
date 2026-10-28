@@ -24,12 +24,12 @@
         <form action="./index.php?pagina=register" method="POST">
 
             <div class="input-group">
-                <label for="nombre">Nombre usuario</label>
+                <label for="usuario">Nombre usuario</label>
                 <input
                     type="text"
-                    id="nombre"
-                    name="nombre"
-                    placeholder="Juan Pérez"
+                    id="usuario"
+                    name="usuario"
+                    placeholder="Juan123"
                     required>
             </div>
 
