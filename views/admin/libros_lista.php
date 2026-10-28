@@ -106,7 +106,7 @@ $etiquetas = [
                                 <input type="hidden" name="activo" value="1">
 
                                 <button type="submit">
-                                    Reactivar
+                                    Activar
                                 </button>
                             <?php endif; ?>
                         </form>

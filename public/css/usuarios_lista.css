@@ -10,6 +10,7 @@ html {
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
 }
 
+/*Header*/
 header {
     position: sticky;
     top: 0;
@@ -107,7 +108,7 @@ table td {
     transform: scale(1.1);
 }
 
-
+/*Contenedor*/
 .contenedor {
     display: flex;
     justify-content: center;
@@ -120,10 +121,24 @@ table td {
     padding: 20px;
 }
 
+.contenedor h1 {
+    color: #EA4573;
+    margin-bottom: 8px;
+}
+
+.contenedor p {
+    margin: 8px 0;
+}
+
 .contenedor a {
     text-decoration: none;
     color: #EA4573;
 }
+
+.contenedor > p > a:hover {
+    text-decoration: underline;
+}
+
 button {
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
     color: white;
@@ -133,22 +148,129 @@ button {
     width: 50%;
     cursor: pointer;
     margin-top: 10px;
+    transition: all 0.3s ease-out;
 }
 
+button:hover {
+    box-shadow: 0px 0px 8px #EA4573;
+    transform: scale(1.03);
+}
+
+.exito, .error {
+    width: 90%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.exito {
+    color: #1E6B3E;
+    background: #e3f6ea;
+    border-left: 5px solid #2E9E5B;
+}
+
+.error {
+    color: #DE3A3E;
+    background: #fde7ef;
+    border-left: 5px solid #DC3545;
+}
+
+/*Tabla de usuarios*/
 .tabla {
     margin-top: 20px;
     border-collapse: collapse;
     width: 90%;
     background-color: white;
+    box-shadow: 0px 4px 12px #00000026;
 }
 
+.tabla th,
 .tabla td {
     border: 2px solid #EA4573;
-    padding: 5px;
+    padding: 8px;
     text-align: center;
     width: fit-content;
 }
 
+.tabla thead th {
+    background: #fdeef4;
+    color: #EA4573;
+}
+
+.tabla tbody tr:hover {
+    background: #fff7fa;
+}
+
+.tabla em {
+    font-size: 0.85em;
+    color: #777;
+}
+
+.tabla tr.inactivo {
+    background: #f2f2f2;
+    color: #888;
+}
+
+.tabla tr.inactivo:hover {
+    background: #eaeaea;
+}
+
+.tabla tr.inactivo td:first-child {
+    border-left: 5px solid #888;
+}
+
+.rol {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+    background: #888;
+}
+
+.rol-admin {
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+}
+
+.rol-cliente,
+.rol-usuario {
+    background: #2E9E5B;
+}
+
+.en-linea {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 4px;
+}
+
+.tabla button {
+    width: auto;
+    margin-top: 0;
+    padding: 6px 12px;
+    font-size: 0.9em;
+}
+
+.tabla select {
+    padding: 5px;
+    border: 2px solid #EA4573;
+    border-radius: 8px;
+    color: #EA4573;
+    background: white;
+}
+
+.solo-lectores {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/*Footer*/
 .multiversal {
     display: flex;
     border-top: 2px solid white;
@@ -198,4 +320,30 @@ footer span {
 
 .sm {
     width: 20px;
+}
+
+/*Tablet y Celular*/
+@media (max-width: 768px) {
+    .contenedor {
+        width: 94%;
+        padding: 14px;
+    }
+
+    .exito,
+    .ok,
+    .error,
+    .info {
+        width: 100%;
+    }
+
+    .tabla {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .en-linea {
+        display: flex;
+    }
 }

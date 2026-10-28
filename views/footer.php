@@ -29,8 +29,8 @@
                 <div>
                     <p><span>Compras</span></p>
                     <p>Cómo comprar</p>
-                    <p>Envíos y devoluciones</p>
-                    <p>Preguntas Frequentes</p>
+                    <p>Envíos</p>
+                    <p>Preguntas Freqcuentes</p>
                 </div>
             </div>
 

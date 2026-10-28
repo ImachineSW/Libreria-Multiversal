@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../models/LibroModel.php';
+require_once __DIR__ . '/../models/libroModel.php';
 require_once __DIR__ . '/../config/imagenes.php';
 
 class AdminLibroController {
@@ -46,7 +46,7 @@ class AdminLibroController {
                 if (!$img['ok']) {
                     $errores[] = $img['error'];
                 } else {
-                    $libro['imagen'] = $img['nombre'];
+                    $libro['imagen'] = $img['nombre'] ?? 'sin_imagen.png';
 
                     if ($this->libroModel->crear($libro)) {
                         redirigir('admin_libros', '&msg=creado');
@@ -99,7 +99,7 @@ class AdminLibroController {
                     }
 
                     if ($this->libroModel->actualizar($id, $libro)) {
-                        if ($subioNueva) {
+                        if ($subioNueva && $actual['imagen'] !== 'sin_imagen.png') {
                             borrarImagenLibro($actual['imagen']);
                         }
 

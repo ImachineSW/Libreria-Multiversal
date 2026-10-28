@@ -47,7 +47,7 @@ return ['ok' => true, 'nombre' => $nombre];
 * Borra una imagen de la carpeta de libros (si existe).
 */
 function borrarImagenLibro($nombre) {
-if (!$nombre) {
+if (empty($nombre)) {
 return;
 }
 // basename() se queda solo con el nombre y elimina cualquier ruta

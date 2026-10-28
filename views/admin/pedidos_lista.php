@@ -19,8 +19,9 @@
             <div class="contenedor">
                 <h1>Pedidos</h1>
                 <p>
-                    <a href="index.php?pagina=admin">← Volver al panel</a> |
+                    <a href="index.php?pagina=admin">← Volver al panel</a> <?php if (esAdmin()): ?> |
                     <a href="index.php?pagina=admin_informes">Informe de transacciones</a>
+                <?php endif; ?>
                 </p>
 
                 <?php if ($aviso !== null): ?>

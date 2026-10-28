@@ -10,6 +10,7 @@ html {
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
 }
 
+/*Header*/
 header {
     position: sticky;
     top: 0;
@@ -107,7 +108,7 @@ table td {
     transform: scale(1.1);
 }
 
-
+/*Contenedor*/
 .contenedor {
     display: flex;
     justify-content: center;
@@ -116,40 +117,174 @@ table td {
     margin: 20px auto;
     background-color: white;
     border-radius: 10px;
-    width: 60%;
+    width: 90%;
+    padding: 20px;
+}
+
+.contenedor h1 {
+    color: #EA4573;
+    margin-bottom: 8px;
+}
+
+.contenedor p {
+    margin: 8px 0;
 }
 
 .contenedor a {
     text-decoration: none;
     color: #EA4573;
 }
+
+.contenedor > p > a:hover {
+    text-decoration: underline;
+}
+
 button {
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
     color: white;
     border: none;
     padding: 10px;
     border-radius: 8px;
-    width: 100%;
+    width: 50%;
     cursor: pointer;
     margin-top: 10px;
+    transition: all 0.3s ease-out;
 }
-.miniatura {
-    width: 10vw;
+
+button:hover {
+    box-shadow: 0px 0px 8px #EA4573;
+    transform: scale(1.03);
 }
+
+.exito {
+    width: 90%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #1E6B3E;
+    background: #e3f6ea;
+    border-left: 5px solid #2E9E5B;
+}
+
+/*Tabla de libros*/
 .tabla {
     margin-top: 20px;
     border-collapse: collapse;
-    width: 100%;
+    width: 90%;
     background-color: white;
+    box-shadow: 0px 4px 12px #00000026;
 }
 
+.tabla th,
 .tabla td {
     border: 2px solid #EA4573;
-    padding: 5px;
+    padding: 8px;
     text-align: center;
+    vertical-align: middle;
     width: fit-content;
 }
 
+.tabla thead th {
+    background: #fdeef4;
+    color: #EA4573;
+}
+
+.tabla tbody tr:hover {
+    background: #fff7fa;
+}
+
+.tabla tr.inactivo {
+    background: #f2f2f2;
+    color: #888;
+}
+
+.tabla tr.inactivo:hover {
+    background: #eaeaea;
+}
+
+.tabla tr.inactivo td:first-child {
+    border-left: 5px solid #888;
+}
+
+.tabla tr.inactivo .miniatura {
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+
+.miniatura {
+    display: block;
+    margin: 0 auto;
+    width: 60px;
+    height: 85px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0px 2px 6px #00000033;
+}
+
+.sin-imagen {
+    font-size: 0.8em;
+    color: #999;
+}
+
+.stock-valor {
+    display: inline-block;
+    margin-right: 6px;
+    font-weight: bold;
+}
+
+.stock {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.stock-agotado {
+    background: #DC3545;
+    color: white;
+}
+
+.stock-bajo {
+    background: #F5B301;
+    color: #4A3B00;
+}
+
+.stock-ok {
+    background: #2E9E5B;
+    color: white;
+}
+
+.tabla td a {
+    display: inline-block;
+    margin: 4px;
+    padding: 4px 12px;
+    font-size: 0.9em;
+    border: 1px solid #EA4573;
+    border-radius: 8px;
+    transition: all 0.3s ease-out;
+}
+
+.tabla td a:hover {
+    color: white;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+}
+
+.en-linea {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px;
+}
+
+.tabla button {
+    width: auto;
+    margin-top: 0;
+    padding: 6px 12px;
+    font-size: 0.9em;
+}
+
+/*Footer*/
 .multiversal {
     display: flex;
     border-top: 2px solid white;
@@ -201,31 +336,26 @@ footer span {
     width: 20px;
 }
 
-/*Etiquetas de stock: rojo / amarillo / verde*/
-.stock {
-    display: inline-block;
-    padding: 3px 12px;
-    border-radius: 12px;
-    font-size: 0.85em;
-    font-weight: bold;
-}
+/*Tablet y celular*/
+@media (max-width: 768px) {
+    .contenedor {
+        width: 94%;
+        padding: 14px;
+    }
 
-.stock-agotado {
-    background: #DC3545;
-    color: white;
-}
+    .exito {
+        width: 100%;
+    }
 
-.stock-bajo {
-    background: #F5B301;
-    color: #4A3B00;
-}
+    .tabla {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 
-.stock-ok {
-    background: #2E9E5B;
-    color: white;
-}
-
-.stock-valor {
-    margin-right: 6px;
-    font-weight: bold;
+    .miniatura {
+        width: 45px;
+        height: 64px;
+    }
 }

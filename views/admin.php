@@ -11,7 +11,7 @@
     <body>
         <?php require __DIR__ . "/header.php";?>
         <?php if(esAdmin() || esEmpleado()): ?>
-        <div class="contenedor">
+        <div class="contenedor admin-accesos">
             <article>
                 <h2>Modificar catalogo</h2>
                 <a href="./index.php?pagina=admin_libros">Modificar catalogo</a>
