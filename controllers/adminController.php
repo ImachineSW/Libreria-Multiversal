@@ -6,8 +6,8 @@ private $libroModel;
 private $pedidoModel;
 
 public function __construct($conexion) {
-// Nadie que no sea admin puede ni siquiera usar este controlador
-requerirRol('admin'); // Utilizamos la función de auth.php
+// Nadie que no sea admin o empleado puede ni siquiera usar este controlador
+esSuperUser(); // Utilizamos la función de auth.php
 $this->conexion = $conexion;
 $this->libroModel = new LibroModel($conexion);
 $this->pedidoModel = new PedidoModel($conexion);

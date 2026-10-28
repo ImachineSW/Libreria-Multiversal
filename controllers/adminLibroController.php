@@ -8,7 +8,7 @@ class AdminLibroController {
     private $libroModel;
 
     public function __construct($conexion) {
-        requerirRol('admin');
+        esSuperUser();
         $this->conexion = $conexion;
         $this->libroModel = new LibroModel($conexion);
     }
@@ -211,8 +211,8 @@ class AdminLibroController {
             $errores[] = 'El idioma no puede superar los 50 caracteres.';
         }
 
-        if (mb_strlen($l['sinopsis']) > 1000) {
-            $errores[] = 'La sinopsis no puede superar los 1000 caracteres.';
+        if (mb_strlen($l['sinopsis']) > 5000) {
+            $errores[] = 'La sinopsis no puede superar los 5000 caracteres.';
         }
 
         $precio = filter_var($l['precio'], FILTER_VALIDATE_FLOAT);

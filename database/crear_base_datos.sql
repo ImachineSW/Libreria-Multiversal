@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    rol ENUM('cliente', 'admin') NOT NULL DEFAULT 'cliente'
+    rol ENUM('cliente', 'admin', 'empleado') NOT NULL DEFAULT 'cliente'
 );
 
 ALTER TABLE usuario
