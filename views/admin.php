@@ -2,16 +2,19 @@
 <html>
     <head>
         <title>Admin</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./public/css/panel.css">
+        <link rel="stylesheet" href="./public/css/admin_panel.css"> <!--Estilos propios del panel de administracion-->
         <link rel="icon" type="image/png" href="./public/img/favicon.png">
     </head>
     <body>
         <?php require __DIR__ . "/header.php";?>
         <?php if(esAdmin()): ?>
-        <div class="contenedor">
+        <div class="contenedor admin-accesos">
             <article>
                 <h2>Modificar catalogo</h2>
-                <p>Agregar, eliminar o modificar libros</p>
+                
                 <a href="./index.php?pagina=admin_libros">Modificar catalogo</a>
             </article>
             <article>
@@ -20,17 +23,23 @@
             </article>
             <article>
                 <h2>Modificar usuario</h2>
-                <p>Gestionar roles</p>
+                
                 <a href="./index.php?pagina=admin_usuarios">Modificar usuario</a>
             </article>
             <article>
                 <h2>Ver todos los pedidos</h2>
-                <p>Revisar el estado de los pedidos</p>
+                
                 <a href="./index.php?pagina=admin_pedidos">Ver pedidos</a>
             </article>
         </div>
-           <section class="contenedor">
+           <section class="contenedor admin-seccion">
             <h2>Alertas de stock</h2>
+
+            <p class="leyenda-stock">
+                <span class="stock stock-agotado">Sin stock</span>
+                <span class="stock stock-bajo">Stock bajo</span>
+                <span class="stock stock-ok">Con stock</span>
+            </p>
 
             <?php if (empty($libroStockBajo)): ?>
                 <p>Todo en orden: ningún producto está por debajo de su stock mínimo.</p>
@@ -53,7 +62,7 @@
 
                     <tbody>
                         <?php foreach ($libroStockBajo as $l): ?>
-                            <tr>
+                            <tr class="fila-<?= escapar($l['nivel_stock']) ?>">
                                 <td><?= escapar($l['nombre']) ?></td>
                                 <td><?= (int)$l['stock'] ?></td>
                                 <td><?= (int)$l['stock_minimo'] ?></td>
@@ -72,7 +81,7 @@
                 </table>
             <?php endif; ?>
         </section> 
-        <section class="contenedor">
+        <section class="contenedor admin-seccion">
             <h2>Pedidos por enviar</h2>
 
             <?php if (empty($pedidosPorEnviar)): ?>
@@ -85,7 +94,7 @@
             <?php endif; ?>
         </section>
 
-        <section class="contenedor">
+        <section class="contenedor admin-seccion">
             <h2>Ultimos pedidos</h2>
 
             <?php if (empty($ultimosPedidos)): ?>

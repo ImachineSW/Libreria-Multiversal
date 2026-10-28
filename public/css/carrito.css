@@ -521,3 +521,242 @@ p.errores {
     font-weight: bold;
     text-decoration: none;
 }
+
+/*Aviso de pago aprobado y boton del comprobante PDF*/
+.aviso-pago {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #155724;
+    background: #d4edda;
+    border-left: 5px solid #2E9E5B;
+}
+
+.btn-pdf {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    transition: all 0.3s ease-out;
+}
+
+.btn-pdf:hover {
+    box-shadow: 0px 0px 8px #EA4573;
+}
+
+/*Responsive: carrito, checkout, pago y pedidos (va al final para ganar sobre los estilos anteriores)*/
+@media (max-width: 1024px) {
+    .carrito {
+        font-size: 14px;
+    }
+
+    .carrito a {
+        font-size: 16px;
+    }
+
+    .producto {
+        width: 140px;
+        font-size: 13px;
+    }
+
+    .resumen {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        margin: 20px auto;
+    }
+
+    .carrito,
+    .resumen {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+    .pedido-detalle {
+        padding: 1.2rem;
+    }
+
+    .productos {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
+        padding: 0;
+    }
+
+    .producto {
+        width: 100%;
+        max-width: 170px;
+    }
+
+    /*En pantallas tactiles no hay hover: se evita que el libro crezca y se salga de la pantalla*/
+    .producto:hover {
+        transform: none;
+    }
+
+    .botones button {
+        width: 38px;
+        height: 38px;
+    }
+
+    .resumen button,
+    .vaciar {
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+    }
+
+    /*Las tablas de pedidos se desplazan de costado en vez de romper la pagina*/
+    .detalle-pedido {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .total-pedido {
+        font-size: 1.15rem !important;
+    }
+
+    .mensaje-flotante {
+        top: 12%;
+    }
+}
+
+@media (max-width: 480px) {
+    .carrito,
+    .resumen {
+        width: 96%;
+        padding: 12px;
+    }
+
+    .pedido-detalle {
+        padding: 1rem;
+    }
+
+    .pedido-detalle h1 {
+        font-size: 1.5rem;
+        margin-bottom: 14px;
+    }
+
+    .pedido-detalle p {
+        font-size: 1rem;
+    }
+
+    /*16px evita que el celular haga zoom al tocar un campo*/
+    .formulario-pedido input[type="text"],
+    .formulario-pedido input[type="password"],
+    .formulario-pedido select {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .formulario-pedido input[type="submit"],
+    .btn-pdf {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .lista-checkout li {
+        font-size: 0.95rem;
+    }
+}
+
+/*Encabezado responsive (carrito, checkout, pago y pedidos)
+  Corrige los iconos gigantes: la regla anterior les daba el 100% del ancho de la celda*/
+@media (max-width: 1024px) {
+    .banner {
+        height: auto;
+    }
+
+    .logo {
+        width: 25vw;
+        min-width: 130px;
+    }
+
+    .derecha img,
+    .derecha .icono {
+        width: 32px;
+        margin-right: 6px;
+    }
+
+    .derecha a {
+        color: #EA4573;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /*La tabla del encabezado pasa a ser flexible: logo e iconos arriba, buscador abajo*/
+    .banner table,
+    .banner tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .banner tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 12px;
+        padding: 8px 12px;
+    }
+
+    .banner td {
+        display: block;
+        width: auto;
+    }
+
+    .banner td:first-child {
+        order: 1;
+    }
+
+    .banner .derecha {
+        order: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .banner td:nth-child(2) {
+        order: 3;
+        width: 100%;
+    }
+
+    .buscador form {
+        gap: 8px;
+        align-items: center;
+    }
+
+    .barra {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+
+    .logo {
+        width: 150px;
+        min-width: 0;
+    }
+
+    .derecha a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /*El titulo del libro ya no se sale de su tarjeta*/
+    .producto h3 {
+        width: 100%;
+        white-space: normal;
+        font-size: 14px;
+    }
+}

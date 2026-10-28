@@ -145,6 +145,15 @@ switch ($paginaSolicitada) {
     (new AdminUsuarioController($conexion))->cambiarEstado();
     break;
 
+    case 'pedido_comprobante': // Si se ingresa 'pedido_comprobante' se muestra el comprobante imprimible (PDF) del cliente
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->comprobante();
+        break;
+
+    case 'admin_pedido_comprobante':
+        (new AdminPedidoController($conexion))->comprobante();
+        break;
+
     case 'mis_pedidos': // Si se ingresa 'mis_pedidos' se muestra el historial de pedidos del cliente
         $pedidoController = new PedidoController($conexion);
         $pedidoController->misPedidos();

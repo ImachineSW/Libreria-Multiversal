@@ -90,9 +90,9 @@ class PedidoController {
     public function pagar() {
         $pedido = $this->obtenerPedidoDelUsuario();
 
-        // si ya esta pagado no tiene sentido volver a cobrar
+        // si ya esta pagado no tiene sentido volver a cobrar: se va al detalle del pedido
         if ($pedido['estado'] === 'pagado') {
-            redirigir('pago_resultado', '&id=' . (int) $pedido['id']);
+            redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
         }
 
         $errores = [];
@@ -117,6 +117,13 @@ class PedidoController {
                 );
 
                 if ($ok) {
+                    if ($resultado === 'aprobado') {
+                        // pago aprobado: va directo al detalle del pedido (aviso de una sola vez)
+                        $_SESSION['pago_aprobado'] = (int) $pedido['id'];
+                        redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
+                    }
+
+                    // pago rechazado: pantalla de resultado, desde donde se puede reintentar
                     redirigir('pago_resultado', '&id=' . (int) $pedido['id']);
                 }
 
@@ -136,6 +143,11 @@ class PedidoController {
             redirigir('pago', '&id=' . (int) $pedido['id']);
         }
 
+        // ya esta pagado: el resultado se ve en el detalle del pedido
+        if ($pedido['estado'] === 'pagado') {
+            redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
+        }
+
         require __DIR__ . '/../views/pago_resultado.php';
     }
 
@@ -153,7 +165,29 @@ class PedidoController {
         $pedido = $this->obtenerPedidoDelUsuario(); // primero se verifica que el pedido es del usuario
         $detalle = $this->pedidoModel->obtenerDetalle($pedido['id']); // despues se piden sus libros
 
+        // aviso "pago aprobado": se muestra UNA vez, justo despues de pagar (viene de la sesion, no de la URL)
+        $pagoAprobado = (isset($_SESSION['pago_aprobado']) && $_SESSION['pago_aprobado'] === (int) $pedido['id']);
+        unset($_SESSION['pago_aprobado']);
+
         require __DIR__ . '/../views/pedido_detalle.php';
+    }
+
+    // comprobante imprimible (PDF) de un pedido PAGADO del usuario logueado
+    public function comprobante() {
+        $pedido = $this->obtenerPedidoDelUsuario();
+
+        // solo se emite comprobante de los pedidos donde el pago se efectuo
+        if ($pedido['estado'] !== 'pagado') {
+            redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
+        }
+
+        $detalle = $this->pedidoModel->obtenerDetalle($pedido['id']);
+        $pago = $this->pagoModel->obtenerAprobado($pedido['id']);
+        $numeroComprobante = str_pad($pedido['id'], 6, '0', STR_PAD_LEFT); // 000005
+        $cliente = usuarioActualNombre();
+        $urlVolver = 'index.php?pagina=pedido_detalle&id=' . (int) $pedido['id'];
+
+        require __DIR__ . '/../views/pedido_comprobante.php';
     }
 
     // ---------- Metodos privados de apoyo ----------

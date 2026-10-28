@@ -1,0 +1,182 @@
+/*Panel de administracion (solo lo usa views/admin.php, se carga despues de panel.css)*/
+
+/*Tarjetas de accesos rapidos*/
+.admin-accesos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+    padding: 0;
+    background: transparent;
+    width: 90%;
+}
+
+.admin-accesos article {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 22px;
+    background: white;
+    border-radius: 12px;
+    border-top: 6px solid #EA4573;
+    box-shadow: 0px 4px 12px #00000026;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-accesos article:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 8px 18px #DE3A3E55;
+}
+
+.admin-accesos article h2 {
+    font-size: 1.2rem;
+    color: #EA4573;
+}
+
+.admin-accesos article p {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/*Los links de las tarjetas se ven como los botones del sitio*/
+.admin-accesos article a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 8px;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    transition: all 0.3s ease-out;
+}
+
+.admin-accesos article a:hover {
+    box-shadow: 0px 0px 8px #EA4573;
+    transform: scale(1.03);
+}
+
+/*Secciones (alertas, pedidos)*/
+.admin-seccion {
+    padding: 20px;
+    box-shadow: 0px 4px 12px #00000026;
+}
+
+.admin-seccion h2 {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    color: #EA4573;
+    border-bottom: 3px solid #EA4573;
+}
+
+.admin-seccion p {
+    margin: 8px 0;
+}
+
+.aviso-stock,
+.aviso-pedidos {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.aviso-stock {
+    color: #856404;
+    background: #fff3cd;
+    border-left: 5px solid #F5B301;
+}
+
+.aviso-pedidos {
+    color: #DE3A3E;
+    background: #fde7ef;
+    border-left: 5px solid #EA4573;
+}
+
+/*Etiquetas de stock: rojo / amarillo / verde*/
+.stock {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.stock-agotado {
+    background: #DC3545;
+    color: white;
+}
+
+.stock-bajo {
+    background: #F5B301;
+    color: #4A3B00;
+}
+
+.stock-ok {
+    background: #2E9E5B;
+    color: white;
+}
+
+.leyenda-stock {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+/*Tablas*/
+.admin-seccion .tabla thead th {
+    background: #fdeef4;
+    color: #EA4573;
+}
+
+.admin-seccion .tabla tbody tr:hover {
+    background: #fff7fa;
+}
+
+.fila-agotado td:first-child {
+    border-left: 5px solid #DC3545;
+}
+
+.fila-bajo td:first-child {
+    border-left: 5px solid #F5B301;
+}
+
+.fila-ok td:first-child {
+    border-left: 5px solid #2E9E5B;
+}
+
+/*Links de las tablas como botones chicos*/
+.admin-seccion .tabla a {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.9em;
+    border: 1px solid #EA4573;
+    border-radius: 8px;
+    transition: all 0.3s ease-out;
+}
+
+.admin-seccion .tabla a:hover {
+    color: white;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+}
+
+/*Responsive*/
+@media (max-width: 768px) {
+    .admin-accesos {
+        grid-template-columns: 1fr;
+        width: 94%;
+    }
+
+    .admin-seccion {
+        width: 94%;
+        padding: 14px;
+        font-size: medium;
+    }
+
+    .admin-seccion .tabla {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}

@@ -20,6 +20,10 @@
                 <a href="./index.php?pagina=mis_pedidos" class="back-btn">← Volver a mis pedidos</a>
                 <h1>Pedido N.º <?= (int) $pedido['id'] ?></h1>
 
+                <?php if (!empty($pagoAprobado)): ?>
+                    <p class="aviso-pago">¡Pago aprobado! Gracias por tu compra.</p>
+                <?php endif; ?>
+
                 <p><strong>Fecha:</strong> <?= escapar(date('d/m/Y H:i', strtotime($pedido['fecha']))) ?></p>
                 <p><strong>Pago:</strong>
                     <span class="estado estado-<?= escapar($pedido['estado']) ?>">
@@ -65,7 +69,9 @@
                     Tel.: <?= escapar($pedido['envio_telefono']) ?>
                 </p>
 
-                <?php if ($pedido['estado'] !== 'pagado'): ?>
+                <?php if ($pedido['estado'] === 'pagado'): ?>
+                    <p><a href="./index.php?pagina=pedido_comprobante&id=<?= (int) $pedido['id'] ?>" class="btn-pdf">Descargar comprobante (PDF)</a></p>
+                <?php else: ?>
                     <p><a href="./index.php?pagina=pago&id=<?= (int) $pedido['id'] ?>">Pagar este pedido</a></p>
                 <?php endif; ?>
             </div>

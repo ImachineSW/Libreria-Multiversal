@@ -200,3 +200,32 @@ footer span {
 .sm {
     width: 20px;
 }
+
+/*Etiquetas de stock: rojo / amarillo / verde*/
+.stock {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.stock-agotado {
+    background: #DC3545;
+    color: white;
+}
+
+.stock-bajo {
+    background: #F5B301;
+    color: #4A3B00;
+}
+
+.stock-ok {
+    background: #2E9E5B;
+    color: white;
+}
+
+.stock-valor {
+    margin-right: 6px;
+    font-weight: bold;
+}

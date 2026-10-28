@@ -65,6 +65,29 @@ class AdminPedidoController {
         require __DIR__ . '/../views/admin/pedido_detalle.php';
     }
 
+    // ---------- COMPROBANTE IMPRIMIBLE (PDF) ----------
+    public function comprobante() {
+        $id = $this->leerIdDeLaUrl();
+        $pedido = ($id !== null) ? $this->pedidoModel->obtenerParaAdmin($id) : null;
+
+        if (!$pedido) {
+            redirigir('admin_pedidos', '&msg=invalido');
+        }
+
+        // solo se emite comprobante de los pedidos donde el pago se efectuo
+        if ($pedido['estado'] !== 'pagado') {
+            redirigir('admin_pedido_detalle', '&id=' . (int) $pedido['id']);
+        }
+
+        $detalle = $this->pedidoModel->obtenerDetalle($pedido['id']);
+        $pago = $this->pagoModel->obtenerAprobado($pedido['id']);
+        $numeroComprobante = str_pad($pedido['id'], 6, '0', STR_PAD_LEFT);
+        $cliente = $pedido['cliente_nombre'];
+        $urlVolver = 'index.php?pagina=admin_pedido_detalle&id=' . (int) $pedido['id'];
+
+        require __DIR__ . '/../views/pedido_comprobante.php';
+    }
+
     // ---------- AVANZAR EL ENVIO ----------
     public function cambiarEnvio() {
         // Solo por POST: un link (GET) nunca debe poder modificar un pedido

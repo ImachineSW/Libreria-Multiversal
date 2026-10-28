@@ -18,9 +18,10 @@ $resultado = $resultado ?? [];
                         <form action="index.php" method="GET">
                             <input type="hidden" name="pagina" value="catalogo">
                             <label for="q">🔍︎</label>
-                            <input type="text" id="q" name="q" maxlength="50" class="barra"
-                                placeholder="Ej: El Arte de la Guerra..."
-                                value="<?= escapar($busqueda) ?>">
+                             <input type="text" id="q" name="q" maxlength="50" class="barra"
+                                 placeholder="Ej: El Arte de la Guerra..."
+                                oninput="this.value = this.value.replace(/[^\p{L}\p{N} ]/gu, '')"
+                                  value="<?= escapar($busqueda) ?>">
                             <input type="submit" value="Buscar" class="boton">
                             <?php if (!empty($_GET['genero'])): ?>
                                 <input type="hidden" name="genero" value="<?= escapar($_GET['genero']) ?>">

@@ -36,6 +36,9 @@
                         el <?= escapar(date('d/m/Y H:i', strtotime($pago['fecha']))) ?>
                     <?php endif; ?>
                 </p>
+                <?php if ($pedido['estado'] === 'pagado'): ?>
+                    <p><a href="index.php?pagina=admin_pedido_comprobante&id=<?= (int) $pedido['id'] ?>" class="btn-pdf">Descargar comprobante (PDF)</a></p>
+                <?php endif; ?>
 
                 <h2>Libros</h2>
                 <table class="tabla">

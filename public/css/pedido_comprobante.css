@@ -1,0 +1,59 @@
+
+
+* { box-sizing: border-box; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #222;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 16px;
+        }
+
+        .barra { margin-bottom: 20px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .barra button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+        }
+        .barra a { color: #EA4573; text-decoration: none; font-weight: bold; }
+
+        .encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            border-bottom: 3px solid #EA4573;
+            padding-bottom: 12px;
+        }
+        .encabezado h1 { margin: 0; font-size: 1.5rem; color: #EA4573; }
+        .encabezado img { max-width: 180px; height: 70px; }
+        .der { text-align: right; }
+
+        .datos { display: flex; justify-content: space-between; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border-bottom: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #fdeef4; color: #EA4573; }
+        .num { text-align: right; }
+        .total { font-size: 1.2em; font-weight: bold; }
+
+        .pie { margin-top: 40px; font-size: 0.85em; color: #666; text-align: center; }
+
+        @media (max-width: 600px) {
+            .encabezado, .datos { flex-direction: column; }
+            .der { text-align: left; }
+            table { font-size: 0.85rem; }
+        }
+
+        /* Reglas SOLO para cuando se imprime / guarda como PDF */
+        @page { size: A4; margin: 15mm; }
+        @media print {
+            .no-imprimir { display: none; }
+            body { margin: 0; max-width: none; }
+            th { background: #fdeef4 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+  
