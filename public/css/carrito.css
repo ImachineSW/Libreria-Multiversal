@@ -31,7 +31,6 @@ body {
     min-height: 100vh;
     color: var(--texto);
     background: transparent;
-    line-height: 1.5;
 }
 
 img {
@@ -47,11 +46,6 @@ a:hover {
     color: var(--rojo);
 }
 
-button,
-input,
-select {
-    font: inherit;
-}
 
 button,
 input[type="submit"] {
@@ -241,8 +235,6 @@ table td {
     max-width: 180px;
     margin: 0 auto;
     padding: 14px 10px;
-    border: 1px solid #f0e1e8;
-    border-radius: 10px;
     background: #fff;
     text-align: center;
     overflow-wrap: anywhere;
@@ -718,61 +710,6 @@ footer span {
     width: 25px;
 }
 
-/* ---------- Tablet ---------- */
-@media (max-width: 1024px) {
-    main {
-        margin: 24px auto;
-    }
-
-    .contenedor {
-        gap: 16px;
-    }
-
-    .carrito,
-    .resumen {
-        padding: 20px;
-    }
-
-    .productos {
-        grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
-        gap: 12px;
-    }
-
-    .producto {
-        max-width: 165px;
-        padding: 12px 8px;
-    }
-
-    .pedido-detalle {
-        width: min(94%, 900px);
-    }
-
-    .logo {
-        width: 24vw;
-        max-width: 220px;
-        min-width: 120px;
-    }
-
-    .derecha .icono,
-    .derecha img {
-        width: 30px;
-        max-width: 30px;
-        margin-right: 5px;
-    }
-
-    .derecha a {
-        font-size: 0.9rem;
-    }
-
-    .multiversal {
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-
-    .creditos img {
-        width: 60px;
-    }
-}
 
 /* ---------- Celulares y tablets pequeñas ---------- */
 @media (max-width: 768px) {

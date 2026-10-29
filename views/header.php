@@ -45,8 +45,8 @@ $resultado = $resultado ?? [];
                             <?php if (estaLogueado()):?>
                                 <a href="./index.php?pagina=panel">
                                     <img src="./public/img/usuario.png" alt="Usuario icon." class="icono">
-                                    <p><?php echo "Bienvenido, " . escapar(usuarioActualNombre());?></p>
                                 </a>
+                                <p class="username"><?php echo "Bienvenido, " . escapar(usuarioActualNombre());?></p>
                             <?php else:?>
                                 <a href="./index.php?pagina=login">
                                     <img src="./public/img/registrar.png" alt="Usuario icon" class="icono">

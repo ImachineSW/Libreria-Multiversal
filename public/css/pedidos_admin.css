@@ -283,6 +283,7 @@ main {
     border: 1px solid #f0d7e2;
     border-radius: 8px;
     -webkit-overflow-scrolling: touch;
+    overflow: scroll;
 }
 
 .contenedor .tabla {
@@ -300,6 +301,7 @@ main {
     border-bottom: 1px solid #ead6df;
     text-align: left;
     vertical-align: middle;
+    overflow: hidden;
 }
 
 .tabla th {
@@ -307,6 +309,7 @@ main {
     background: #fff0f6;
     font-size: 0.92rem;
     white-space: nowrap;
+    overflow: hidden;
 }
 
 .tabla tbody tr:nth-child(even) {

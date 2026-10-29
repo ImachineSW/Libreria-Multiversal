@@ -146,8 +146,6 @@ class LibroModel {
     }
 
     // Crear un libro
-// Crear un libro
-// Crear un libro
 public function crear($datos) {
     $stmt = $this->conexion->prepare(
         "INSERT INTO libros
