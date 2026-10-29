@@ -8,15 +8,39 @@ class PagoModel {
         $this->conexion = $conexion;
     }
 
-    // registra el intento de pago Y actualiza el estado del pedido en una sola transaccion
-    // devuelve true si salio bien, false si fallo
+    // Registra el intento de pago y actualiza el pedido en una transaccion.
+    // Al tercer rechazo, cancela el pedido y devuelve el stock una sola vez.
     public function registrarIntento($idPedido, $monto, $ultimos4, $resultado) {
         $nuevoEstado = ($resultado === 'aprobado') ? 'pagado' : 'rechazado';
 
         $this->conexion->begin_transaction();
 
         try {
-            // cambio 1: guardar el pago
+            // Bloquea el pedido para impedir pagos simultaneos o pagos de pedidos cancelados.
+            $stmt = $this->conexion->prepare(
+                "SELECT estado_pedido FROM pedido WHERE id = ? FOR UPDATE"
+            );
+            $stmt->bind_param("i", $idPedido);
+            $stmt->execute();
+            $pedido = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+
+            if (!$pedido || $pedido['estado_pedido'] !== 'activo') {
+                throw new Exception("El pedido no existe o ya fue cancelado.");
+            }
+
+            // No se aceptan nuevos intentos si ya se aprobó un pago.
+            $stmt = $this->conexion->prepare(
+                "SELECT estado FROM pedido WHERE id = ?"
+            );
+            $stmt->bind_param("i", $idPedido);
+            $stmt->execute();
+            $estadoActual = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+            if (!$estadoActual || $estadoActual['estado'] === 'pagado') {
+                throw new Exception("El pedido ya está pagado.");
+            }
+
             $stmt = $this->conexion->prepare(
                 "INSERT INTO pago (id_pedido, monto, ultimos4, resultado) VALUES (?, ?, ?, ?)"
             );
@@ -26,13 +50,60 @@ class PagoModel {
             }
             $stmt->close();
 
-            // cambio 2: actualizar el estado del pedido
-            $stmt = $this->conexion->prepare("UPDATE pedido SET estado = ? WHERE id = ?");
+            $stmt = $this->conexion->prepare(
+                "UPDATE pedido SET estado = ? WHERE id = ? AND estado_pedido = 'activo'"
+            );
             $stmt->bind_param("si", $nuevoEstado, $idPedido);
-            if (!$stmt->execute()) {
+            if (!$stmt->execute() || $stmt->affected_rows !== 1) {
                 throw new Exception("No se pudo actualizar el pedido.");
             }
             $stmt->close();
+
+            if ($resultado !== 'aprobado') {
+                $stmt = $this->conexion->prepare(
+                    "SELECT COUNT(*) AS cantidad FROM pago WHERE id_pedido = ? AND resultado = 'rechazado'"
+                );
+                $stmt->bind_param("i", $idPedido);
+                $stmt->execute();
+                $conteo = $stmt->get_result()->fetch_assoc();
+                $stmt->close();
+
+                if ((int) ($conteo['cantidad'] ?? 0) >= 3) {
+                    // El cambio de estado solo ocurre una vez; solo esa transacción devuelve stock.
+                    $stmt = $this->conexion->prepare(
+                        "UPDATE pedido SET estado_pedido = 'cancelado' WHERE id = ? AND estado_pedido = 'activo'"
+                    );
+                    $stmt->bind_param("i", $idPedido);
+                    if (!$stmt->execute()) {
+                        throw new Exception("No se pudo cancelar el pedido tras tres rechazos.");
+                    }
+                    $cancelado = ($stmt->affected_rows === 1);
+                    $stmt->close();
+
+                    if ($cancelado) {
+                        $stmt = $this->conexion->prepare(
+                            "SELECT libro_id, cantidad FROM detalle_pedido WHERE pedido_id = ?"
+                        );
+                        $stmt->bind_param("i", $idPedido);
+                        $stmt->execute();
+                        $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                        $stmt->close();
+
+                        $stmt = $this->conexion->prepare(
+                            "UPDATE libros SET stock = stock + ? WHERE id = ?"
+                        );
+                        foreach ($items as $item) {
+                            $cantidad = (int) $item['cantidad'];
+                            $idLibro = (int) $item['libro_id'];
+                            $stmt->bind_param("ii", $cantidad, $idLibro);
+                            if (!$stmt->execute() || $stmt->affected_rows !== 1) {
+                                throw new Exception("No se pudo devolver el stock tras cancelar el pedido.");
+                            }
+                        }
+                        $stmt->close();
+                    }
+                }
+            }
 
             $this->conexion->commit();
             return true;

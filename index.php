@@ -133,6 +133,10 @@ switch ($paginaSolicitada) {
     (new AdminLibroController($conexion))->cambiarEstado();
     break;
 
+    case 'admin_libro_eliminar':
+    (new AdminLibroController($conexion))->eliminar();
+    break;
+
     case 'admin_usuarios':
     (new AdminUsuarioController($conexion))->listar();
     break;
@@ -152,6 +156,11 @@ switch ($paginaSolicitada) {
 
     case 'admin_pedido_comprobante':
         (new AdminPedidoController($conexion))->comprobante();
+        break;
+
+    case 'pedido_cancelar':
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->cancelar();
         break;
 
     case 'mis_pedidos': // Si se ingresa 'mis_pedidos' se muestra el historial de pedidos del cliente
@@ -174,6 +183,10 @@ switch ($paginaSolicitada) {
 
     case 'admin_pedido_envio':
         (new AdminPedidoController($conexion))->cambiarEnvio();
+        break;
+
+    case 'admin_pedido_cancelar':
+        (new AdminPedidoController($conexion))->cancelar();
         break;
 
     case 'admin_informes':

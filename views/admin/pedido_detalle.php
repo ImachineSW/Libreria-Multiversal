@@ -71,6 +71,15 @@
                     Tel.: <?= escapar($pedido['envio_telefono']) ?>
                 </p>
 
+                <h2>Estado del pedido</h2>
+                <p><?= escapar(ucfirst($pedido['estado_pedido'] ?? 'activo')) ?></p>
+                <?php if (($pedido['estado_pedido'] ?? 'activo') !== 'cancelado' && ($pedido['estado_envio'] ?? '') !== 'entregado'): ?>
+                    <form action="index.php?pagina=admin_pedido_cancelar&id=<?= (int) $pedido['id'] ?>" method="POST" class="en-linea"
+                          onsubmit="return confirm('¿Cancelar este pedido y devolver las unidades al stock?');">
+                        <button type="submit">Cancelar pedido</button>
+                    </form>
+                <?php endif; ?>
+
                 <h2>Estado de envío</h2>
 
                 <?php if ($pedido['estado'] !== 'pagado'): ?>

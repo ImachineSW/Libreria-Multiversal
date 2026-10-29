@@ -110,6 +110,19 @@ $etiquetas = [
                                 </button>
                             <?php endif; ?>
                         </form>
+
+                        <?php if ((int)$l['activo'] !== 1): ?>
+                            <form
+                                action="index.php?pagina=admin_libro_eliminar&id=<?= (int)$l['id'] ?>"
+                                method="POST"
+                                class="en-linea">
+                                <button
+                                    type="submit"
+                                    onclick="return confirm('¿Eliminar este libro? Solo se podrá eliminar si no aparece en ningún pedido.');">
+                                    Eliminar
+                                </button>
+                            </form>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -90,6 +90,11 @@ class PedidoController {
     public function pagar() {
         $pedido = $this->obtenerPedidoDelUsuario();
 
+        // Un pedido cancelado no puede volver a pagarse.
+        if (($pedido['estado_pedido'] ?? 'activo') === 'cancelado') {
+            redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
+        }
+
         // si ya esta pagado no tiene sentido volver a cobrar: se va al detalle del pedido
         if ($pedido['estado'] === 'pagado') {
             redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
@@ -138,6 +143,11 @@ class PedidoController {
     public function resultado() {
         $pedido = $this->obtenerPedidoDelUsuario();
 
+        // Un pedido cancelado no debe permitir nuevos intentos de pago.
+        if (($pedido['estado_pedido'] ?? 'activo') === 'cancelado') {
+            redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
+        }
+
         // todavia no se intento pagar: lo mandamos a pagar
         if ($pedido['estado'] === 'pendiente') {
             redirigir('pago', '&id=' . (int) $pedido['id']);
@@ -149,6 +159,37 @@ class PedidoController {
         }
 
         require __DIR__ . '/../views/pago_resultado.php';
+    }
+
+    // El cliente solo puede cancelar un pedido propio que todavía no esté pagado.
+    public function cancelar() {
+        requerirLogin();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirigir('mis_pedidos');
+        }
+
+        $pedido = $this->obtenerPedidoDelUsuario();
+
+        if (($pedido['estado_pedido'] ?? 'activo') === 'cancelado') {
+            redirigir('mis_pedidos', '&msg=ya_cancelado');
+        }
+
+        if ($pedido['estado'] === 'pagado') {
+            redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
+        }
+
+        $ok = $this->pedidoModel->cancelarPedido(
+            (int) $pedido['id'],
+            (int) usuarioActualId(),
+            false
+        );
+
+        if ($ok) {
+            redirigir('mis_pedidos', '&msg=cancelado');
+        }
+
+        redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
     }
 
     // historial: lista de pedidos del usuario logueado
@@ -177,7 +218,7 @@ class PedidoController {
         $pedido = $this->obtenerPedidoDelUsuario();
 
         // solo se emite comprobante de los pedidos donde el pago se efectuo
-        if ($pedido['estado'] !== 'pagado') {
+        if ($pedido['estado'] !== 'pagado' || ($pedido['estado_pedido'] ?? 'activo') === 'cancelado') {
             redirigir('pedido_detalle', '&id=' . (int) $pedido['id']);
         }
 

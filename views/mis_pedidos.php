@@ -31,6 +31,7 @@
                                 <th>Fecha</th>
                                 <th class="num">Total</th>
                                 <th>Pago</th>
+                                <th>Estado del pedido</th>
                                 <th>Envío</th>
                                 <th>Acciones</th>
                             </tr>
@@ -46,6 +47,7 @@
                                             <?= escapar(ucfirst($p['estado'])) ?>
                                         </span>
                                     </td>
+                                    <td><?= escapar(ucfirst($p['estado_pedido'] ?? 'activo')) ?></td>
                                     <td>
                                         <?php if ($p['estado'] === 'pagado'): ?>
                                             <span class="estado estado-<?= escapar($p['estado_envio']) ?>">
@@ -57,8 +59,11 @@
                                     </td>
                                     <td>
                                         <a href="./index.php?pagina=pedido_detalle&id=<?= (int) $p['id'] ?>">Ver detalle</a>
-                                        <?php if ($p['estado'] !== 'pagado'): ?>
+                                        <?php if (($p['estado_pedido'] ?? 'activo') !== 'cancelado' && $p['estado'] !== 'pagado'): ?>
                                             | <a href="./index.php?pagina=pago&id=<?= (int) $p['id'] ?>">Pagar</a>
+                                            | <form action="./index.php?pagina=pedido_cancelar&id=<?= (int) $p['id'] ?>" method="POST" style="display:inline" onsubmit="return confirm('¿Cancelar este pedido? Se devolverá el stock.');">
+                                                <button type="submit">Cancelar</button>
+                                              </form>
                                         <?php endif; ?>
                                     </td>
                                 </tr>

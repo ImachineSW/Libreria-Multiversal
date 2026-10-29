@@ -159,6 +159,7 @@ CREATE TABLE pedido (
   id_usuario INT NOT NULL,
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   estado ENUM('pendiente', 'pagado', 'rechazado') NOT NULL DEFAULT 'pendiente', -- estado del pago (lo decide la pasarela)
+  estado_pedido ENUM('activo', 'cancelado') NOT NULL DEFAULT 'activo', -- estado administrativo del pedido
   estado_envio ENUM('preparando', 'enviado', 'entregado') NOT NULL DEFAULT 'preparando', -- estado del envio (lo cambia el admin)
   total DECIMAL(10,2) NOT NULL,
   envio_nombre VARCHAR(60) NULL,

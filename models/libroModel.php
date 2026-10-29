@@ -286,6 +286,87 @@ public function cambiarActivo($id, $activo) {
 
     return $stmt->execute();
 }
+// Elimina físicamente un libro solo si está dado de baja
+// y no aparece en ningún detalle de pedido.
+public function eliminarDefinitivamente($id) {
+    $this->conexion->begin_transaction();
+
+    try {
+        // Bloquea y comprueba el libro antes de eliminarlo.
+        $stmt = $this->conexion->prepare(
+            "SELECT activo, imagen
+             FROM libros
+             WHERE id = ?
+             FOR UPDATE"
+        );
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $libro = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+
+        if (!$libro) {
+            $this->conexion->rollback();
+            return ['ok' => false, 'motivo' => 'no_existe'];
+        }
+
+        if ((int) $libro['activo'] === 1) {
+            $this->conexion->rollback();
+            return ['ok' => false, 'motivo' => 'activo'];
+        }
+
+        $stmt = $this->conexion->prepare(
+            "SELECT 1
+             FROM detalle_pedido
+             WHERE libro_id = ?
+             LIMIT 1"
+        );
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $tienePedidos = (bool) $stmt->get_result()->fetch_row();
+        $stmt->close();
+
+        if ($tienePedidos) {
+            $this->conexion->rollback();
+            return ['ok' => false, 'motivo' => 'tiene_pedidos'];
+        }
+
+        // El libro puede tener relaciones con géneros; se eliminan primero.
+        // Esto no afecta al historial de pedidos, que ya se comprobó arriba.
+        $stmt = $this->conexion->prepare(
+            "DELETE FROM libros_generos WHERE libro_id = ?"
+        );
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            $stmt->close();
+            throw new Exception('No se pudieron eliminar las relaciones del libro.');
+        }
+        $stmt->close();
+
+        $stmt = $this->conexion->prepare(
+            "DELETE FROM libros WHERE id = ? AND activo = 0"
+        );
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $eliminado = ($stmt->affected_rows === 1);
+        $stmt->close();
+
+        if (!$eliminado) {
+            throw new Exception('No se pudo eliminar el libro.');
+        }
+
+        $this->conexion->commit();
+
+        return [
+            'ok' => true,
+            'imagen' => $libro['imagen']
+        ];
+
+    } catch (Throwable $e) {
+        $this->conexion->rollback();
+        return ['ok' => false, 'motivo' => 'error'];
+    }
+}
+
 
 // Resta stock SOLO si alcanza. Devuelve true si desconto, false si no habia suficiente.
 // La resta la hace la base en una sola sentencia: si dos clientes compran la ultima unidad

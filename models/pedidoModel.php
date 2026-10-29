@@ -208,7 +208,7 @@ class PedidoModel {
     // lista de pedidos con el nombre del cliente. Los filtros son opcionales.
     // $filtros puede traer: 'estado', 'estado_envio', 'desde', 'hasta', 'limite'
     public function listarAdmin($filtros = []) {
-        $sql = "SELECT p.id, p.fecha, p.total, p.estado, p.estado_envio,
+        $sql = "SELECT p.id, p.fecha, p.total, p.estado, p.estado_pedido, p.estado_envio,
                        u.nombre AS cliente
                 FROM pedido p
                 INNER JOIN usuario u ON u.id = p.id_usuario
@@ -278,7 +278,7 @@ class PedidoModel {
     public function cambiarEstadoEnvio($idPedido, $estadoActual, $estadoNuevo) {
         $stmt = $this->conexion->prepare(
             "UPDATE pedido SET estado_envio = ?
-             WHERE id = ? AND estado = 'pagado' AND estado_envio = ?"
+             WHERE id = ? AND estado = 'pagado' AND estado_pedido = 'activo' AND estado_envio = ?"
         );
         $stmt->bind_param("sis", $estadoNuevo, $idPedido, $estadoActual);
         $stmt->execute();
@@ -287,6 +287,110 @@ class PedidoModel {
 
         return $cambio;
     }
+    // Cancela un pedido y devuelve sus unidades al stock una sola vez.
+// Si $idUsuario se indica, el pedido debe pertenecer a ese usuario.
+// Si $permitirPagado es false, solo se permite cancelar antes del pago.
+public function cancelarPedido($idPedido, $idUsuario = null, $permitirPagado = false) {
+    $this->conexion->begin_transaction();
+
+    try {
+        $sql = "SELECT id, estado, estado_pedido, estado_envio
+                FROM pedido
+                WHERE id = ?";
+
+        if ($idUsuario !== null) {
+            $sql .= " AND id_usuario = ?";
+        }
+
+        $sql .= " FOR UPDATE";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        if ($idUsuario !== null) {
+            $stmt->bind_param("ii", $idPedido, $idUsuario);
+        } else {
+            $stmt->bind_param("i", $idPedido);
+        }
+
+        $stmt->execute();
+        $pedido = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+
+        if (!$pedido || $pedido['estado_pedido'] !== 'activo') {
+            $this->conexion->rollback();
+            return false;
+        }
+
+        // El cliente solo puede cancelar antes de pagar.
+        if (!$permitirPagado && $pedido['estado'] === 'pagado') {
+            $this->conexion->rollback();
+            return false;
+        }
+
+        // No se cancela un pedido que ya fue entregado.
+        if ($pedido['estado_envio'] === 'entregado') {
+            $this->conexion->rollback();
+            return false;
+        }
+
+        // Al personal se le permite cancelar pedidos pagados,
+        // pero no se altera el historial ni se borran sus detalles.
+        $stmt = $this->conexion->prepare(
+            "SELECT libro_id, cantidad
+             FROM detalle_pedido
+             WHERE pedido_id = ?"
+        );
+        $stmt->bind_param("i", $idPedido);
+        $stmt->execute();
+        $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        if (empty($items)) {
+            $this->conexion->rollback();
+            return false;
+        }
+
+        // Primero marca el pedido como cancelado. La transacción garantiza
+        // que el cambio y la devolución del stock se confirmen juntos.
+        $stmt = $this->conexion->prepare(
+            "UPDATE pedido
+             SET estado_pedido = 'cancelado'
+             WHERE id = ? AND estado_pedido = 'activo'"
+        );
+        $stmt->bind_param("i", $idPedido);
+        $stmt->execute();
+        $actualizado = ($stmt->affected_rows === 1);
+        $stmt->close();
+
+        if (!$actualizado) {
+            throw new Exception('No se pudo cancelar el pedido.');
+        }
+
+        $stmt = $this->conexion->prepare(
+            "UPDATE libros SET stock = stock + ? WHERE id = ?"
+        );
+
+        foreach ($items as $item) {
+            $cantidad = (int) $item['cantidad'];
+            $idLibro = (int) $item['libro_id'];
+
+            $stmt->bind_param("ii", $cantidad, $idLibro);
+
+            if (!$stmt->execute() || $stmt->affected_rows !== 1) {
+                throw new Exception('No se pudo devolver el stock.');
+            }
+        }
+
+        $stmt->close();
+        $this->conexion->commit();
+
+        return true;
+
+    } catch (Throwable $e) {
+        $this->conexion->rollback();
+        return false;
+    }
+}
 
     // cantidad de pedidos y suma de totales por estado de pago, en un rango de fechas
     public function resumenPorEstado($desde, $hasta) {

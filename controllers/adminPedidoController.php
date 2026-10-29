@@ -16,6 +16,7 @@ class AdminPedidoController {
     // Avisos que viajan en la URL (?msg=envio_ok). Solo se muestran los de esta lista.
     private $avisos = [
         'envio_ok'   => ['tipo' => 'exito', 'texto' => 'El estado de envío fue actualizado.'],
+        'cancelado'  => ['tipo' => 'exito', 'texto' => 'El pedido fue cancelado y se devolvió el stock.'],
         'invalido'   => ['tipo' => 'error', 'texto' => 'No se pudo realizar la acción: los datos no son válidos.'],
         'transicion' => ['tipo' => 'error', 'texto' => 'Ese cambio de estado no está permitido para este pedido.'],
         'fallo'      => ['tipo' => 'error', 'texto' => 'Ocurrió un problema al guardar el cambio. Intentá de nuevo.']
@@ -86,6 +87,22 @@ class AdminPedidoController {
         $urlVolver = 'index.php?pagina=admin_pedido_detalle&id=' . (int) $pedido['id'];
 
         require __DIR__ . '/../views/pedido_comprobante.php';
+    }
+
+    // ---------- CANCELAR PEDIDO (administracion) ----------
+    public function cancelar() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirigir('admin_pedidos');
+        }
+
+        $id = $this->leerIdDeLaUrl();
+        $pedido = ($id !== null) ? $this->pedidoModel->obtenerParaAdmin($id) : null;
+        if (!$pedido) {
+            redirigir('admin_pedidos', '&msg=invalido');
+        }
+
+        $ok = $this->pedidoModel->cancelarPedido((int) $id, null, true);
+        redirigir('admin_pedido_detalle', '&id=' . (int) $id . ($ok ? '&msg=cancelado' : '&msg=fallo'));
     }
 
     // ---------- AVANZAR EL ENVIO ----------

@@ -20,7 +20,11 @@ class AdminLibroController {
             'creado' => 'Libro creado correctamente.',
             'editado' => 'Libro actualizado correctamente.',
             'desactivado' => 'El libro fue dado de baja y ya no se ve en el catálogo.',
-            'reactivado' => 'El libro volvió a estar disponible.'
+            'reactivado' => 'El libro volvió a estar disponible.',
+            'eliminado' => 'El libro fue eliminado correctamente.',
+            'no_eliminable_pedidos' => 'No se puede eliminar: el libro aparece en el historial de pedidos.',
+            'no_eliminable_activo' => 'Primero debes dar de baja el libro.',
+            'error_eliminar' => 'No se pudo eliminar el libro. Intentá de nuevo.'
         ];
 
         $clave = $_GET['msg'] ?? '';
@@ -139,6 +143,39 @@ class AdminLibroController {
         }
 
         redirigir('admin_libros');
+    }
+
+    // Elimina un libro dado de baja únicamente si no forma parte de pedidos.
+    public function eliminar() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirigir('admin_libros');
+        }
+
+        $id = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT);
+        if ($id === false || $id === null || $id < 1) {
+            redirigir('admin_libros');
+        }
+
+        $resultado = $this->libroModel->eliminarDefinitivamente((int) $id);
+
+        if ($resultado['ok']) {
+            $imagen = $resultado['imagen'] ?? null;
+            // La imagen predeterminada puede estar compartida por otros libros.
+            if ($imagen && $imagen !== 'sin_imagen.png') {
+                borrarImagenLibro($imagen);
+            }
+            redirigir('admin_libros', '&msg=eliminado');
+        }
+
+        if (($resultado['motivo'] ?? '') === 'tiene_pedidos') {
+            redirigir('admin_libros', '&msg=no_eliminable_pedidos');
+        }
+
+        if (($resultado['motivo'] ?? '') === 'activo') {
+            redirigir('admin_libros', '&msg=no_eliminable_activo');
+        }
+
+        redirigir('admin_libros', '&msg=error_eliminar');
     }
 
     private function libroVacio() {
