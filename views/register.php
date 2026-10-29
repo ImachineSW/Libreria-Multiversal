@@ -24,7 +24,7 @@
         <form action="./index.php?pagina=register" method="POST">
 
             <div class="input-group">
-                <label for="usuario">Nombre usuario</label>
+                <label for="usuario">Nombre de usuario</label>
                 <input
                     type="text"
                     id="usuario"

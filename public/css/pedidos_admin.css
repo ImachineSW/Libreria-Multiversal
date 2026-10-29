@@ -1,15 +1,33 @@
+/* =========================================================
+   LIBRERÍA MULTIVERSAL - PEDIDOS ADMIN
+   Estilos del contenido de pedidos.
+   Se conservan sin cambios las reglas del header y footer.
+   ========================================================= */
+
+/* Base general */
 * {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 html {
     scroll-behavior: smooth;
+    min-height: 100%;
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
 }
 
+body {
+    min-height: 100vh;
+    color: #292329;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   HEADER
+   Se mantienen las reglas originales.
+   ========================================================= */
 header {
     position: sticky;
     top: 0;
@@ -107,49 +125,296 @@ table td {
     transform: scale(1.1);
 }
 
+/* =========================================================
+   CONTENIDO DE PEDIDOS ADMIN
+   ========================================================= */
+main {
+    width: 100%;
+    padding: 1px 16px;
+}
 
 .contenedor {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    align-items: center;
-    margin: 20px auto;
-    background-color: white;
-    border-radius: 10px;
-    width: 60%;
+    align-items: stretch;
+    width: min(1200px, 92%);
+    margin: 32px auto;
+    padding: 28px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 5px 20px #5a15251a;
+}
+
+.contenedor h1,
+.contenedor h2 {
+    margin: 0 0 14px;
+    color: #292329;
+    line-height: 1.25;
+}
+
+.contenedor h1 {
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+}
+
+.contenedor h2 {
+    font-size: 1.35rem;
+}
+
+.contenedor p {
+    margin: 10px 0;
 }
 
 .contenedor a {
-    text-decoration: none;
     color: #EA4573;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
-button {
-    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
-    color: white;
-    border: none;
-    padding: 10px;
+
+.contenedor a:hover {
+    color: #DE3A3E;
+    text-decoration: underline;
+}
+
+.contenedor > p:first-of-type {
+    margin-bottom: 16px;
+}
+
+/* Avisos */
+.exito {
+    padding: 12px 15px;
+    border-left: 5px solid #2E9E5B;
     border-radius: 8px;
-    width: 100%;
-    cursor: pointer;
-    margin-top: 10px;
-}
-.miniatura {
-    width: 10vw;
-}
-.tabla {
-    margin-top: 20px;
-    border-collapse: collapse;
-    width: 100%;
-    background-color: white;
+    color: #155724;
+    background: #d4edda;
+    font-weight: bold;
 }
 
-.tabla td {
-    border: 2px solid #EA4573;
-    padding: 5px;
+.error,
+.errores {
+    color: #bd252d;
+    font-weight: bold;
+}
+
+.error {
+    padding: 12px 15px;
+    border-left: 5px solid #DE3A3E;
+    border-radius: 8px;
+    background: #fff0f0;
+}
+
+.errores {
+    padding-left: 22px;
+}
+
+.sin-resultados {
+    margin: 20px 0 !important;
+    padding: 18px;
+    border: 1px dashed #e6a1ba;
+    border-radius: 8px;
+    color: #666;
+    background: #fff9fc;
     text-align: center;
-    width: fit-content;
 }
 
+/* Filtros */
+.filtros {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0 22px;
+    padding: 16px;
+    border: 1px solid #f0d7e2;
+    border-radius: 10px;
+    background: #fff9fc;
+}
+
+.filtros label {
+    color: #5c263c;
+    font-weight: 700;
+}
+
+.filtros select {
+    min-width: 145px;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 1px solid #d8c4ce;
+    border-radius: 8px;
+    color: #292329;
+    background: #fff;
+}
+
+.filtros select:focus {
+    outline: none;
+    border-color: #EA4573;
+    box-shadow: 0 0 0 3px #EA457322;
+}
+
+.filtros input[type="submit"] {
+    min-height: 40px;
+    padding: 9px 18px;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    font-weight: 700;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.filtros input[type="submit"]:hover {
+    box-shadow: 0 0 8px #EA457380;
+    transform: translateY(-1px);
+}
+
+.filtros a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 8px 4px;
+    font-weight: 700;
+}
+
+/* Tabla de pedidos */
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 8px;
+    border: 1px solid #f0d7e2;
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.contenedor .tabla {
+    width: 100%;
+    min-width: 760px;
+    margin: 0;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.tabla th,
+.tabla td {
+    width: auto;
+    padding: 12px 10px;
+    border-bottom: 1px solid #ead6df;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.tabla th {
+    color: #5c263c;
+    background: #fff0f6;
+    font-size: 0.92rem;
+    white-space: nowrap;
+}
+
+.tabla tbody tr:nth-child(even) {
+    background: #fffafd;
+}
+
+.tabla tbody tr:hover {
+    background: #fff0f6;
+}
+
+.tabla tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.tabla td:first-child,
+.tabla td:nth-child(2),
+.tabla td:nth-child(4),
+.tabla td:nth-child(5),
+.tabla td:nth-child(6) {
+    white-space: nowrap;
+}
+
+.tabla td a {
+    display: inline-block;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Etiquetas de estados */
+.estado {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.estado-pendiente {
+    color: #342600;
+    background: #E0A100;
+}
+
+.estado-pagado {
+    background: #2E9E5B;
+}
+
+.estado-rechazado {
+    background: #555555;
+}
+
+.estado-preparando {
+    background: #6C757D;
+}
+
+.estado-enviado {
+    background: #2F7DE1;
+}
+
+.estado-entregado {
+    background: #17A2B8;
+}
+
+/* Tarjetas, por si se reutiliza esta hoja en informes admin */
+.tarjetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.tarjeta {
+    flex: 1 1 200px;
+    padding: 16px;
+    border: 1px solid #f0c4d6;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 3px 10px #5a152510;
+}
+
+.en-linea {
+    display: inline;
+}
+
+/* Botón de comprobante, por si aparece en el detalle */
+.contenedor .btn-pdf {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    text-decoration: none;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.contenedor .btn-pdf:hover {
+    color: white;
+    box-shadow: 0 0 8px #EA4573;
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   FOOTER
+   Se mantienen las reglas originales.
+   ========================================================= */
 .multiversal {
     display: flex;
     border-top: 2px solid white;
@@ -201,103 +466,118 @@ footer span {
     width: 20px;
 }
 
-/*Pedidos (admin)*/
-.contenedor .tabla {
-    width: 100%;
-    margin: 15px 0;
-    border-collapse: collapse;
+/* ---------- Tablet ---------- */
+@media (max-width: 1024px) {
+    .contenedor {
+        width: 96%;
+        padding: 24px;
+    }
+
+    .filtros {
+        gap: 9px;
+    }
+
+    .filtros select {
+        min-width: 130px;
+    }
+
+    .creditos img {
+        width: 60px;
+    }
 }
 
-.tabla th,
-.tabla td {
-    width: auto;
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #EA4573;
+/* ---------- Móvil ---------- */
+@media (max-width: 768px) {
+    main {
+        padding: 1px 10px;
+    }
+
+    /* No se modifica el diseño del header; estas reglas son solo del contenido. */
+    .contenedor {
+        width: 100%;
+        margin: 20px auto;
+        padding: 18px;
+    }
+
+    .filtros {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: stretch;
+        gap: 8px;
+        padding: 14px;
+    }
+
+    .filtros label {
+        margin-top: 4px;
+    }
+
+    .filtros select,
+    .filtros input[type="submit"],
+    .filtros a {
+        width: 100%;
+    }
+
+    .filtros a {
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .tabla-contenedor {
+        overflow-x: auto;
+    }
+
+    .contenedor .tabla {
+        min-width: 760px;
+    }
+
+    .multiversal {
+        flex-wrap: wrap;
+    }
+
+    .creditos {
+        overflow-wrap: anywhere;
+    }
 }
 
-.contenedor h1,
-.contenedor h2 {
-    margin: 15px 0 8px;
-}
+/* ---------- Móvil pequeño ---------- */
+@media (max-width: 480px) {
+    .contenedor {
+        padding: 14px;
+        border-radius: 9px;
+    }
 
-.contenedor p {
-    margin: 8px 0;
-}
+    .contenedor h1 {
+        font-size: 1.5rem;
+    }
 
-.contenedor a {
-    color: #EA4573;
-    text-decoration: none;
-}
+    .contenedor p {
+        font-size: 0.94rem;
+    }
 
-.en-linea {
-    display: inline;
-}
+    .filtros {
+        padding: 12px;
+    }
 
-.filtros {
-    margin: 16px 0;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-}
+    .estado {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
 
-.exito {
-    color: #155724;
-    font-weight: bold;
-}
+    .tarjeta {
+        flex-basis: 100%;
+    }
 
-.error,
-.errores {
-    color: #DE3A3E;
-    font-weight: bold;
-}
+    .multiversal {
+        justify-content: flex-start;
+        padding: 16px;
+        gap: 10px;
+    }
 
-.errores {
-    padding-left: 20px;
-}
+    .multiversal div {
+        max-width: 100%;
+    }
 
-.tarjetas {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin: 20px 0;
-}
-
-.tarjeta {
-    flex: 1 1 200px;
-    border: 1px solid #EA4573;
-    border-radius: 8px;
-    padding: 16px;
-}
-
-.estado {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 12px;
-    font-size: 0.85em;
-    font-weight: bold;
-    color: white;
-}
-
-.estado-pendiente { background: #E0A100; }
-.estado-pagado { background: #2E9E5B; }
-.estado-rechazado { background: #555555; }
-.estado-preparando { background: #6C757D; }
-.estado-enviado { background: #2F7DE1; }
-.estado-entregado { background: #17A2B8; }
-
-/*Boton del comprobante PDF*/
-.contenedor .btn-pdf {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
-    transition: all 0.3s ease-out;
-}
-
-.contenedor .btn-pdf:hover {
-    box-shadow: 0px 0px 8px #EA4573;
+    .creditos img {
+        width: 48px;
+    }
 }

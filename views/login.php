@@ -49,24 +49,8 @@
                     <input type="password" id="password" name="password" placeholder="••••••••" required>
                     <button type="button" onclick="mostrarPassword('password')">👁</button>
                 </div>
-
-                <div class="options">
-                    <label>
-                        <input type="checkbox" disabled>
-                        Recordarme
-                    </label>
-                    <a href="#" onclick="return false;">¿Olvidaste tu contraseña?</a>
-                </div>
-
                 <button type="submit">Ingresar</button>
             </form>
-
-            <hr>
-            <div class="social">
-                <button type="button" disabled>Google</button>
-                <button type="button" disabled>Facebook</button>
-            </div>
-
             <div class="register">
                 ¿No tenés una cuenta?
                 <a href="./index.php?pagina=register">Registrate</a>
