@@ -13,7 +13,17 @@
         <a href="./index.php?pagina=catalogo" class="back-btn">← Volver al catálogo</a>
 
         <?php if (isset($_SESSION["usuario_id"])): ?>
-            <?php header('Location: ./index.php?pagina=catalogo')?>
+            <?php header("Location: ./index.php?pagina=catalogo"); ?>
+            <h1>Mi cuenta</h1>
+            <p class="subtitle">
+                Bienvenido, <?= htmlspecialchars($_SESSION["nombre"], ENT_QUOTES, "UTF-8") ?>.
+            </p>
+            <p>Tu rol es: <?= htmlspecialchars($_SESSION["rol"], ENT_QUOTES, "UTF-8") ?></p>
+
+            <form action="./index.php?pagina=login" method="POST">
+                <input type="hidden" name="accion" value="logout">
+                <button type="submit">Cerrar sesión</button>
+            </form>
         <?php else: ?>
             <h1>Iniciar sesión</h1>
             <p class="subtitle">Ingrese a su cuenta</p>
@@ -31,38 +41,33 @@
             <form action="./index.php?pagina=login" method="POST">
                 <div class="input-group">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" name="email"
-                           placeholder="correo@ejemplo.com" required>
+                    <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
                 </div>
 
                 <div class="input-group">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password"
-                           placeholder="••••••••" required>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    <button type="button" onclick="mostrarPassword('password')">👁</button>
                 </div>
-
-                <div class="options">
-                    <label>
-                        <input type="checkbox" disabled>
-                        Recordarme
-                    </label>
-                    <a href="#" onclick="return false;">¿Olvidaste tu contraseña?</a>
-                </div>
-
                 <button type="submit">Ingresar</button>
             </form>
-
-            <hr>
-            <div class="social">
-                <button type="button" disabled>Google</button>
-                <button type="button" disabled>Facebook</button>
-            </div>
-
             <div class="register">
                 ¿No tenés una cuenta?
                 <a href="./index.php?pagina=register">Registrate</a>
             </div>
         <?php endif; ?>
     </div>
+        <script>
+    function mostrarPassword(id) {
+        const input = document.getElementById(id);
+
+        if (input.type === "password") {
+            input.type = "text";
+        } else {
+            input.type = "password";
+        }
+    }
+
+</script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); ?></title>
+        <title><?php echo escapar($libro['nombre']); ?></title>
         <link rel="stylesheet" href="./public/css/productos.css">
         <link rel="icon" type="image/png" href="./public/img/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--etiqueta para que la pagina sea responsive-->
@@ -22,73 +22,77 @@
             <div id="mensaje-flotante" class="mensaje-flotante"></div>
             <div class="Producto">
                 <div class="Libro">
-                    <img src="<?php echo $libro["imagen"]; // le asigna la ruta de la imagen ?>" alt="<?php echo $libro["nombre"]; //le asigna el nombre al alt ?>">
+                    <img src="./public/img/Libros/<?php echo escapar($libro["imagen"]); // le asigna la ruta de la imagen ?>" alt="<?php escapar($libro["nombre"]); //le asigna el nombre al alt ?>">
                 </div>
                 <!--Creando un Grupo para los detalles del Producto-->
                 <div class="Detalles-Producto">
                     <a href="./index.php?pagina=catalogo" class="back-btn">← Volver al catálogo</a>
-                    <h1 id="titulo"><?php echo $libro["nombre"]; // le asigna el nombre del libro ?></h1>
+                    <h1 id="titulo"><?php echo escapar($libro["nombre"]); // le asigna el nombre del libro ?></h1>
                     <div class="Precio">
-                        <p>Precio: <span id="precio">$<?php echo $libro["precio"]; // le asigna el precio del libro ?></span></p>
+                        <p>Precio: <span id="precio">$<?php echo escapar($libro["precio"]); // le asigna el precio del libro ?></span></p>
                     </div>
-                    <p class="Sinopsis" id="sinopsis"><?php echo $libro["sinopsis"]; // le asigna la sinopsis del libro ?></p>
+                    <p class="Sinopsis" id="sinopsis"><?php echo escapar($libro["sinopsis"]); // le asigna la sinopsis del libro ?></p>
                     <div class="Info">
                         <p>
                             Género(s):
                             <span id="genero">
-                                <?php echo htmlspecialchars($libro['genero'] ?? 'Sin género', ENT_QUOTES, 'UTF-8'); ?>
+                                <?php echo escapar($libro['genero']); ?>
                             </span>
                         </p>
                         <p>
                             Autor:
                             <span id="autor">
-                                <?php echo htmlspecialchars($libro['autor'], ENT_QUOTES, 'UTF-8'); ?>
+                                <?php echo escapar($libro['autor']); ?>
                             </span>
                         </p>
                         <p>
                             Editorial:
                             <span id="editorial">
-                                <?php echo htmlspecialchars($libro['editorial'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+                                <?php echo escapar($libro['editorial']); ?>
                             </span>
                         </p>
                         <p>
                             Fecha de publicación:
                             <span id="fecha">
-                                <?php echo htmlspecialchars($libro['fecha'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+                                <?php echo escapar($libro['fecha']); ?>
                             </span>
                         </wp>
                         <p>
                             Idioma:
                             <span id="idioma">
-                                <?php echo htmlspecialchars($libro['idioma'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+                                <?php echo escapar($libro['idioma']); ?>
                             </span>
                         </p>
                         <p>
                             Páginas:
                             <span id="paginas">
-                                <?php echo $libro['paginas'] !== null ? (int) $libro['paginas']: 'No especificado'; ?>
+                                <?php echo escapar($libro['paginas'] !== null ? (int) $libro['paginas']: 'No especificado'); ?>
                             </span>
                         </p>
                     </div>
                     <div class="Botones">
+                        <?php if ((int) $libro['stock'] > 0): ?>
                         <a
                             href="./index.php?pagina=carrito"
                             class="addb"
                             data-id="<?php echo (int) $libro['id']; ?>"
-                            data-nombre="<?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-precio="<?php echo htmlspecialchars((string) $libro['precio'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-autor="<?php echo htmlspecialchars($libro['autor'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-nombre="<?php echo escapar($libro['nombre']); ?>"
+                            data-precio="<?php echo escapar((string) $libro['precio']); ?>"
+                            data-autor="<?php echo escapar($libro['autor']); ?>"
                             data-paginas="<?php echo (int) ($libro['paginas'] ?? 0); ?>"
-                            data-imagen="<?php echo htmlspecialchars($libro['imagen'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                            data-imagen="<?php echo escapar($libro['imagen'] ?? ''); ?>">
                             Comprar</a>
                         <button class="addb" data-id="<?php echo (int) $libro['id']; ?>"
-                            data-nombre="<?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-precio="<?php echo htmlspecialchars((string) $libro['precio'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-autor="<?php echo htmlspecialchars($libro['autor'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-nombre="<?php echo escapar($libro['nombre']); ?>"
+                            data-precio="<?php echo escapar((string) $libro['precio']); ?>"
+                            data-autor="<?php echo escapar($libro['autor']); ?>"
                             data-paginas="<?php echo (int) ($libro['paginas'] ?? 0); ?>"
-                            data-imagen="<?php echo htmlspecialchars($libro['imagen'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                            data-imagen="<?php echo escapar($libro['imagen'] ?? ''); ?>">
                             Agregar al carrito
                         </button>
+                        <?php else: ?>
+                            <span class="stock stock-agotado">Sin stock</span>
+                        <?php endif; ?>
                     </div>
                 </div>              
             </div>

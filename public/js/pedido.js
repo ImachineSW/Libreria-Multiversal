@@ -13,7 +13,7 @@ function comprar() {
     // se crea un formulario POST con el carrito en el campo oculto carritoJson
     const formulario = document.createElement("form");
     formulario.method = "POST";
-    formulario.action = "./index.php?pagina=pedido";
+    formulario.action = "./index.php?pagina=checkout";
 
     const campo = document.createElement("input");
     campo.type = "hidden";
@@ -22,7 +22,7 @@ function comprar() {
 
     formulario.appendChild(campo);
     document.body.appendChild(formulario);
-    formulario.submit(); // el servidor guarda el pedido y muestra la confirmacion
+    formulario.submit(); // el servidor pide los datos de envio
 }
 //
 

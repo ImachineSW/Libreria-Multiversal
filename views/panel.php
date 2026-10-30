@@ -11,43 +11,42 @@
     <?php require __DIR__ . "/header.php"?>
     
     <div class="contenedor">
-    <?php if (isset($_SESSION["usuario_id"])): ?>
-        <?php if (isset($_SESSION["rol"]) && $_SESSION["rol"] == "admin"): ?>
-        <select name="opciones" id="opciones">
-            <option value="">Mi Cuenta</option>
-            <option value="">Modificar catalogo</option>
-            <option value="">Ver informes mensuales</option>
-            <option value="">Modificar usuario</option>
-        </select>
+    <?php if (estaLogueado()): ?>
+        <?php if (esAdmin() || esEmpleado()): ?>
+            <a href="./index.php?pagina=admin">Panel de administracion</a>
         <?php endif; ?>
             <h1>Mi cuenta</h1>
             <table>
                 <tr>
-                    <td>Nombre: <?= htmlspecialchars($_SESSION["nombre"], ENT_QUOTES, "UTF-8") ?></td>
+                    <td>Nombre: <?php echo escapar(usuarioActualNombre());?></td>
                 </tr>
                 <tr>
-                <td>Rol: <?= htmlspecialchars($_SESSION["rol"], ENT_QUOTES, "UTF-8") ?></td>
+                <td>Rol: <?php echo escapar(usuarioActualRol());?></td>
                 </tr>
                 <tr>
-                    <td>Contraseña: ***********<button>Cambiar contraseña</button> </td>
+                    <td>Correo: <?php echo escapar(usuarioActualEmail());?></td>
                 </tr>
                 <tr>
-                    <td>Correo: *********@gmail.com<button>Cambiar correo</button> </td>
+                    <td>Contraseña: ***********<a href="./index.php?pagina=cambiar_password"><button>Cambiar contraseña</button></a>
+                    </td>
                 </tr>
-                <?php if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "cliente"): ?>
                 <tr>
-                    <td>Historial de pedidos: <button>Ver historial de pedidos</button> </td>
+                    <td>Historial de pedidos:
+                        <form action="./index.php" method="GET">
+                            <input type="hidden" name="pagina" value="mis_pedidos">
+                            <button type="submit">Mis pedidos</button>
+                        </form>
+                    </td>
                 </tr>
-                <?php endif; ?>
             </table>
 
-            <form action="./index.php?pagina=login" method="POST">
+            <form action="./index.php?pagina=login" method="POST" id="cerrarSesion">
                 <input type="hidden" name="accion" value="logout">
                 <button type="submit">Cerrar sesión</button>
             </form>
             </div>
         <?php else: ?>
-            <?php header('Location: ./index.php?pagina=login')?>
+            <?php requerirLogin(); ?>
     <?php endif; ?>
 
     <?php require __DIR__ . "/footer.php"?>

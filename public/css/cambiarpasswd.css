@@ -1,0 +1,517 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    box-shadow: 0px 5px 10px #DE3A3E88;
+}
+
+.banner {
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #EA4573;
+    border-bottom-left-radius: 1vw;
+    border-bottom-right-radius: 1vw;
+    background-color: white;
+}
+
+.banner table {
+    width: 100%;
+    table-layout: fixed;
+}
+table td {
+    width: 33%;
+}
+
+.buscador {
+    color: #EA4573;
+    border-radius: 10px;
+}
+
+.buscador form {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    min-height: max-content;
+}
+
+.buscador .boton {
+    border: 0px;
+    padding: 5px;
+    color: white;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    border-radius: 10px;
+}
+
+.buscador .boton:hover {
+    transition: all 0.3s ease-out;
+    box-shadow: 0px 0px 5px #EA4573;
+    cursor: pointer;
+}
+
+.barra {
+    border: 2px solid #EA4573;
+    border-radius: 10px;
+    padding: 5px;
+    width: 80%;
+}
+
+.derecha {
+    position: relative;
+    height: 100%;
+    text-align: end;
+}
+
+
+.logo {
+    width: 20vw;
+}
+
+.search-bar {
+    color: #EA4573;
+}
+
+.banner a {
+    text-decoration: none;
+}
+
+.icono {
+    width: 3vw;
+    margin-right: 5%;
+    transition: all 0.3s ease-out;
+}
+
+.icono:hover {
+    transform: scale(1.1);
+}
+
+.contenedor {
+    width: 90%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 35px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px #8B1E3F33;
+    font-size: 18px;
+}
+
+.contenedor h1 {
+    text-align: center;
+    color: #DE3A3E;
+    font-size: 30px;
+    margin: 25px 0;
+}
+
+.contenedor a {
+    display: inline-block;
+    text-decoration: none;
+    color: #EA4573;
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.contenedor a:hover {
+    color: #DE3A3E;
+    text-decoration: underline;
+}
+
+.contenedor form {
+    width: 100%;
+}
+
+.contenedor label {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.contenedor input {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #EA4573;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contenedor input:focus {
+    border-color: #DE3A3E;
+    box-shadow: 0px 0px 6px #EA457355;
+}
+
+.contenedor button {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contenedor button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px #DE3A3E66;
+}
+
+.contenedor button:active {
+    transform: scale(0.98);
+}
+
+.contenedor p {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #FCE4EC;
+    color: #C62828;
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+.multiversal {
+    display: flex;
+    border-top: 2px solid white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.multiversal div {
+    width: fit-content;
+    padding: 10px;
+}
+
+.imachine {
+    opacity: 0.5;
+}
+
+footer img {
+    width: 10%;
+}
+
+footer span {
+    font-weight: bold;
+}
+
+.creditos {
+    display: flex;
+    font-size: medium;
+    padding-left: 6%;
+    padding-right: 6%;
+    background-color: rgb(245, 242, 242);
+}
+
+.creditos img {
+    width: 80px;
+}
+
+.creditos table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.sm {
+    width: 20px;
+}
+
+/* =================== */
+/* Tablet 768px */
+@media (max-width: 768px) and (min-width: 426px) {
+
+    /* Header adaptable */
+    .banner table,
+    .banner tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .banner tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 12px;
+        padding: 8px 12px;
+    }
+
+    .banner td {
+        display: block;
+        width: auto;
+    }
+
+    .banner td:first-child {
+        order: 1;
+    }
+
+    .banner .derecha {
+        order: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        text-align: right;
+    }
+
+    .banner td:nth-child(2) {
+        order: 3;
+        width: 100%;
+    }
+
+    .logo {
+        width: 150px;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .derecha .icono,
+    .derecha img {
+        width: 28px;
+        max-width: 28px;
+        margin: 0;
+    }
+
+    .derecha a {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.85rem;
+    }
+
+    .buscador form {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .barra {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+
+    .buscador .boton {
+        flex-shrink: 0;
+    }
+
+    /* Formulario */
+    .contenedor {
+        width: 90%;
+        max-width: 600px;
+        padding: 25px;
+        margin: 30px auto;
+        font-size: 17px;
+    }
+
+    .contenedor h1 {
+        font-size: 26px;
+        margin: 20px 0;
+    }
+
+    .contenedor label {
+        font-size: 15px;
+    }
+
+    .contenedor input {
+        padding: 11px;
+        font-size: 15px;
+    }
+
+    .contenedor button {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    /* Footer */
+    .multiversal {
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .creditos {
+        padding: 15px 4%;
+        font-size: small;
+    }
+
+    .creditos img {
+        width: 15vw;
+        max-width: 100px;
+    }
+}
+
+/* =================== */
+/* Celular 425px */
+@media (max-width: 425px) {
+
+    /* Header adaptable */
+    .banner table,
+    .banner tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .banner tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 12px;
+        padding: 8px 12px;
+    }
+
+    .banner td {
+        display: block;
+        width: auto;
+    }
+
+    .banner td:first-child {
+        order: 1;
+    }
+
+    .banner .derecha {
+        order: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        text-align: right;
+    }
+
+    .banner td:nth-child(2) {
+        order: 3;
+        width: 100%;
+    }
+
+    .logo {
+        width: 120px;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .derecha .icono,
+    .derecha img {
+        width: 25px;
+        max-width: 25px;
+        margin: 0;
+    }
+
+    .derecha a {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.8rem;
+    }
+
+    .buscador form {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .barra {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+
+    .buscador .boton {
+        flex-shrink: 0;
+    }
+
+    /* Formulario */
+    .contenedor {
+        width: 94%;
+        max-width: 600px;
+        padding: 18px;
+        margin: 20px auto;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
+    .contenedor h1 {
+        font-size: 23px;
+        margin: 18px 0;
+    }
+
+    .contenedor a {
+        font-size: 14px;
+    }
+
+    .contenedor label {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .contenedor input {
+        padding: 11px;
+        font-size: 16px;
+    }
+
+    .contenedor button {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .contenedor p {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Footer */
+    .multiversal {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .multiversal div {
+        padding: 5px;
+    }
+
+    .creditos {
+        padding: 12px 3%;
+        font-size: x-small;
+        overflow-wrap: anywhere;
+    }
+
+    .creditos img {
+        width: 18vw;
+        max-width: 70px;
+    }
+
+    .creditos table {
+        table-layout: fixed;
+    }
+
+    footer img {
+        max-width: 50px;
+    }
+}
+
+/* =================== */

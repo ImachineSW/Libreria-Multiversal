@@ -5,14 +5,19 @@ require_once __DIR__ . '/config/auth.php'; // Se carga funciones de ayuda
 
 require_once __DIR__ . '/models/libroModel.php'; // Se carga el modelo de libros
 require_once __DIR__ . '/models/pedidoModel.php'; // Se carga el modelo de pedidos
+require_once __DIR__ . '/models/pagoModel.php'; // Se carga el modelo de pagos
 require_once __DIR__ . '/models/usuario.php'; // Se carga el modelo de usuarios
 
 require_once __DIR__ . '/controllers/libroController.php'; // Se carga el controlador de libros
 require_once __DIR__ . '/controllers/pedidoController.php'; // Se carga el controlador de pedidos
-require_once __DIR__ . '/controllers/authController.php'; // Se carga el controlador de autenticacion
+require_once __DIR__ . '/controllers/AuthController.php'; // Se carga el controlador de autenticacion
+require_once __DIR__ . '/controllers/adminController.php'; // Se carga el controlador de admin
+require_once __DIR__ . '/controllers/adminLibroController.php'; // Se carga el controlador de admin de libros
+require_once __DIR__ . '/controllers/adminUsuarioController.php'; // Se carga el controlador de admin de usuarios
+require_once __DIR__ . '/controllers/adminPedidoController.php'; // Se carga el controlador de admin de pedidos
 
-
-
+$usuarioModel = new Usuario($conexion);
+sincronizarSesion($usuarioModel);
 
 $paginaSolicitada = $_GET['pagina'] ?? 'catalogo'; // Se define la pagina que se va a mostrar segun lo que se ingrese en la url, si no se ingresa nada se muestra el catalogo
 
@@ -72,13 +77,120 @@ switch ($paginaSolicitada) {
         $libroController->mostrarDetalle(); // Se muestra el detalle del libro
         break;
 
-    case 'pedido': // Si se ingresa 'pedido' se guarda el pedido enviado desde el carrito
+    case 'checkout': // Si se ingresa 'checkout' se piden los datos de envio y se crea el pedido
         $pedidoController = new PedidoController($conexion); // Se crea el controlador de pedidos
-        $pedidoController->confirmarPedido(); // Se guarda el pedido y su detalle y se muestra la confirmacion
+        $pedidoController->checkout(); // Se muestra el formulario de envio y se crea el pedido
+        break;
+
+    case 'pago': // Si se ingresa 'pago' se muestra la pantalla de pago
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->pagar(); // Se valida la tarjeta y se simula el cobro
+        break;
+
+    case 'pago_resultado': // Si se ingresa 'pago_resultado' se muestra si el pago fue aprobado o rechazado
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->resultado();
         break;
 
     case 'panel': // Si se ingresa 'panel' se muestra el panel
         require __DIR__ . '/views/panel.php'; // Se muestra el panel
+        break;
+
+    case 'cambiar_password': // Si se ingresa 'cambiar_password' se muestra el formulario para cambiar la contraseña
+    $mensaje = "";
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $controller = new AuthController($conexion);
+        $mensaje = $controller->cambiarPassword($_POST);
+
+        if ($mensaje === "") {
+            header("Location: index.php?pagina=panel", true, 303);
+            exit;
+        }
+    }
+
+    require __DIR__ . '/views/cambiar_password.php';
+    break;
+
+    case 'admin':
+        // Debemos incluir el controlador antes
+        (new AdminController($conexion))->panel();
+        break;
+
+    case 'admin_libros':
+        (new AdminLibroController($conexion))->listar();
+    break;
+
+    case 'admin_libro_crear':
+        (new AdminLibroController($conexion))->crear();
+    break;
+
+    case 'admin_libro_editar':
+    (new AdminLibroController($conexion))->editar();
+    break;
+
+    case 'admin_libro_estado':
+    (new AdminLibroController($conexion))->cambiarEstado();
+    break;
+
+    case 'admin_libro_eliminar':
+    (new AdminLibroController($conexion))->eliminar();
+    break;
+
+    case 'admin_usuarios':
+    (new AdminUsuarioController($conexion))->listar();
+    break;
+
+    case 'admin_usuario_rol':
+    (new AdminUsuarioController($conexion))->cambiarRol();
+    break;
+
+    case 'admin_usuario_estado':
+    (new AdminUsuarioController($conexion))->cambiarEstado();
+    break;
+
+    case 'pedido_comprobante': // Si se ingresa 'pedido_comprobante' se muestra el comprobante imprimible (PDF) del cliente
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->comprobante();
+        break;
+
+    case 'admin_pedido_comprobante':
+        (new AdminPedidoController($conexion))->comprobante();
+        break;
+
+    case 'pedido_cancelar':
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->cancelar();
+        break;
+
+    case 'mis_pedidos': // Si se ingresa 'mis_pedidos' se muestra el historial de pedidos del cliente
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->misPedidos();
+        break;
+
+    case 'pedido_detalle': // Si se ingresa 'pedido_detalle' se muestra el detalle de un pedido del cliente
+        $pedidoController = new PedidoController($conexion);
+        $pedidoController->verPedido();
+        break;
+
+    case 'admin_pedidos':
+        (new AdminPedidoController($conexion))->listar();
+        break;
+
+    case 'admin_pedido_detalle':
+        (new AdminPedidoController($conexion))->ver();
+        break;
+
+    case 'admin_pedido_envio':
+        (new AdminPedidoController($conexion))->cambiarEnvio();
+        break;
+
+    case 'admin_pedido_cancelar':
+        (new AdminPedidoController($conexion))->cancelar();
+        break;
+
+    case 'admin_informes':
+        (new AdminPedidoController($conexion))->informe();
         break;
 
     default: // Si no se ingresa nada se muestra la pagina no encontrada

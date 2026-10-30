@@ -85,8 +85,24 @@ class LibroController {
             die("Error al consultar los libros.");
             }
 
+    
+    
+
 
         require __DIR__ . '/../views/carrito.php';
+    }
+
+        // limpia el texto de busqueda con una WHITELIST: solo letras (con tildes y ñ), numeros y espacio.
+    // Todo lo demas (comillas, ; - # % _ ( ) etc.) se elimina antes de usar el texto.
+    private function limpiarBusqueda($texto) {
+        if (!is_string($texto)) { // por ejemplo ?q[]=x llega como arreglo
+            return '';
+        }
+
+        $texto = preg_replace('/[^\p{L}\p{N} ]+/u', '', $texto) ?? ''; // quita todo lo que no este permitido
+        $texto = preg_replace('/ {2,}/', ' ', $texto);                // junta espacios repetidos
+
+        return mb_substr(trim($texto), 0, 50);
     }
 
 }

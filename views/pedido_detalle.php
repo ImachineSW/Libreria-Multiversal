@@ -4,7 +4,7 @@
     <head>
         <title>Detalle del pedido</title> <!--Titulo de pagina-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./public/css/carrito.css?v=2"> <!--Se reutiliza el estilo del carrito-->
+        <link rel="stylesheet" href="./public/css/carrito.css">
         <link rel="icon" type="image/png" href="./public/img/favicon.png"> <!--Favicon-->
         <meta charset="UTF-8">
     </head>
@@ -12,17 +12,33 @@
     <body>
         <header>
         <!--Header-->
-        <?php require_once __DIR__ . "/header.php"; ?>
+        <?php require __DIR__ . "/header.php"; ?>
         </header>
+
         <main>
             <div class="carrito pedido-detalle">
-                <a href="./index.php?pagina=catalogo" class="back-btn">← Volver al catálogo</a>
-                <h1>¡Gracias por tu compra!</h1>
+                <a href="./index.php?pagina=mis_pedidos" class="back-btn">← Volver a mis pedidos</a>
+                <h1>Pedido N.º <?= (int) $pedido['id'] ?></h1>
 
-                <p><strong>Pedido Nº:</strong> <?= htmlspecialchars($pedido["id"]) ?></p>
-                <p><strong>Fecha:</strong> <?= htmlspecialchars(date("d/m/Y H:i", strtotime($pedido["fecha"]))) ?></p>
-                <p><strong>Estado:</strong> <span class="estado"><?= htmlspecialchars($pedido["estado"]) ?></span></p>
+                <?php if (!empty($pagoAprobado)): ?>
+                    <p class="aviso-pago">¡Pago aprobado! Gracias por tu compra.</p>
+                <?php endif; ?>
 
+                <p><strong>Fecha:</strong> <?= escapar(date('d/m/Y H:i', strtotime($pedido['fecha']))) ?></p>
+                <p><strong>Pago:</strong>
+                    <span class="estado estado-<?= escapar($pedido['estado']) ?>">
+                        <?= escapar(ucfirst($pedido['estado'])) ?>
+                    </span>
+                </p>
+                <?php if ($pedido['estado'] === 'pagado'): ?>
+                    <p><strong>Envío:</strong>
+                        <span class="estado estado-<?= escapar($pedido['estado_envio']) ?>">
+                            <?= escapar(ucfirst($pedido['estado_envio'])) ?>
+                        </span>
+                    </p>
+                <?php endif; ?>
+
+                <h2>Libros</h2>
                 <table class="detalle-pedido">
                     <thead>
                         <tr>
@@ -33,22 +49,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($items as $item): ?>
+                        <?php foreach ($detalle as $linea): ?>
                             <tr>
-                                <td><?= htmlspecialchars($item["nombre"]) ?></td>
-                                <td class="num"><?= htmlspecialchars($item["cantidad"]) ?></td>
-                                <td class="num">$<?= htmlspecialchars(number_format($item["precio_unitario"], 2)) ?></td>
-                                <td class="num">$<?= htmlspecialchars(number_format($item["precio_unitario"] * $item["cantidad"], 2)) ?></td>
+                                <td><?= escapar($linea['nombre']) ?></td>
+                                <td class="num"><?= (int) $linea['cantidad'] ?></td>
+                                <td class="num">$ <?= escapar(number_format($linea['precio_unitario'], 2, ',', '.')) ?></td>
+                                <td class="num">$ <?= escapar(number_format($linea['subtotal'], 2, ',', '.')) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <p class="fuerte total-pedido">Total: $ <?= escapar(number_format($pedido['total'], 2, ',', '.')) ?></p>
 
-                <p class="fuerte total-pedido">Total: $<?= htmlspecialchars(number_format($pedido["total"], 2)) ?></p>
+                <h2>Envío</h2>
+                <p>
+                    <?= escapar($pedido['envio_nombre']) ?><br>
+                    <?= escapar($pedido['envio_direccion']) ?><br>
+                    <?= escapar($pedido['envio_ciudad']) ?>, <?= escapar($pedido['envio_departamento']) ?><br>
+                    Tel.: <?= escapar($pedido['envio_telefono']) ?>
+                </p>
+
+                <?php if ($pedido['estado'] === 'pagado'): ?>
+                    <p><a href="./index.php?pagina=pedido_comprobante&id=<?= (int) $pedido['id'] ?>" class="btn-pdf">Descargar comprobante (PDF)</a></p>
+                <?php else: ?>
+                    <p><a href="./index.php?pagina=pago&id=<?= (int) $pedido['id'] ?>">Pagar este pedido</a></p>
+                <?php endif; ?>
             </div>
         </main>
 
-        <?php require_once __DIR__ . "/footer.php"; ?>
+        <?php require __DIR__ . "/footer.php"; ?>
     </body>
 
 </html>

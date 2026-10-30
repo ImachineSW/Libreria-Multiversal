@@ -18,9 +18,10 @@ $resultado = $resultado ?? [];
                         <form action="index.php" method="GET">
                             <input type="hidden" name="pagina" value="catalogo">
                             <label for="q">🔍︎</label>
-                            <input type="text" id="q" name="q" maxlength="50" class="barra"
-                                placeholder="Ej: El Arte de la Guerra..."
-                                value="<?= escapar($busqueda) ?>">
+                             <input type="text" id="q" name="q" maxlength="50" class="barra"
+                                 placeholder="Ej: El Arte de la Guerra..."
+                                oninput="this.value = this.value.replace(/[^\p{L}\p{N} ]/gu, '')"
+                                  value="<?= escapar($busqueda) ?>">
                             <input type="submit" value="Buscar" class="boton">
                             <?php if (!empty($_GET['genero'])): ?>
                                 <input type="hidden" name="genero" value="<?= escapar($_GET['genero']) ?>">
@@ -41,11 +42,11 @@ $resultado = $resultado ?? [];
                             <a href="./index.php?pagina=carrito">
                                 <img src="./public/img/carrito.png" alt="Carrito icon" class="icono">
                             </a>
-                            <?php if (isset($_SESSION['usuario_id'])):?>
+                            <?php if (estaLogueado()):?>
                                 <a href="./index.php?pagina=panel">
                                     <img src="./public/img/usuario.png" alt="Usuario icon." class="icono">
-                                    <?php echo $_SESSION['nombre'];?>
                                 </a>
+                                <p class="username"><?php echo "Bienvenido, " . escapar(usuarioActualNombre());?></p>
                             <?php else:?>
                                 <a href="./index.php?pagina=login">
                                     <img src="./public/img/registrar.png" alt="Usuario icon" class="icono">

@@ -22,7 +22,7 @@ function mostrarCarrito() {
         const subtotal = libro.precio * libro.cantidad;
         total += subtotal; // suma el precio de los libros
         if (libro.cantidad > 1) {
-        bookr.innerHTML += `${libro.nombre}: <span class="fuerte">$${libro.precio} x ${libro.cantidad} = $${subtotal}</span><br>`; // agrega el nombre y precio de los libros al resumen
+        bookr.innerHTML += `${libro.nombre}: <span class="fuerte">$${libro.precio} x ${libro.cantidad} = $${subtotal.toFixed(2)}</span><br>`; // agrega el nombre y precio de los libros al resumen
         } else {
         bookr.innerHTML += `${libro.nombre}: <span class="fuerte">$${libro.precio} x ${libro.cantidad}</span><br>`; // agrega el nombre y precio de los libros al resumen
         }
@@ -32,7 +32,7 @@ function mostrarCarrito() {
         
         div.innerHTML = `
         <h3>${libro.nombre}</h3>
-        <img src="${libro.imagen}" alt="${libro.nombre}">
+        <img src="./public/img/Libros/${libro.imagen}" alt="${libro.nombre}">
         <h4>Cantidad: ${libro.cantidad}</h4>
         <div class="botones">
         <button class="eliminar">-</button>
@@ -52,7 +52,7 @@ function mostrarCarrito() {
     const vaciarbtn = document.querySelector(".vaciar"); // busca el boton de vaciar carrito
     vaciarbtn.addEventListener("click", vaciarCarrito); // le da la funcion de vaciar el carrito
 
-    resumen.innerHTML = `<br><hr><h3>Total: <span class="fuerte">$${total}</span></h3>`; // actualiza el total
+    resumen.innerHTML = `<br><hr><h3>Total: <span class="fuerte">$${total.toFixed(2)}</span></h3>`; // actualiza el total
 
 };
 //

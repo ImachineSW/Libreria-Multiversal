@@ -43,6 +43,13 @@ h1{
     color:#222;
 }
 
+.subtitle{
+    text-align:center;
+    color:#777;
+    margin-bottom:30px;
+    font-size:15px;
+}
+
 .input-group{
     margin-bottom:18px;
 }
@@ -70,22 +77,6 @@ h1{
     box-shadow:0 0 0 4px rgba(0,0,0,.08);
 }
 
-.options{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
-    font-size:14px;
-}
-
-.options a{
-    color:#000;
-    text-decoration:none;
-}
-
-.options a:hover{
-    text-decoration:underline;
-}
 
 button{
     background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
@@ -126,20 +117,6 @@ hr{
     margin:30px 0;
 }
 
-.social{
-    display:flex;
-    gap:10px;
-}
-
-.social button{
-    background:#fff;
-    color:#222;
-    border:1px solid #ddd;
-}
-
-.social button:hover{
-    background:#f7f7f7;
-}
 
 .back-btn{
     display:inline-block;
@@ -154,4 +131,25 @@ hr{
 .back-btn:hover{
     color:#EA4573;
     transform:translateX(-3px);
+}
+.input-group {
+    position: relative;
+}
+
+.input-group input[type="password"],
+.input-group input[type="text"] {
+    box-sizing: border-box;
+}
+
+.input-group button {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    width: auto;
+    padding: 5px;
+    color: black;
 }

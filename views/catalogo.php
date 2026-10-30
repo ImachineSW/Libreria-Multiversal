@@ -25,7 +25,7 @@
         <div class="generos">
             <?php foreach ($generos as $g): ?>
                 <a class="genero" href="index.php?pagina=catalogo&amp;genero=<?= urlencode($g['nombre']) ?>&amp;q=<?= urlencode($busqueda) ?>">
-                    <?= htmlspecialchars($g['nombre'], ENT_QUOTES, 'UTF-8') ?>
+                    <?= escapar($g['nombre']) ?>
                 </a>
             <?php endforeach; ?>
         </div> 
@@ -35,13 +35,18 @@
                 <?php if (!empty($resultado)): ?> 
                     <?php foreach ($resultado as $libro): //mientras haya lineas en la tabla muestra los libros ?>
                         <div class="tarjeta">
-                            <a href="./index.php?pagina=libro&amp;id=<?php echo (int) $libro['id']; //le asigna el id del libro a la redireccion a productos.php ?>">
-                                <img src="<?php echo htmlspecialchars($libro['imagen'] ?? '', ENT_QUOTES, 'UTF-8'); //le asigna la imagen del libro a la portada ?>" alt="<?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); //le asigna el nombre del libro al alt ?>" class="portada">
-                                <h3 class="titulo-libro"><?php echo htmlspecialchars($libro['nombre'], ENT_QUOTES, 'UTF-8'); //le asigna el nombre del libro a el titulo ?></h3>
-                                <p class="precio">$<?php echo htmlspecialchars($libro["precio"], ENT_QUOTES, 'UTF-8'); //le as igna el precio del libro a el precio ?></p>
-                                <p><?php echo htmlspecialchars($libro["autor"], ENT_QUOTES, 'UTF-8'); //le asigna el autor del libro a el autor ?></p>
+                            <a href="./index.php?pagina=libro&amp;id=<?php echo (int) $libro['id']; //se manda el id del libro a la redireccion a productos.php ?>">
+                                <img src="./public/img/Libros/<?php echo escapar($libro['imagen']); //se muestra la imagen del libro ?>" alt="<?php echo escapar($libro['nombre']); //se muestra el nombre del libro ?>" class="portada">
+                                <h3 class="titulo-libro"><?php echo escapar($libro['nombre']); //se muestra el nombre del libro?></h3>
+                                <p class="precio">$<?php echo escapar($libro["precio"]); //se muestra el precio del libro?></p>
+                                <p><?php echo escapar($libro["autor"]); //se muestra el autor del libro?></p>
+                                <p>Stock:<?php echo (int)($libro["stock"] ?? 0); //se muestra el stock del libro?></p>
                             </a>
-                            <button class="addb" data-id="<?php echo (int) $libro["id"]; ?>" data-nombre="<?php echo htmlspecialchars($libro["nombre"], ENT_QUOTES, 'UTF-8'); ?>" data-precio="<?php echo htmlspecialchars((string) $libro["precio"], ENT_QUOTES, 'UTF-8'); ?>" data-autor="<?php echo htmlspecialchars($libro["autor"], ENT_QUOTES, 'UTF-8'); ?>" data-paginas="<?php echo (int) ($libro["paginas"] ?? 0); ?>" data-imagen="<?php echo htmlspecialchars($libro["imagen"] ?? '', ENT_QUOTES, 'UTF-8'); ?>">Agregar al Carrito</button> <!--manda los datos de los data  a la funcion de agregar al carrito-->
+                            <?php if ((int) $libro["stock"] > 0): ?>
+                                <button class="addb" data-id="<?php echo (int) $libro["id"]; ?>" data-nombre="<?php echo escapar($libro["nombre"]); ?>" data-precio="<?php echo escapar($libro["precio"]); ?>" data-autor="<?php echo escapar($libro["autor"]); ?>" data-paginas="<?php echo (int) ($libro["paginas"] ?? 0); ?>" data-imagen="<?php echo escapar($libro["imagen"]); ?>">Agregar al Carrito</button> <!--manda los datos de los data  a la funcion de agregar al carrito-->
+                            <?php else: ?>
+                                <span class="stock stock-agotado">Sin stock</span>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; //termina de recorrer el array?>
                 <?php endif?>
