@@ -40,22 +40,22 @@
 
         <label for="paginas">Páginas</label>
         <input type="number" id="paginas" name="paginas" min="1" step="1"
-            value="<?= escapar($libro['paginas'] ?? '') ?>">
+            value="<?= escapar($libro['paginas'] ?? '') ?>" required>
 
         <label for="editorial">Editorial</label>
         <input type="text" id="editorial" name="editorial" maxlength="150"
-            value="<?= escapar($libro['editorial'] ?? '') ?>">
+            value="<?= escapar($libro['editorial'] ?? '') ?>" required>
 
         <label for="fecha">Fecha (DD-MM-AAAA)</label>
         <input type="text" id="fecha" name="fecha" maxlength="50"
-            value="<?= escapar($libro['fecha'] ?? '') ?>">
+            value="<?= escapar($libro['fecha'] ?? '') ?>" required>
 
         <label for="idioma">Idioma</label>
         <input type="text" id="idioma" name="idioma" maxlength="50"
-            value="<?= escapar($libro['idioma'] ?? '') ?>">
+            value="<?= escapar($libro['idioma'] ?? '') ?>" required>
 
         <label for="sinopsis">Sinopsis</label>
-        <textarea id="sinopsis" name="sinopsis" rows="4" maxlength="500"><?= escapar($libro['sinopsis'] ?? '') ?></textarea>
+        <textarea id="sinopsis" name="sinopsis" rows="4" maxlength="500" required><?= escapar($libro['sinopsis'] ?? '') ?></textarea>
 
 <label for="id_generos">Géneros</label>
         <small>Ctrl + Click para seleccionar más de un genero</small>

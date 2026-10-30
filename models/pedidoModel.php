@@ -173,7 +173,7 @@ class PedidoModel {
     // todos los pedidos de un usuario, del mas nuevo al mas viejo
     public function listarPorUsuario($idUsuario) {
         $stmt = $this->conexion->prepare(
-            "SELECT id, fecha, total, estado, estado_envio
+            "SELECT id, fecha, total, estado, estado_pedido, estado_envio
              FROM pedido
              WHERE id_usuario = ?
              ORDER BY fecha DESC, id DESC"

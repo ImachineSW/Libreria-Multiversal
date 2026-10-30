@@ -47,7 +47,7 @@
                                             <?= escapar(ucfirst($p['estado'])) ?>
                                         </span>
                                     </td>
-                                    <td><?= escapar(ucfirst($p['estado_pedido'] ?? 'activo')) ?></td>
+                                    <td><?= escapar(ucfirst($p['estado_pedido'])) ?></td>
                                     <td>
                                         <?php if ($p['estado'] === 'pagado'): ?>
                                             <span class="estado estado-<?= escapar($p['estado_envio']) ?>">
