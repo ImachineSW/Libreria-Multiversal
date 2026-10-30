@@ -1,4 +1,4 @@
-# Proyecto-de-Fin-de-A-o-E-Commerce-Bibloteca-
+# Libreria-Multiversal
 TECNOLOGÍAS FRONT-END
 Para el desarrollo de la interfaz del sistema se utilizarán las siguientes tecnologías:
 
