@@ -324,6 +324,78 @@ footer span {
 
 /*Tablet y Celular*/
 @media (max-width: 768px) {
+
+    /* HEADER */
+    .banner table,
+    .banner tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .banner tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 12px;
+        padding: 8px 12px;
+    }
+
+    .banner td {
+        display: block;
+        width: auto;
+    }
+
+    .banner td:first-child {
+        order: 1;
+    }
+
+    .banner .derecha {
+        order: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        text-align: right;
+    }
+
+    .banner td:nth-child(2) {
+        order: 3;
+        width: 100%;
+    }
+
+    .logo {
+        width: 150px;
+        max-width: 100%;
+    }
+
+    .icono {
+        width: 28px;
+        margin-right: 5px;
+    }
+
+    .derecha a {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.85rem;
+    }
+
+    .buscador form {
+        display: flex;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .barra {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+
+    .buscador .boton {
+        flex-shrink: 0;
+    }
     .contenedor {
         width: 94%;
         padding: 14px;

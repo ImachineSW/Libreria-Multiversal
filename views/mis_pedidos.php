@@ -62,7 +62,7 @@
                                         <?php if (($p['estado_pedido'] ?? 'activo') !== 'cancelado' && $p['estado'] !== 'pagado'): ?>
                                             | <a href="./index.php?pagina=pago&id=<?= (int) $p['id'] ?>">Pagar</a>
                                             | <form action="./index.php?pagina=pedido_cancelar&id=<?= (int) $p['id'] ?>" method="POST" style="display:inline" onsubmit="return confirm('¿Cancelar este pedido? Se devolverá el stock.');">
-                                                <button type="submit">Cancelar</button>
+                                                <button type="submit" class="cancelar">Cancelar</button>
                                               </form>
                                         <?php endif; ?>
                                     </td>

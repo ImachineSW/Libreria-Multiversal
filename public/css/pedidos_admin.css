@@ -283,7 +283,6 @@ main {
     border: 1px solid #f0d7e2;
     border-radius: 8px;
     -webkit-overflow-scrolling: touch;
-    overflow: scroll;
 }
 
 .contenedor .tabla {
@@ -301,7 +300,6 @@ main {
     border-bottom: 1px solid #ead6df;
     text-align: left;
     vertical-align: middle;
-    overflow: hidden;
 }
 
 .tabla th {
@@ -309,7 +307,6 @@ main {
     background: #fff0f6;
     font-size: 0.92rem;
     white-space: nowrap;
-    overflow: hidden;
 }
 
 .tabla tbody tr:nth-child(even) {
@@ -349,7 +346,15 @@ main {
     line-height: 1.4;
     white-space: nowrap;
 }
-
+button {
+    background: linear-gradient(to bottom right, #EA45BF, #EA4573, #DE3A3E);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    width: 20%;
+    cursor: pointer;
+}
 .estado-pendiente {
     color: #342600;
     background: #E0A100;
@@ -469,28 +474,80 @@ footer span {
     width: 20px;
 }
 
-/* ---------- Tablet ---------- */
-@media (max-width: 1024px) {
-    .contenedor {
-        width: 96%;
-        padding: 24px;
-    }
 
-    .filtros {
-        gap: 9px;
-    }
-
-    .filtros select {
-        min-width: 130px;
-    }
-
-    .creditos img {
-        width: 60px;
-    }
-}
-
-/* ---------- Móvil ---------- */
 @media (max-width: 768px) {
+
+    /* HEADER */
+    .banner table,
+    .banner tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .banner tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 12px;
+        padding: 8px 12px;
+    }
+
+    .banner td {
+        display: block;
+        width: auto;
+    }
+
+    .banner td:first-child {
+        order: 1;
+    }
+
+    .banner .derecha {
+        order: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        text-align: right;
+    }
+
+    .banner td:nth-child(2) {
+        order: 3;
+        width: 100%;
+    }
+
+    .logo {
+        width: 150px;
+        max-width: 100%;
+    }
+
+    .icono {
+        width: 28px;
+        margin-right: 5px;
+    }
+
+    .derecha a {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.85rem;
+    }
+
+    .buscador form {
+        display: flex;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .barra {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+
+    .buscador .boton {
+        flex-shrink: 0;
+    }
     main {
         padding: 1px 10px;
     }

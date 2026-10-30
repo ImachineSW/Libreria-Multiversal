@@ -65,6 +65,7 @@
                     </section>
 
                     <h2>Pedidos por estado de pago</h2>
+                    <div class="tabla-contenedor">
                     <table class="tabla">
                         <thead>
                             <tr><th>Estado</th><th>Cantidad</th><th>Monto</th></tr>
@@ -121,6 +122,7 @@
                         </table>
                     <?php endif; ?>
                 <?php endif; ?>
+                </div>
             </div>
         </main>
 

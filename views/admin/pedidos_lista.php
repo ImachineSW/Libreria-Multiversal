@@ -60,6 +60,7 @@
                     <p class="sin-resultados">No hay pedidos con esos criterios.</p>
                 <?php else: ?>
                     <p><?= count($pedidos) ?> pedido(s).</p>
+                    <div class="tabla-contenedor">
                     <table class="tabla">
                         <thead>
                             <tr>
@@ -101,7 +102,9 @@
                         </tbody>
                     </table>
                 <?php endif; ?>
+                </div>
             </div>
+
         </main>
 
         <?php require __DIR__ . "/../footer.php"; ?>

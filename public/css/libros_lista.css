@@ -547,8 +547,6 @@ footer span {
         flex: 1;
         width: auto;
         min-width: 0;
-        padding: 8px;
-        font-size: 16px;
     }
 
     .buscador .boton {
